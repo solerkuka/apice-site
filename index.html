@@ -298,6 +298,47 @@ input,select,textarea{background:#221F1C;border-color:#6B625B;color:var(--tx)}
 .row .i span{color:var(--tx2);font-size:12px}
 .back{font-size:11px}
 @media(max-width:700px){.lv .t{font-size:26px}.imp{font-size:11px}}
+
+/* ===== v4: 80% escuro, itens iguais, sem órbitas, botão flutuante ===== */
+.orb{display:none}
+.lvs{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr}
+.lv{flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-height:150px;width:100%;padding:clamp(18px,2.4vw,34px) clamp(20px,3.4vw,52px)}
+.lv .t{font-size:clamp(24px,3vw,40px)}
+.lv .d{margin:0;text-align:left;max-width:30em;font-size:13px;line-height:1.55}
+.lv .n{width:auto}
+.lv .ar{position:absolute;right:clamp(18px,2.6vw,40px);top:clamp(18px,2.4vw,30px);font-size:26px}
+.lv.c1{background:#1F1B18;color:#F4EFE9}
+.lv.c2{background:#2B2521;color:#F4EFE9}
+.lv.c3{background:#3A2F27;color:#F4EFE9}
+.lv.c4{background:#4A453F;color:#F4EFE9}
+.lv.c2:before,.lv.c4:before,.lv:before{background:rgba(255,255,255,.10)}
+.lv{border-bottom:1px solid #14120F;border-right:1px solid #14120F}
+@media(max-width:700px){.lvs{grid-template-columns:1fr;grid-auto-rows:auto}.lv{min-height:104px;padding:16px 20px}.lv .t{font-size:24px}}
+.mq .arch:nth-child(even){margin-top:0}
+.mq .trk{align-items:flex-start}
+.arch .im,.arch .c,.arch .tt{min-height:0}
+.arch .c{min-height:2.6em}.arch .tt{min-height:2.7em;line-height:1.35}
+.pr>div:nth-child(1){background:#2B2521}.pr>div:nth-child(2){background:#363029}.pr>div:nth-child(3){background:#1F1B18}
+.pr .ln{background:#8D694A}
+section.cta{background:linear-gradient(160deg,#2B2521,#1A1715 60%,#14120F)}
+.cta .rg path{stroke-opacity:.22}
+.strip{background:#14120F}
+.wfab{left:auto;right:clamp(14px,2.4vw,30px);bottom:calc(16px + env(safe-area-inset-bottom,0px));border-radius:999px;padding:12px 18px 12px 14px;justify-content:flex-start}
+.wfab:before{display:block}
+@media(max-width:700px){
+.wfab{left:auto;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));border-radius:999px;padding:14px;font-size:0;gap:0}
+.wfab span{display:none}
+.wfab svg{width:28px;height:28px}
+.wfab:before{display:block}
+footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
+
+.lv.c4{background:#322D28}
+.home .hud{top:calc(22px + env(safe-area-inset-top,0px));left:clamp(20px,4vw,56px);right:auto;bottom:auto;transform:none;writing-mode:horizontal-tb;flex-direction:row-reverse;gap:10px;font-size:11px;background:none;padding:0}
+.home .hud .line{display:block;width:70px;height:1px}
+.home .hud .line i{width:100%;height:1px;transform-origin:left;animation-name:growx}
+@keyframes growx{to{transform:scaleX(1)}}
+.home .hud .line i{transform:scaleX(0)}
+@media(max-width:700px){.hud,.home .hud{display:none!important}}
 </style>
 </head>
 <body>
@@ -392,16 +433,15 @@ const visibles=()=>imoveis.filter(i=>i.status!=='oculto');
 
 /* ================= VIEWS ================= */
 function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a></nav></div>`}
-function foot(){return `<footer><span>Ápice Imóveis · CRECI-SC ${ESC(C.CRECI)}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${ESC(C.WHATSAPP_VISIVEL)} · ${ESC(C.EMAIL)}</span><a onclick="go('admin')" style="opacity:.5">Área dos sócios</a></footer>`}
+function foot(){return `<footer><span>Ápice Imóveis · CRECI-SC ${ESC(C.CRECI)}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${ESC(C.WHATSAPP_VISIVEL)} · ${ESC(C.EMAIL)}</span><a onclick="go('admin')" style="opacity:.5">Área dos proprietários</a></footer>`}
 function arch(i){const c=cover(i);return `<div class="arch" onclick="go('imovel/${ESC(i.id)}')"><div class="im" ${c?`style="background-image:url('${ESC(c)}')"`:''}>${i.destaque?'<span class="tg">Destaque</span>':''}${i.status==='vendido'?'<span class="tg" style="top:20%">Vendido</span>':''}<b>${i.modelo?'[IMAGEM MODELO]':c?'':'[FOTO]'}</b></div><div class="c">${ESC(i.tipo)} · ${ESC(i.cidade)}</div><div class="tt">${ESC(i.titulo)}</div><div class="p">${money(i.preco)}</div><span class="sm">Ver detalhes</span></div>`}
 const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 18L18 6M8 6h10v10"/></svg>';
 function home(){
  let col=visibles().filter(i=>i.destaque);if(col.length<4)col=visibles().slice(0,10);
  let loop=col.slice();while(loop.length&&loop.length<8)loop=loop.concat(col);
  const lv=[['morar','01','Morar',CATS.morar.s],['construir','02','Construir',CATS.construir.s],['investir','03','Investir',CATS.investir.s],['anunciar','04','Anunciar','Tem um imóvel ou empreendimento? Cuidamos da avaliação, dos documentos e da venda.']];
- return `<section class="hero first"><div class="blinds"></div><div class="shaft"></div><div class="brand"><svg class="orb" viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96"/><circle class="b" r="96"/><ellipse rx="96" ry="38"/><ellipse rx="96" ry="38" transform="rotate(60)"/><ellipse rx="96" ry="38" transform="rotate(120)"/></svg>${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div><div class="lvs">${lv.map(([k,n,t,d],ix)=>`<a class="lv c${ix+1}" onclick="go('${k}')"><span class="n">${n}</span><span class="t">${t}</span><span class="d">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div></section>
+ return `<section class="hero first"><div class="blinds"></div><div class="shaft"></div><div class="brand">${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div><div class="lvs">${lv.map(([k,n,t,d],ix)=>`<a class="lv c${ix+1}" onclick="go('${k}')"><span class="n">${n}</span><span class="t">${t}</span><span class="d">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div></section>
  <div class="strip"><div>${Array(10).fill("<span>Seu patrimônio no ponto mais alto</span><span>◆</span><span>Ápice Imóveis</span><span>◆</span>").join("")}</div></div>
- <section class="man"><svg class="ghost" viewBox="958 65 1325 1070" fill="#1D1C1A"><use href="#P"/></svg><p><span class="rv">Onde outros veem</span><span class="rv">metros quadrados,</span><span class="rv"><em>nós vemos altitude.</em></span></p></section>
  <section class="sec" id="colecao"><div class="lab">Coleção · Selecionados</div>${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="wrap"><div class="empty">Em breve, os primeiros imóveis da coleção.</div></div>'}</section>
  <section id="principios"><div class="lab">Princípios</div><div class="pr"><div class="rv"><div class="ln"></div><h3>Curadoria</h3><p>Poucos imóveis, escolhidos com critério. Cada um com documentação conferida e história contada com verdade.</p></div><div class="rv"><div class="ln"></div><h3>Reserva</h3><p>Atendimento discreto, direto com os sócios. Sem pressa, sem exposição desnecessária.</p></div><div class="rv"><div class="ln"></div><h3>Assessoria</h3><p>Apoio técnico e documental do primeiro contato à escritura. Você decide, nós cuidamos do resto.</p></div></div></section>
  <section class="cta" id="contato"><svg class="rg" viewBox="0 0 1000 400" preserveAspectRatio="none"><path d="M0 330 C250 120 400 380 650 190 S900 40 1000 120"/><path d="M0 60 C200 260 450 20 700 220 S900 330 1000 260"/></svg><div class="rv"><h2>Seu patrimônio.<br>Seu espaço.<br>Seu Ápice.</h2></div><span class="bw"><svg class="badge" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text fill="#9A8573" font-size="12" letter-spacing="5" font-family="Montserrat" font-weight="500"><textPath href="#c">SEU PATRIMÔNIO NO PONTO MAIS ALTO · ÁPICE IMÓVEIS · </textPath></text></svg><span class="s"><svg viewBox="958 65 1325 1070" fill="url(#mg)" style="display:block;width:46px;height:auto" aria-label="Ápice"><use href="#P"/></svg></span></span>
@@ -433,11 +473,11 @@ function detail(id){const i=imoveis.find(x=>x.id===id);if(!i)return head('Imóve
 
 /* ---------- ADMIN ---------- */
 function admin(){
- if(!auth.admin)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Área dos sócios</p><h1>Entrar</h1>
+ if(!auth.admin)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Área dos proprietários</p><h1>Entrar</h1>
  ${DEMO?'<div class="demo"><b>Modo demonstração.</b> O Supabase ainda não foi conectado: tudo que você fizer aqui fica salvo só neste navegador. Para salvar de verdade e valer para todos, siga o passo 3 do PASSO-A-PASSO.</div>':''}
  <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="pw" type="password" required autocomplete="current-password"></label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
  if(form)return adminForm();
- return `<div class="adm"><button class="back" onclick="go('')">← Ver o site</button><p class="eyebrow">Área dos sócios</p><h1>Admin</h1>${DEMO?'<div class="demo"><b>Modo demonstração:</b> alterações ficam só neste navegador.</div>':''}
+ return `<div class="adm"><button class="back" onclick="go('')">← Ver o site</button><p class="eyebrow">Área dos proprietários</p><h1>Admin</h1>${DEMO?'<div class="demo"><b>Modo demonstração:</b> alterações ficam só neste navegador.</div>':''}
  <div class="chips"><button class="chip ${adminTab==='imoveis'?'on':''}" onclick="adminTab='imoveis';render()">Imóveis (${imoveis.length})</button><button class="chip ${adminTab==='leads'?'on':''}" onclick="adminTab='leads';loadLeads()">Contatos (${leads.length})</button><button class="chip" onclick="doLogout()">Sair</button></div>
  ${loadErr?`<div class="msg e">${ESC(loadErr)}</div>`:''}
  ${adminTab==='imoveis'?`<div style="margin-top:20px"><button class="btn" onclick="newI()">+ Novo imóvel</button></div><div class="note">Toque na estrela para colocar o imóvel nos Destaques da página inicial.</div><div style="margin-top:14px">${imoveis.length?imoveis.map(i=>`<div class="row"><div class="th" style="${cover(i)?`background-image:url('${ESC(cover(i))}')`:''}"></div><div class="i"><b>${ESC(i.titulo)}${i.modelo?' (exemplo)':''}</b><span>${CATS[i.categoria]?.n||''} · ${ESC(i.cidade)} · ${money(i.preco)}</span></div>
