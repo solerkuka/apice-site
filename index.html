@@ -359,6 +359,18 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
 .vals div{background:#1F1B18;border-top:1px solid #8D694A;padding:16px}
 .vals b{display:block;font-weight:200;font-size:32px;color:var(--tx)}
 .vals span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2)}
+
+/* ===== v6: menu fixo com 4 itens em todas as telas ===== */
+.top nav a{display:inline!important}
+.top nav a.q{display:none!important}
+@media(max-width:819px){
+.top{padding-left:14px;padding-right:14px}
+.top nav{gap:clamp(10px,3.4vw,18px);font-size:10px;letter-spacing:.14em;margin-left:auto;margin-right:auto}
+.home .top nav{margin-left:auto}
+.inner .top nav{margin-left:auto;margin-right:0}
+.top .sy{height:28px}
+}
+@media(max-width:380px){.top nav{font-size:9px;gap:9px;letter-spacing:.1em}}
 </style>
 </head>
 <body>
@@ -452,8 +464,8 @@ const cover=i=>(i.fotos&&i.fotos[0])||null;
 const visibles=()=>imoveis.filter(i=>i.status!=='oculto');
 
 /* ================= VIEWS ================= */
-function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a><a class="q ${R.name==='quem'?'on':''}" onclick="go('quem-somos')">Quem somos</a></nav></div>`}
-function foot(){return `<footer><span>Ápice Imóveis · CRECI-SC ${ESC(C.CRECI)}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${ESC(C.WHATSAPP_VISIVEL)} · ${ESC(C.EMAIL)}</span><a onclick="go('quem-somos')" style="color:#D9AE7C">Quem somos</a></footer>`}
+function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a></nav></div>`}
+function foot(){return `<footer><span>Ápice Imóveis · CRECI-SC ${ESC(C.CRECI)}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${ESC(C.WHATSAPP_VISIVEL)} · ${ESC(C.EMAIL)}</span><span style="display:flex;gap:22px;flex-wrap:wrap"><a onclick="go('quem-somos')" style="color:#D9AE7C">Quem somos</a><a onclick="go('acesso-restrito')" style="opacity:.75">Acesso restrito</a></span></footer>`}
 function arch(i){const c=cover(i);return `<div class="arch" onclick="go('imovel/${ESC(i.id)}')"><div class="im" ${c?`style="background-image:url('${ESC(c)}')"`:''}>${i.destaque?'<span class="tg">Destaque</span>':''}${i.status==='vendido'?'<span class="tg" style="top:20%">Vendido</span>':''}<b>${i.modelo?'[IMAGEM MODELO]':c?'':'[FOTO]'}</b></div><div class="c">${ESC(i.tipo)} · ${ESC(i.cidade)}</div><div class="tt">${ESC(i.titulo)}</div><div class="p">${money(i.preco)}</div><span class="sm">Ver detalhes</span></div>`}
 const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 18L18 6M8 6h10v10"/></svg>';
 function home(){
