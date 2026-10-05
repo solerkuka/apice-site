@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ápice Imóveis · Seu patrimônio no ponto mais alto</title>
+<meta name="description" content="Ápice Imóveis, Forquilhinha/SC. Seu patrimônio no ponto mais alto.">
+<meta name="theme-color" content="#0F0E0D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231D1C1A'/%3E%3Cpath d='M32 10 L10 54 H22 L32 34 L42 54 H54Z' fill='%23D3C7BA'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+@property --alt{syntax:'<integer>';inherits:false;initial-value:0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0F0E0D;color:#D3C7BB;font-family:'Montserrat',system-ui,sans-serif;font-weight:300;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.pg{position:relative;overflow-x:hidden;min-height:100vh}
+.grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.09;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E")}
+.top{position:fixed;z-index:40;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) clamp(20px,4vw,56px) 18px;color:#EAE3DA;background:linear-gradient(#0F0E0Df0,#0F0E0D00)}
+.top .sy{height:34px;width:auto;display:none;cursor:pointer}
+.inner .top .sy{display:block}
+.top nav{display:flex;gap:clamp(14px,2.6vw,38px);font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;margin-left:auto}
+.top nav a{display:none;cursor:pointer}
+@media(min-width:820px){.top nav a{display:inline}}
+.top nav a.on{border-bottom:1px solid #9A8573}
+.hud{position:fixed;z-index:40;right:clamp(14px,2.4vw,34px);top:50%;transform:translateY(-50%);display:none;flex-direction:column;align-items:center;gap:14px;font-size:10px;letter-spacing:.22em;color:#9A8573;writing-mode:vertical-rl}
+.home .hud{display:flex}
+@media(max-width:700px){.hud{writing-mode:horizontal-tb;flex-direction:row-reverse;top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px));right:16px;transform:none;gap:8px;font-size:9px;background:#0F0E0Dcc;padding:6px 10px}.hud .line{display:none}}
+.hud .line{width:1px;height:120px;background:#3A3532;position:relative;writing-mode:horizontal-tb}
+.hud .line i{position:absolute;left:0;top:0;width:1px;height:100%;background:#D3C7BB;transform-origin:top;transform:scaleY(0)}
+.hud .n{counter-reset:alt var(--alt)}
+.hud .n:after{content:counter(alt) " M"}
+@supports (animation-timeline:scroll()){
+.hud .line i{animation:grow linear both;animation-timeline:scroll(root)}
+.hud .n{animation:alt linear both;animation-timeline:scroll(root)}
+@keyframes grow{to{transform:scaleY(1)}}
+@keyframes alt{to{--alt:1000}}
+}
+.hero{position:relative;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:radial-gradient(70% 60% at 78% 78%,#4B3F35 0%,#1A1715 55%,#0F0E0D 100%)}
+.hero.first{min-height:100vh;min-height:100svh;padding:84px 0 28px}
+.blinds{position:absolute;inset:-30%;background:repeating-linear-gradient(100deg,rgba(0,0,0,0) 0 64px,rgba(8,7,6,.62) 64px 150px);animation:blinds 40s linear infinite;transform:rotate(-4deg)}
+@keyframes blinds{to{transform:translateX(150px) rotate(-4deg)}}
+.shaft{position:absolute;inset:-20%;background:linear-gradient(105deg,transparent 38%,rgba(255,224,176,.16) 50%,transparent 62%);filter:blur(24px);animation:shaft 16s ease-in-out infinite alternate}
+@keyframes shaft{from{transform:translateX(-12%)}to{transform:translateX(18%)}}
+.brand{position:relative;text-align:center;margin-bottom:clamp(18px,3vw,34px);padding:0 20px}
+.brand svg{display:block;width:clamp(150px,34vw,230px);height:auto;margin:0 auto}
+.imp{margin:18px 0 0;font-size:clamp(10px,1.3vw,14px);letter-spacing:.42em;text-transform:uppercase;font-weight:300;line-height:1.9}
+.lvs{position:relative}
+.lv{position:relative;display:flex;align-items:center;gap:clamp(14px,3vw,48px);padding:clamp(16px,2vw,26px) clamp(20px,4vw,56px);border-top:1px solid #2E2A27;overflow:hidden;transition:color .5s;cursor:pointer}
+.lv:last-of-type{border-bottom:1px solid #2E2A27}
+.lv:before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,#D3C7BB,#9A8573);transform:translateX(-101%);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.lv:hover:before{transform:none}
+.lv:hover{color:#1E1D1B}
+.lv>*{position:relative}
+.lv .n{font-size:12px;letter-spacing:.3em;color:#9A8573;width:40px}
+.lv:hover .n,.lv:hover .d{color:#1E1D1B}
+.lv .t{font-weight:200;font-size:clamp(30px,5vw,64px);letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.lv .d{margin-left:auto;max-width:300px;font-size:12px;line-height:1.7;font-weight:300;color:#9A8573;text-align:right}
+.lv .ar{font-size:clamp(24px,3vw,44px);font-weight:200;transition:transform .5s}
+.lv:hover .ar{transform:translate(8px,-8px)}
+@media(max-width:700px){.lv{flex-wrap:wrap}.lv .d{margin-left:0;text-align:left;max-width:none;width:100%}.lv .ar{position:absolute;right:20px;top:18px}}
+.man{padding:clamp(90px,14vw,200px) clamp(20px,4vw,56px)}
+.man p{margin:0;font-weight:200;font-size:clamp(30px,6.2vw,92px);line-height:1.08;letter-spacing:.03em;text-transform:uppercase;max-width:1300px}
+.man p span{display:block}
+.man em{font-style:normal;color:#9A8573}
+@supports (animation-timeline:view()){
+.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 5% cover 38%}
+@keyframes rv{from{opacity:0;transform:translateY(60px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
+.ln{transform-origin:left;animation:ln linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+@keyframes ln{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
+.sec{padding:clamp(60px,9vw,140px) 0 0}
+.lab{padding:0 clamp(20px,4vw,56px);font-size:11px;letter-spacing:.34em;color:#9A8573;margin-bottom:26px;text-transform:uppercase}
+.mq{overflow:hidden;padding:clamp(40px,6vw,90px) 0 clamp(60px,8vw,120px)}
+.mq .trk{display:flex;gap:28px;width:max-content;animation:mq 70s linear infinite}
+.mq:hover .trk{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.arch{width:clamp(220px,24vw,320px);flex:none;cursor:pointer}
+.arch .im{height:clamp(320px,36vw,470px);border-radius:999px 999px 0 0;background:linear-gradient(170deg,#3A332D,#14120F) center/cover;position:relative;overflow:hidden;border:1px solid #3A3532}
+.arch .im:after{content:"";position:absolute;inset:14px;border-radius:999px 999px 0 0;border:1px solid rgba(211,199,187,.28)}
+.arch .im b{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-weight:400;font-size:9px;letter-spacing:.24em;color:#c9bcae;z-index:2;text-shadow:0 1px 6px #000}
+.arch .im .tg{position:absolute;top:12%;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.25em;text-transform:uppercase;background:rgba(15,14,13,.75);padding:4px 10px;color:#EAE3DA;z-index:2;white-space:nowrap}
+.arch .c{margin-top:16px;font-size:10px;letter-spacing:.28em;color:#9A8573;text-transform:uppercase}
+.arch .tt{font-weight:300;font-size:18px;letter-spacing:.06em;margin-top:6px}
+.arch .p{font-size:12px;color:#B9AEA2;margin-top:6px}
+.arch .sm{font-size:10px;letter-spacing:.24em;text-transform:uppercase;margin-top:10px;display:inline-block;border-bottom:1px solid #6B625B;padding-bottom:4px}
+.pr{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px;padding:0 clamp(20px,4vw,56px) clamp(70px,10vw,140px)}
+.pr .ln{height:1px;background:#9A8573;margin-bottom:22px}
+.pr h3{margin:0 0 12px;font-weight:300;font-size:clamp(22px,2.4vw,34px);letter-spacing:.14em;text-transform:uppercase}
+.pr p{margin:0;font-size:14px;line-height:1.8;color:#B9AEA2;font-weight:300;max-width:380px}
+section.cta{position:relative;text-align:center;padding:clamp(90px,12vw,180px) 20px;background:radial-gradient(60% 70% at 50% 100%,#3E342C,#0F0E0D 70%);overflow:hidden}
+section.cta h2{margin:0;font-weight:200;font-size:clamp(34px,7.4vw,120px);line-height:1;letter-spacing:.05em;text-transform:uppercase}
+.badge{width:clamp(120px,14vw,170px);height:auto;margin:44px auto 0;display:block;animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bw{position:relative;display:block;width:fit-content;margin:0 auto}
+.bw .s{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.wa{display:inline-block;margin-top:34px;padding:18px 34px;border:1px solid #9A8573;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:.4s;cursor:pointer;background:none}
+.wa:hover{background:#D3C7BB;color:#1E1D1B}
+footer{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:center;padding:30px clamp(20px,4vw,56px) calc(40px + env(safe-area-inset-bottom,0px));border-top:1px solid #2E2A27;font-size:11px;letter-spacing:.2em;color:#6B625B;text-transform:uppercase}
+footer a{cursor:pointer}
+@media (prefers-reduced-motion:reduce){.blinds,.shaft,.mq .trk,.badge{animation:none}.rv,.ln{animation:none}}
+/* páginas internas */
+.ph{position:relative;overflow:hidden;padding:calc(110px + env(safe-area-inset-top,0px)) clamp(20px,4vw,56px) 34px;background:radial-gradient(70% 90% at 78% 0%,#3B3028 0%,#14120F 60%,#0F0E0D 100%)}
+.ph .blinds{opacity:.7}
+.ph>*{position:relative}
+.back{font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;background:none;border:0;padding:0;color:#D3C7BB}
+.eyebrow{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#9A8573;font-weight:400;margin:34px 0 10px}
+h1.t{margin:0;font-weight:200;font-size:clamp(38px,8vw,110px);line-height:1;letter-spacing:.05em;text-transform:uppercase}
+.sub{max-width:34em;font-size:14px;line-height:1.8;color:#B9AEA2;margin-top:18px}
+.wrap{padding:0 clamp(20px,4vw,56px)}
+.fl{margin-top:20px}.fl small{font-size:9px;letter-spacing:.3em;color:#6B625B;text-transform:uppercase;display:block}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{border:1px solid #3a3632;background:none;padding:9px 14px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;color:#D3C7BB}
+.chip.on{background:#D3C7BB;color:#14120F;border-color:#D3C7BB}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px 26px;padding-block:40px 20px}
+.grid .arch{width:auto}
+.grid .arch .im{height:auto;aspect-ratio:3/4.1}
+@media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);gap:26px 14px}.grid .arch .tt{font-size:15px}}
+.empty{color:#6B625B;padding:40px 0;font-size:13px;letter-spacing:.05em}
+.box{border:1px solid #2E2A27;padding:clamp(20px,4vw,44px);margin:50px 0 0;background:#13110f}
+.box h2{margin:0 0 8px;font-weight:200;font-size:clamp(24px,4vw,44px);letter-spacing:.08em;text-transform:uppercase}
+label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9A8573;margin-top:16px;font-weight:400}
+input,select,textarea{width:100%;background:#1a1816;border:1px solid #3a3632;padding:13px;margin-top:6px;font-size:16px;border-radius:0}
+textarea{min-height:90px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:560px){.two{grid-template-columns:1fr}}
+.btn{display:inline-block;border:1px solid #D3C7BB;background:#D3C7BB;color:#14120F;padding:14px 26px;letter-spacing:.2em;text-transform:uppercase;font-size:11px;font-weight:500;cursor:pointer;border-radius:0}
+.btn.o{background:none;color:#D3C7BB}.btn.sm{padding:9px 14px;font-size:10px}.btn.d{border-color:#8a4a44;color:#d9a29b;background:none}
+.msg{font-size:12px;color:#9A8573;margin-top:12px;min-height:16px}.msg.e{color:#d9a29b}
+.note{font-size:12px;color:#9A8573;line-height:1.6;border-left:1px solid #9A8573;padding-left:12px;margin-top:16px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:30px}
+.steps div{border-top:1px solid #9A8573;padding-top:12px;font-size:13px;line-height:1.6}
+.steps b{display:block;font-weight:200;font-size:30px;color:#EAE3DA}
+.det{padding:calc(100px + env(safe-area-inset-top,0px)) clamp(20px,4vw,56px) 60px;max-width:1100px;margin:0 auto}
+.det h1{margin:8px 0;font-weight:200;font-size:clamp(30px,5vw,60px);letter-spacing:.05em;text-transform:uppercase}
+.det .pc{font-size:22px;color:#EAE3DA}
+.specs{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0;font-size:11px;letter-spacing:.14em;color:#9A8573;text-transform:uppercase}
+.specs b{display:block;color:#EAE3DA;font-weight:300;font-size:22px;letter-spacing:.04em}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin-top:20px}
+.gal img,.gal video{width:100%;display:block;background:#1a1816;aspect-ratio:4/3;object-fit:cover}
+.det .dd{max-width:42em;line-height:1.9;font-size:14px;color:#B9AEA2;white-space:pre-line}
+.dw{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;margin-top:20px}
+@media(max-width:820px){.dw{grid-template-columns:1fr}}
+/* admin */
+.adm{padding:calc(100px + env(safe-area-inset-top,0px)) clamp(20px,4vw,56px) 60px;max-width:1000px;margin:0 auto}
+.adm h1{font-weight:200;letter-spacing:.1em;text-transform:uppercase;margin:6px 0 10px}
+.row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #2E2A27;flex-wrap:wrap}
+.row .th{width:54px;height:54px;background:#1a1816 center/cover;flex:none;border:1px solid #3a3632}
+.row .i{flex:1;min-width:140px}.row .i b{font-weight:400;color:#EAE3DA;display:block;font-size:13px}.row .i span{font-size:11px;color:#9A8573;line-height:1.6}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.star{background:none;border:1px solid #3a3632;color:#6B625B;font-size:18px;padding:6px 10px;cursor:pointer;line-height:1}.star.on{color:#e3c58a;border-color:#e3c58a}
+.thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.thumbs>div{width:84px}
+.thumbs img,.thumbs video{width:84px;height:84px;object-fit:cover;display:block;border:1px solid #3a3632}
+.thumbs button{width:100%;font-size:9px;padding:4px 0;background:#1a1816;border:1px solid #3a3632;cursor:pointer;margin-top:3px;color:#D3C7BB}
+.demo{background:#2a2218;border:1px solid #6b5636;color:#e3c58a;padding:10px 14px;font-size:12px;line-height:1.6;margin:14px 0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0F0F2"/><stop offset=".5" stop-color="#8C8D92"/><stop offset="1" stop-color="#D2D3D6"/></linearGradient><path id="P" fill-rule="evenodd" d="M1768,1096L1420,476L1038,1096L1279,1096L1510,744L1708,1096ZM1655,104L1507,332L1935,1096L2204,1096ZM1422,2090L1818,2090L1818,2099L1422,2099ZM409,1658C406,1656 400,1653 396,1650C392,1648 388,1646 388,1645C387,1645 390,1639 407,1611C417,1592 445,1543 469,1502C492,1462 534,1388 562,1339C590,1290 613,1250 614,1250C614,1250 625,1270 639,1294C677,1360 756,1499 801,1576C834,1634 840,1645 840,1645C838,1646 813,1661 813,1660C812,1660 793,1626 769,1584C745,1543 713,1488 698,1462C684,1436 659,1393 643,1365C627,1338 614,1315 614,1315C613,1315 613,1316 612,1317C611,1319 585,1363 555,1416C525,1469 481,1545 458,1586C434,1628 415,1660 414,1660C414,1661 411,1659 409,1658ZM1041,1653C1041,1652 1041,1569 1041,1467L1041,1282L1140,1282C1219,1282 1240,1282 1243,1283C1274,1286 1299,1299 1320,1319C1341,1340 1353,1365 1357,1396C1358,1401 1358,1418 1357,1425C1350,1480 1309,1524 1255,1535C1243,1538 1249,1538 1157,1538L1073,1538L1073,1595L1073,1653L1057,1653C1045,1653 1041,1653 1041,1653ZM1607,1653C1607,1652 1607,1569 1607,1467L1607,1282L1623,1282L1639,1282L1639,1467L1639,1653L1623,1653C1611,1653 1608,1653 1607,1653ZM2065,1653C2023,1651 1981,1635 1949,1608C1879,1549 1862,1451 1908,1374C1923,1350 1944,1328 1968,1313C2023,1277 2094,1272 2154,1299C2177,1309 2196,1322 2214,1341C2218,1344 2221,1348 2221,1348C2221,1349 2198,1369 2197,1369C2197,1369 2194,1365 2190,1361C2177,1349 2165,1340 2150,1332C2093,1303 2022,1309 1972,1349C1925,1387 1904,1446 1919,1503C1936,1574 2003,1623 2079,1621C2104,1620 2126,1614 2149,1603C2165,1595 2177,1586 2190,1573C2194,1569 2197,1566 2197,1566C2198,1566 2221,1586 2221,1587C2221,1588 2205,1604 2200,1608C2161,1639 2116,1655 2065,1653ZM2529,1652C2529,1652 2529,1569 2529,1467L2529,1282L2684,1282L2839,1282L2839,1298L2839,1314L2700,1314L2561,1314L2561,1383L2561,1451L2679,1451L2797,1452L2797,1467L2797,1483L2679,1483L2561,1484L2561,1552L2561,1621L2700,1621L2839,1621L2839,1637L2839,1653L2684,1653C2560,1653 2529,1653 2529,1652ZM1244,1505C1287,1498 1318,1466 1325,1423C1326,1413 1325,1398 1323,1387C1316,1361 1300,1339 1275,1326C1264,1319 1251,1315 1238,1314C1234,1314 1208,1314 1153,1314L1073,1314L1073,1409C1073,1462 1073,1505 1073,1505C1073,1506 1089,1506 1156,1506C1234,1506 1240,1506 1244,1505ZM596,1243C591,1241 587,1238 587,1238C587,1237 593,1226 601,1212C609,1198 620,1180 625,1171C632,1159 634,1155 635,1155C635,1155 639,1158 644,1160C652,1165 653,1166 653,1166C653,1168 606,1248 606,1248C605,1249 601,1246 596,1243ZM1410,1918C1392,1914 1379,1902 1375,1885C1374,1880 1374,1867 1375,1862C1381,1841 1398,1829 1420,1829C1443,1829 1460,1841 1466,1863C1467,1867 1467,1880 1466,1884C1462,1900 1450,1913 1433,1918C1428,1919 1415,1919 1410,1918ZM2260,1919C2252,1917 2243,1913 2239,1909L2237,1907L2238,1905C2239,1904 2239,1903 2239,1903C2240,1903 2241,1903 2242,1905C2250,1911 2260,1914 2272,1913C2280,1913 2286,1911 2290,1907C2295,1902 2296,1893 2292,1887C2289,1883 2284,1881 2269,1877C2254,1873 2248,1870 2244,1866C2240,1862 2239,1858 2239,1851C2240,1841 2246,1834 2258,1830C2261,1829 2262,1829 2270,1829C2279,1829 2279,1829 2284,1830C2288,1831 2295,1834 2297,1836L2298,1836L2297,1839C2295,1842 2295,1842 2292,1840C2285,1836 2277,1834 2268,1834C2257,1835 2250,1839 2247,1845C2246,1848 2246,1848 2246,1852C2246,1856 2246,1856 2247,1859C2250,1865 2254,1867 2272,1871C2285,1875 2291,1877 2295,1881C2304,1889 2303,1903 2295,1911C2292,1914 2287,1917 2282,1918C2279,1919 2264,1919 2260,1919ZM948,1918C948,1918 948,1898 948,1873L948,1829L951,1829L954,1829L954,1874L954,1919L951,1919C949,1919 948,1918 948,1918ZM1123,1918C1123,1918 1123,1898 1123,1873L1123,1829L1125,1829C1127,1829 1128,1829 1128,1830C1129,1830 1138,1845 1148,1864C1159,1882 1168,1897 1168,1898C1168,1898 1169,1898 1189,1863L1208,1829L1211,1829L1213,1829L1214,1873C1214,1897 1214,1917 1214,1918C1214,1919 1213,1919 1211,1919L1208,1919L1207,1907C1207,1901 1207,1884 1207,1870C1207,1855 1207,1843 1207,1843C1207,1843 1201,1853 1194,1864C1188,1876 1179,1890 1176,1896L1170,1907L1168,1907L1167,1907L1149,1876C1139,1859 1130,1844 1130,1844C1129,1843 1129,1847 1129,1881L1129,1918L1126,1919C1124,1919 1123,1919 1123,1918ZM1649,1918C1649,1917 1610,1830 1610,1830C1610,1829 1616,1829 1617,1830C1617,1830 1625,1848 1635,1869C1644,1891 1652,1909 1652,1909C1653,1909 1653,1909 1653,1909C1653,1909 1661,1891 1671,1870C1681,1848 1689,1830 1689,1830C1689,1829 1695,1829 1695,1829C1696,1830 1657,1917 1656,1918C1655,1919 1650,1919 1649,1918ZM1848,1918C1848,1918 1848,1898 1848,1873L1848,1829L1878,1829L1907,1829L1907,1832L1907,1835L1881,1835C1861,1835 1855,1835 1854,1835C1854,1836 1854,1869 1854,1870C1855,1870 1860,1870 1878,1870L1902,1870L1902,1873C1902,1874 1902,1875 1902,1876C1901,1876 1894,1876 1878,1876L1854,1876L1854,1894C1854,1903 1854,1911 1854,1912L1854,1913L1882,1913C1902,1913 1909,1913 1909,1913C1910,1914 1910,1917 1909,1918C1909,1919 1906,1919 1879,1919C1854,1919 1848,1919 1848,1918ZM2071,1918C2070,1917 2070,1830 2071,1829C2071,1829 2072,1829 2074,1829L2077,1829L2077,1874L2077,1918L2074,1919C2071,1919 2071,1919 2071,1918ZM1432,1912C1439,1910 1445,1906 1449,1902C1468,1882 1462,1850 1439,1839C1432,1835 1430,1835 1420,1835C1413,1835 1412,1835 1409,1836C1390,1841 1380,1857 1381,1876C1381,1894 1394,1908 1411,1912C1416,1913 1428,1913 1432,1912ZM1414,1821C1414,1821 1415,1820 1424,1813L1431,1807L1435,1807C1437,1807 1439,1807 1439,1807C1439,1807 1435,1811 1430,1815L1420,1822L1417,1822C1416,1822 1414,1822 1414,1821ZM324,2322C318,2321 311,2317 312,2316C312,2314 313,2314 315,2316C322,2320 333,2320 338,2316C340,2314 341,2310 340,2308C339,2305 336,2303 326,2301C316,2298 313,2295 313,2289C313,2280 320,2276 331,2277C336,2278 342,2280 342,2281C342,2281 341,2282 341,2282C341,2283 340,2283 339,2282C333,2279 325,2279 321,2281C317,2283 316,2285 316,2289C316,2294 319,2295 329,2298C340,2301 344,2304 344,2310C344,2315 340,2320 335,2321C332,2322 326,2322 324,2322ZM489,2322C482,2320 477,2315 476,2307C476,2305 476,2299 476,2291L476,2277L477,2277L479,2277L479,2292C479,2300 479,2308 480,2309C481,2315 485,2319 493,2319C500,2319 505,2316 507,2310C508,2307 508,2306 508,2292L509,2277L510,2277L511,2277L511,2292C511,2307 511,2308 510,2310C509,2316 505,2319 501,2321C498,2322 492,2322 489,2322ZM1120,2322C1102,2319 1094,2297 1107,2283C1115,2276 1128,2275 1137,2280C1150,2289 1151,2308 1139,2317C1134,2321 1127,2323 1120,2322ZM1362,2322C1353,2320 1346,2314 1344,2305C1343,2303 1343,2296 1344,2293C1346,2283 1355,2277 1366,2277C1373,2277 1379,2279 1383,2284C1392,2293 1391,2309 1381,2317C1377,2321 1368,2323 1362,2322ZM1602,2322C1591,2320 1583,2311 1583,2299C1583,2295 1584,2292 1586,2289C1592,2275 1612,2273 1623,2283C1627,2288 1629,2293 1629,2300C1629,2312 1620,2321 1607,2322C1606,2322 1603,2322 1602,2322ZM1836,2322C1818,2319 1810,2297 1823,2284C1828,2279 1833,2277 1840,2277C1853,2277 1863,2286 1863,2299C1863,2310 1857,2318 1848,2321C1844,2322 1839,2322 1836,2322ZM2095,2322C2076,2319 2069,2297 2082,2284C2086,2279 2091,2277 2099,2277C2112,2277 2122,2286 2122,2299C2122,2310 2116,2318 2106,2321C2103,2322 2098,2322 2095,2322ZM2479,2322C2475,2321 2469,2319 2467,2317C2467,2316 2467,2314 2468,2314C2468,2314 2469,2315 2470,2316C2478,2320 2490,2320 2494,2315C2496,2313 2496,2308 2494,2306C2492,2304 2490,2303 2483,2301C2476,2299 2472,2298 2470,2295C2465,2290 2467,2282 2474,2279C2480,2276 2489,2276 2495,2280C2497,2281 2497,2281 2496,2282C2496,2283 2496,2283 2494,2282C2489,2279 2480,2279 2476,2281C2472,2283 2470,2287 2471,2291C2472,2294 2475,2296 2483,2298C2493,2300 2495,2302 2497,2305C2500,2309 2499,2316 2495,2319C2491,2321 2485,2323 2479,2322ZM2851,2322C2832,2319 2825,2297 2838,2283C2845,2276 2858,2275 2867,2280C2880,2289 2881,2308 2869,2317C2865,2321 2857,2323 2851,2322ZM2924,2322C2923,2321 2923,2318 2925,2317C2927,2316 2928,2318 2928,2320C2928,2321 2926,2322 2925,2322C2925,2322 2925,2322 2924,2322ZM394,2321C394,2321 394,2311 394,2299L394,2277L409,2277L424,2277L424,2278L424,2280L411,2280L397,2280L397,2288C397,2294 397,2297 398,2297C398,2297 402,2298 410,2298L421,2298L421,2299L421,2300L409,2301L397,2301L397,2310L397,2319L411,2319L425,2319L425,2320L425,2322L410,2322C398,2322 394,2322 394,2321ZM622,2321C622,2321 622,2311 622,2299L622,2277L631,2277C641,2277 644,2277 648,2279C654,2282 656,2286 656,2293C655,2299 653,2302 648,2305C645,2307 642,2307 634,2307C628,2307 626,2307 625,2307C625,2308 625,2310 625,2315L625,2322L623,2322C623,2322 622,2322 622,2321ZM697,2321C697,2321 716,2278 717,2278C717,2277 720,2277 720,2278C721,2278 740,2321 740,2321C740,2322 740,2322 739,2322C737,2322 737,2322 734,2315C732,2311 732,2310 731,2309C730,2309 708,2309 706,2309C706,2310 705,2311 703,2315C701,2318 700,2321 700,2321C699,2322 697,2322 697,2321ZM795,2321C794,2321 794,2312 794,2300L794,2280L786,2280L778,2280L778,2279L779,2277L796,2277L814,2277L814,2278L814,2280L806,2280C801,2280 798,2280 798,2280C798,2281 798,2285 798,2301L798,2322L796,2322C795,2322 795,2322 795,2321ZM861,2321C861,2321 861,2311 861,2299L861,2277L870,2277C881,2277 883,2277 887,2279C893,2282 895,2285 895,2292C895,2296 895,2297 894,2299C893,2301 890,2304 887,2305C886,2305 886,2306 885,2306C885,2306 887,2310 890,2314C893,2318 895,2321 895,2322C895,2322 894,2322 894,2322C892,2322 892,2321 888,2316C886,2312 883,2309 883,2308L882,2307L873,2307L865,2307L864,2314L864,2322L863,2322C862,2322 862,2322 861,2321ZM947,2321C946,2321 946,2311 946,2299L947,2277L948,2277L950,2277L950,2299L950,2322L948,2322C947,2322 947,2322 947,2321ZM1005,2299L1005,2277L1006,2277C1007,2277 1007,2277 1008,2278C1008,2278 1012,2285 1017,2294C1026,2309 1027,2311 1028,2311C1028,2311 1032,2304 1037,2295C1048,2276 1047,2277 1049,2277L1050,2277L1050,2299L1050,2322L1049,2322C1048,2322 1047,2322 1047,2321C1047,2321 1047,2312 1047,2302C1047,2287 1047,2285 1046,2285C1046,2285 1042,2292 1037,2300C1033,2308 1029,2315 1028,2315C1027,2317 1027,2316 1018,2301C1013,2293 1009,2286 1009,2285C1008,2284 1008,2286 1008,2302C1008,2312 1008,2320 1008,2321C1008,2322 1007,2322 1006,2322L1005,2322L1005,2299ZM1198,2321C1198,2321 1198,2311 1198,2299L1198,2277L1200,2277C1201,2277 1201,2278 1216,2296C1224,2306 1230,2315 1231,2315C1231,2315 1231,2308 1231,2296L1231,2277L1233,2277L1234,2277L1234,2299L1234,2322L1233,2322C1232,2322 1231,2321 1217,2303C1209,2292 1202,2284 1202,2284C1201,2284 1201,2292 1201,2303L1201,2322L1200,2322C1199,2322 1198,2322 1198,2321ZM1289,2321C1289,2321 1289,2311 1289,2299L1289,2277L1291,2277L1292,2277L1292,2299L1292,2322L1291,2322C1290,2322 1290,2322 1289,2321ZM1496,2299L1496,2277L1497,2277C1498,2277 1498,2277 1499,2277C1499,2277 1505,2286 1513,2295C1528,2315 1528,2315 1529,2315C1529,2314 1529,2306 1529,2295L1529,2277L1531,2277L1532,2277L1532,2299L1532,2322L1531,2322C1530,2322 1529,2321 1515,2303C1507,2292 1500,2284 1500,2284C1499,2284 1499,2291 1499,2303L1499,2322L1498,2322L1496,2322L1496,2299ZM1736,2321C1736,2321 1736,2311 1736,2299L1736,2277L1745,2277C1755,2277 1758,2277 1762,2279C1768,2282 1770,2286 1770,2293C1769,2299 1767,2302 1762,2305C1759,2307 1756,2307 1748,2307C1742,2307 1740,2307 1739,2307C1739,2308 1739,2310 1739,2315L1739,2322L1737,2322C1737,2322 1736,2322 1736,2321ZM1914,2321C1914,2321 1914,2311 1914,2299L1914,2277L1915,2277C1916,2277 1917,2278 1931,2296C1939,2306 1946,2315 1946,2315C1946,2315 1947,2308 1947,2296L1947,2277L1948,2277L1950,2277L1950,2299L1950,2322L1949,2322C1947,2322 1947,2321 1932,2303C1924,2292 1917,2284 1917,2284C1917,2284 1917,2292 1917,2303L1917,2322L1915,2322C1914,2322 1914,2322 1914,2321ZM2014,2322C2014,2321 2014,2312 2014,2301C2014,2286 2013,2281 2013,2280C2013,2280 2010,2280 2005,2280C1998,2280 1998,2280 1997,2279C1997,2277 1996,2277 2015,2277L2033,2277L2033,2279L2033,2280L2025,2280L2017,2280L2017,2301L2017,2322L2015,2322C2015,2322 2014,2322 2014,2322ZM2228,2321C2228,2321 2228,2311 2228,2299L2228,2277L2230,2277L2231,2277L2241,2294C2246,2303 2251,2311 2251,2311C2251,2311 2256,2303 2261,2294L2271,2277L2272,2277L2273,2277L2273,2299L2273,2322L2272,2322L2271,2322L2270,2303C2270,2291 2270,2285 2270,2285C2270,2285 2265,2292 2261,2300C2253,2314 2252,2316 2251,2316C2250,2316 2249,2314 2241,2300C2236,2292 2232,2285 2232,2285C2231,2285 2231,2289 2231,2303L2231,2322L2230,2322C2229,2322 2228,2322 2228,2321ZM2321,2321C2321,2321 2323,2317 2336,2288L2341,2277L2343,2277L2345,2277L2355,2299C2361,2311 2365,2321 2365,2322C2365,2322 2364,2322 2363,2322C2362,2322 2362,2321 2359,2316C2357,2311 2356,2309 2355,2309C2354,2309 2332,2309 2331,2309C2330,2309 2329,2311 2327,2316C2325,2322 2325,2322 2323,2322C2322,2322 2322,2322 2321,2321ZM2413,2321C2413,2321 2413,2311 2413,2299L2413,2277L2414,2277L2416,2277L2416,2299L2416,2322L2414,2322C2414,2322 2413,2322 2413,2321ZM2598,2321C2598,2321 2600,2317 2613,2288L2618,2277L2620,2277L2621,2277L2631,2299C2637,2311 2641,2321 2641,2322C2641,2322 2640,2322 2640,2322C2638,2322 2638,2321 2635,2316C2633,2311 2632,2309 2632,2309C2631,2309 2608,2309 2607,2309C2607,2309 2606,2311 2604,2316C2601,2322 2601,2322 2599,2322C2599,2322 2598,2322 2598,2321ZM2689,2321C2689,2321 2689,2311 2689,2299L2689,2277L2691,2277L2692,2277L2692,2298L2693,2319L2705,2319L2718,2319L2718,2320L2718,2322L2704,2322C2693,2322 2690,2322 2689,2321ZM2770,2322C2769,2322 2769,2312 2769,2301L2769,2280L2761,2280L2753,2280L2753,2278L2753,2277L2771,2277L2789,2277L2789,2278L2789,2280L2781,2280L2773,2280L2773,2301C2773,2312 2773,2322 2772,2322C2772,2322 2772,2322 2771,2322C2770,2322 2770,2322 2770,2322ZM1129,2318C1136,2317 1142,2311 1143,2304C1146,2291 1137,2280 1124,2280C1109,2280 1100,2295 1106,2308C1110,2316 1120,2321 1129,2318ZM1372,2318C1380,2316 1386,2309 1386,2299C1386,2287 1377,2279 1365,2280C1357,2280 1351,2285 1348,2292C1346,2295 1346,2301 1347,2305C1350,2315 1360,2321 1372,2318ZM1614,2318C1625,2314 1630,2299 1623,2288C1615,2276 1595,2277 1588,2291C1583,2302 1589,2315 1601,2318C1604,2319 1610,2319 1614,2318ZM1845,2318C1854,2316 1859,2310 1859,2301C1860,2289 1852,2281 1841,2280C1832,2279 1824,2284 1821,2293C1820,2296 1820,2303 1821,2306C1822,2311 1826,2315 1830,2317C1834,2319 1840,2320 1845,2318ZM2104,2318C2112,2316 2118,2310 2118,2301C2119,2289 2111,2281 2100,2280C2090,2279 2083,2284 2080,2293C2078,2296 2078,2303 2080,2306C2081,2311 2085,2315 2089,2317C2093,2319 2099,2320 2104,2318ZM2860,2318C2874,2315 2879,2297 2869,2286C2860,2276 2843,2278 2837,2290C2831,2301 2836,2315 2849,2318C2852,2319 2857,2319 2860,2318ZM730,2306C730,2306 719,2282 719,2282C718,2281 707,2305 707,2306C707,2306 708,2306 708,2306C709,2307 730,2306 730,2306ZM2354,2306C2354,2306 2354,2306 2354,2306C2354,2305 2343,2281 2343,2282C2343,2282 2332,2305 2332,2306C2332,2306 2332,2306 2333,2306C2333,2307 2353,2307 2354,2306ZM2630,2306C2631,2306 2631,2306 2631,2306C2631,2305 2620,2281 2619,2282C2619,2282 2608,2305 2608,2306C2608,2306 2609,2306 2609,2306C2610,2307 2629,2307 2630,2306ZM645,2303C650,2301 652,2298 652,2293C653,2286 649,2281 641,2280C637,2280 626,2280 625,2280C625,2281 625,2302 625,2304C625,2304 626,2304 634,2304C642,2304 643,2304 645,2303ZM884,2303C887,2302 890,2300 891,2297C892,2295 892,2290 891,2287C888,2281 884,2280 871,2280L865,2280L864,2292C864,2298 864,2303 865,2304C865,2305 881,2304 884,2303ZM1759,2303C1764,2301 1766,2298 1766,2293C1767,2286 1763,2281 1755,2280C1751,2280 1740,2280 1739,2280C1739,2281 1739,2302 1739,2304C1739,2304 1740,2304 1748,2304C1756,2304 1757,2304 1759,2303ZM1115,2273C1115,2273 1117,2271 1119,2269C1122,2266 1122,2266 1124,2266C1126,2266 1126,2266 1129,2269C1132,2271 1133,2273 1133,2273C1132,2274 1131,2273 1128,2271C1126,2269 1124,2268 1124,2268C1124,2268 1122,2269 1120,2271C1118,2273 1116,2274 1115,2273Z"/></defs></svg>
+<div class="pg" id="app"></div>
+<script src="supabase.js"></script>
+<script src="config.js"></script>
+<script>
+"use strict";
+const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'5548999990000',WHATSAPP_VISIVEL:'(48) 99999-0000',EMAIL:'contato@apiceimoveis.com.br',CRECI:'12345-J'},window.APICE_CONFIG||{});
+const LOGO=`<svg viewBox="85 65 3070 2296" fill="url(#mg)" aria-label="Ápice Imóveis"><use href="#P"/></svg>`;
+const SYM=`<svg class="sy" viewBox="958 65 1325 1070" fill="url(#mg)" aria-label="Ápice" onclick="go('')"><use href="#P"/></svg>`;
+const CATS={morar:{n:'Morar',s:'Sua próxima moradia, escolhida com calma.',h:'Sua próxima moradia.',tipos:['Casa','Apartamento','Cobertura']},
+construir:{n:'Construir',s:'O melhor lote para o seu projeto.',h:'O lote certo para o seu projeto.',tipos:['Terreno','Lote em condomínio']},
+investir:{n:'Investir',s:'Terrenos e grandes áreas com potencial de valorização.',h:'Áreas e oportunidades.',tipos:['Área para lotear','Terreno','Prédio / comercial']}};
+const ESC=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+const money=v=>v?('R$ '+Number(v).toLocaleString('pt-BR')):'Sob consulta';
+const M=n=>'modelo/m'+n+'.svg';
+const SAMPLE=[
+{id:'ex1',categoria:'morar',tipo:'Casa',titulo:'Residência contemporânea',cidade:'Florianópolis',preco:3850000,area:380,quartos:4,suites:4,vagas:4,descricao:'Imagem e dados de exemplo. Casa de alto padrão com projeto contemporâneo, pé-direito duplo e integração com a área gourmet.',fotos:[M(1),M(2)],videos:[],destaque:true,status:'ativo',modelo:true,criado:6},
+{id:'ex2',categoria:'morar',tipo:'Apartamento',titulo:'Cobertura panorâmica',cidade:'Criciúma',preco:2400000,area:210,quartos:3,suites:3,vagas:3,descricao:'Exemplo. Cobertura com terraço, vista aberta e acabamento premium.',fotos:[M(3)],videos:[],destaque:true,status:'ativo',modelo:true,criado:5},
+{id:'ex3',categoria:'morar',tipo:'Casa',titulo:'Casa em condomínio fechado',cidade:'Forquilhinha',preco:1950000,area:260,quartos:3,suites:3,vagas:2,descricao:'Exemplo. Casa em condomínio com segurança 24h e área de lazer completa.',fotos:[M(2)],videos:[],destaque:false,status:'ativo',modelo:true,criado:4},
+{id:'ex4',categoria:'morar',tipo:'Apartamento',titulo:'Apartamento frente ao mar',cidade:'Florianópolis',preco:2100000,area:140,quartos:2,suites:2,vagas:2,descricao:'Exemplo. Apartamento de alto padrão, frente mar.',fotos:[M(4)],videos:[],destaque:false,status:'ativo',modelo:true,criado:3},
+{id:'ex5',categoria:'construir',tipo:'Terreno',titulo:'Terreno em área nobre',cidade:'Içara',preco:680000,area:520,descricao:'Exemplo. Terreno plano, escriturado, em bairro nobre.',fotos:[M(5)],videos:[],destaque:true,status:'ativo',modelo:true,criado:7},
+{id:'ex6',categoria:'construir',tipo:'Lote em condomínio',titulo:'Terreno de esquina',cidade:'Balneário Rincão',preco:430000,area:600,descricao:'Exemplo. Lote de esquina em condomínio fechado.',fotos:[M(6)],videos:[],destaque:false,status:'ativo',modelo:true,criado:2},
+{id:'ex7',categoria:'investir',tipo:'Área para lotear',titulo:'5 hectares para lotear',cidade:'Forquilhinha',preco:0,area:50000,descricao:'Exemplo. Grande área com potencial para loteamento, acesso asfaltado.',fotos:[M(7)],videos:[],destaque:true,status:'ativo',modelo:true,criado:8},
+{id:'ex8',categoria:'investir',tipo:'Área para lotear',titulo:'Gleba com frente para rodovia',cidade:'Criciúma',preco:5200000,area:32000,descricao:'Exemplo. Gleba com ótima localização comercial.',fotos:[M(8)],videos:[],destaque:false,status:'ativo',modelo:true,criado:1}];
+
+/* ================= CAMADA DE DADOS ================= */
+const SB=(C.SUPABASE_URL&&C.SUPABASE_ANON_KEY&&window.supabase)?window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY):null;
+const DEMO=!SB;
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+const fromDb=r=>({...r,preco:r.preco?Number(r.preco):0,area:r.area?Number(r.area):0,fotos:r.fotos||[],videos:r.videos||[],criado:r.criado?new Date(r.criado).getTime():0});
+const store={
+ async list(){
+  if(SB){const{data,error}=await SB.from('imoveis').select('*').order('criado',{ascending:false});if(error)throw error;return data.map(fromDb)}
+  const own=LS.get('apice_imoveis',[]),hidden=LS.get('apice_ex_ocultos',[]),patch=LS.get('apice_ex_patch',{});
+  return [...own,...SAMPLE.filter(s=>!hidden.includes(s.id)).map(s=>({...s,...(patch[s.id]||{})}))].sort((a,b)=>(b.criado||0)-(a.criado||0))},
+ async save(i){
+  if(SB){const d={...i};delete d.id;delete d.criado;delete d.modelo;if(i.id){const{error}=await SB.from('imoveis').update(d).eq('id',i.id);if(error)throw error}else{const{error}=await SB.from('imoveis').insert(d);if(error)throw error}return}
+  const own=LS.get('apice_imoveis',[]);
+  if(i.id&&String(i.id).startsWith('ex')){const p=LS.get('apice_ex_patch',{});p[i.id]=i;LS.set('apice_ex_patch',p);return}
+  if(i.id){const k=own.findIndex(x=>x.id===i.id);if(k>=0)own[k]=i}else{i.id='l'+Date.now();i.criado=Date.now();own.push(i)}
+  if(!LS.set('apice_imoveis',own))throw new Error('Armazenamento do navegador cheio (modo demonstração). Use fotos menores.')},
+ async patch(id,p){
+  if(SB){const{error}=await SB.from('imoveis').update(p).eq('id',id);if(error)throw error;return}
+  const all=await store.list();const i=all.find(x=>x.id===id);await store.save({...i,...p})},
+ async remove(id){
+  if(SB){const{error}=await SB.from('imoveis').delete().eq('id',id);if(error)throw error;return}
+  if(String(id).startsWith('ex')){const h=LS.get('apice_ex_ocultos',[]);h.push(id);LS.set('apice_ex_ocultos',h);return}
+  LS.set('apice_imoveis',LS.get('apice_imoveis',[]).filter(x=>x.id!==id))},
+ async upload(file){
+  if(SB){const ext=(file.name.split('.').pop()||'bin').toLowerCase().replace(/[^a-z0-9]/g,'');const path=new Date().getFullYear()+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+ext;
+   const{error}=await SB.storage.from('midia').upload(path,file,{contentType:file.type,cacheControl:'31536000'});if(error)throw error;
+   return SB.storage.from('midia').getPublicUrl(path).data.publicUrl}
+  if(file.size>2.5*1024*1024)throw new Error('No modo demonstração use arquivos de até 2,5 MB.');
+  return await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(file)})},
+ async addLead(l){
+  if(SB){const{error}=await SB.from('leads').insert(l);if(error)throw error;return}
+  const a=LS.get('apice_leads',[]);a.push({...l,id:'c'+Date.now(),criado:Date.now()});LS.set('apice_leads',a)},
+ async leads(){
+  if(SB){const{data,error}=await SB.from('leads').select('*').order('criado',{ascending:false});if(error)throw error;return data.map(r=>({...r,criado:new Date(r.criado).getTime()}))}
+  return LS.get('apice_leads',[]).sort((a,b)=>b.criado-a.criado)},
+ async delLead(id){
+  if(SB){const{error}=await SB.from('leads').delete().eq('id',id);if(error)throw error;return}
+  LS.set('apice_leads',LS.get('apice_leads',[]).filter(x=>x.id!==id))}
+};
+const auth={
+ admin:false,
+ async init(){
+  if(SB){const{data}=await SB.auth.getSession();await auth.check(data.session);SB.auth.onAuthStateChange((_e,s)=>{auth.check(s).then(()=>{if(R.name==='admin')render()})})}
+  else auth.admin=LS.get('apice_demo_admin',false)},
+ async check(s){
+  if(!s){auth.admin=false;return}
+  const{data}=await SB.from('admins').select('email').eq('email',s.user.email).maybeSingle();auth.admin=!!data},
+ async login(email,pw){
+  if(SB){const{error}=await SB.auth.signInWithPassword({email,password:pw});if(error)throw error;return}
+  auth.admin=true;LS.set('apice_demo_admin',true)},
+ async logout(){if(SB)await SB.auth.signOut();auth.admin=false;LS.set('apice_demo_admin',false)}
+};
+
+/* ================= ESTADO / ROTAS ================= */
+let imoveis=[],leads=[],R={name:'home',arg:null},filt={},form=null,flash='',adminTab='imoveis',loadErr='';
+function parse(){const h=location.hash.replace(/^#\/?/,'');const[a,b]=h.split('/');R=!a?{name:'home'}:CATS[a]?{name:a}:a==='anunciar'?{name:'anunciar'}:a==='imovel'?{name:'imovel',arg:b}:a==='admin'?{name:'admin'}:{name:'home'}}
+function go(p){location.hash='#/'+p}
+window.go=go;
+window.addEventListener('hashchange',()=>{parse();filt={};form=null;flash='';render();window.scrollTo(0,0)});
+const wa=(txt)=>`https://wa.me/${C.WHATSAPP}?text=${encodeURIComponent(txt||'Olá! Vim pelo site da Ápice Imóveis.')}`;
+const cover=i=>(i.fotos&&i.fotos[0])||null;
+const visibles=()=>imoveis.filter(i=>i.status!=='oculto');
+
+/* ================= VIEWS ================= */
+function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a></nav></div>`}
+function foot(){return `<footer><span>Ápice Imóveis · CRECI-SC ${ESC(C.CRECI)}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${ESC(C.WHATSAPP_VISIVEL)} · ${ESC(C.EMAIL)}</span><a onclick="go('admin')" style="opacity:.5">Área dos sócios</a></footer>`}
+function arch(i){const c=cover(i);return `<div class="arch" onclick="go('imovel/${ESC(i.id)}')"><div class="im" ${c?`style="background-image:url('${ESC(c)}')"`:''}>${i.destaque?'<span class="tg">Destaque</span>':''}${i.status==='vendido'?'<span class="tg" style="top:20%">Vendido</span>':''}<b>${i.modelo?'[IMAGEM MODELO]':c?'':'[FOTO]'}</b></div><div class="c">${ESC(i.tipo)} · ${ESC(i.cidade)}</div><div class="tt">${ESC(i.titulo)}</div><div class="p">${money(i.preco)}</div><span class="sm">Ver detalhes</span></div>`}
+const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 18L18 6M8 6h10v10"/></svg>';
+function home(){
+ let col=visibles().filter(i=>i.destaque);if(col.length<4)col=visibles().slice(0,10);
+ let loop=col.slice();while(loop.length&&loop.length<8)loop=loop.concat(col);
+ const lv=[['morar','01','Morar',CATS.morar.s],['construir','02','Construir',CATS.construir.s],['investir','03','Investir',CATS.investir.s],['anunciar','04','Anunciar','Tem um imóvel ou empreendimento? Cuidamos da avaliação, dos documentos e da venda.']];
+ return `<section class="hero first"><div class="blinds"></div><div class="shaft"></div><div class="brand">${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div><div class="lvs">${lv.map(([k,n,t,d])=>`<a class="lv" onclick="go('${k}')"><span class="n">${n}</span><span class="t">${t}</span><span class="d">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div></section>
+ <section class="man"><p><span class="rv">Onde outros veem</span><span class="rv">metros quadrados,</span><span class="rv"><em>nós vemos altitude.</em></span></p></section>
+ <section class="sec" id="colecao"><div class="lab">Coleção · Selecionados</div>${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="wrap"><div class="empty">Em breve, os primeiros imóveis da coleção.</div></div>'}</section>
+ <section id="principios"><div class="lab">Princípios</div><div class="pr"><div class="rv"><div class="ln"></div><h3>Curadoria</h3><p>Poucos imóveis, escolhidos com critério. Cada um com documentação conferida e história contada com verdade.</p></div><div class="rv"><div class="ln"></div><h3>Reserva</h3><p>Atendimento discreto, direto com os sócios. Sem pressa, sem exposição desnecessária.</p></div><div class="rv"><div class="ln"></div><h3>Assessoria</h3><p>Apoio técnico e documental do primeiro contato à escritura. Você decide, nós cuidamos do resto.</p></div></div></section>
+ <section class="cta" id="contato"><div class="rv"><h2>Seu patrimônio.<br>Seu espaço.<br>Seu Ápice.</h2></div><span class="bw"><svg class="badge" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text fill="#9A8573" font-size="12" letter-spacing="5" font-family="Montserrat" font-weight="500"><textPath href="#c">SEU PATRIMÔNIO NO PONTO MAIS ALTO · ÁPICE IMÓVEIS · </textPath></text></svg><span class="s"><svg viewBox="958 65 1325 1070" fill="url(#mg)" style="display:block;width:46px;height:auto" aria-label="Ápice"><use href="#P"/></svg></span></span>
+ <a class="wa" href="${wa()}" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="wa" style="margin-left:14px" onclick="go('anunciar')">Tenho um imóvel</a></section>${foot()}`}
+function head(eb,t,s){return `<div class="ph"><div class="blinds"></div><button class="back" onclick="go('')">← Início</button><p class="eyebrow">${eb}</p><h1 class="t">${t}</h1>${s?`<p class="sub">${s}</p>`:''}</div>`}
+function chipRow(l,k,opts){return `<div class="fl"><small>${l}</small><div class="chips"><button class="chip ${!filt[k]?'on':''}" onclick="setF('${k}','')">Todos</button>${opts.map(o=>`<button class="chip ${filt[k]===String(o)?'on':''}" onclick="setF('${k}','${ESC(o)}')">${ESC(o)}</button>`).join('')}</div></div>`}
+function setF(k,v){filt[k]=v;render()}
+function cat(k){const c=CATS[k];const all=visibles().filter(i=>i.categoria===k);const cidades=[...new Set(all.map(i=>i.cidade).filter(Boolean))].sort();let l=all;
+ if(filt.tipo)l=l.filter(i=>i.tipo===filt.tipo);if(filt.cidade)l=l.filter(i=>i.cidade===filt.cidade);if(filt.suites)l=l.filter(i=>Number(i.suites||0)>=Number(filt.suites));
+ if(filt.tam)l=l.filter(i=>{const m=Number(i.area||0);return filt.tam==='500'?m<=500:filt.tam==='1000'?(m>500&&m<=1000):m>1000});
+ return head(c.n,c.h,c.s)+`<div class="wrap">${chipRow('Tipo','tipo',c.tipos)}${cidades.length?chipRow('Cidade','cidade',cidades):''}${k==='morar'?chipRow('Suítes (mínimo)','suites',[1,2,3,4]):''}
+ ${k==='construir'?`<div class="fl"><small>Tamanho</small><div class="chips">${[['','Todos'],['500','Até 500 m²'],['1000','500 a 1.000 m²'],['9999','Acima de 1.000 m²']].map(([v,t])=>`<button class="chip ${(filt.tam||'')===v?'on':''}" onclick="setF('tam','${v}')">${t}</button>`).join('')}</div></div>`:''}
+ ${l.length?`<div class="grid">${l.map(arch).join('')}</div>`:'<div class="empty">Nenhum imóvel com esses filtros por enquanto.</div>'}
+ <div class="box"><h2>Não encontrou o seu?</h2><p class="sub" style="margin-top:0">Conte o que você procura. Avisamos você antes de o imóvel chegar ao site.</p><form onsubmit="return sendLead(event,'procura')"><div class="two"><label>Nome<input name="nome" required></label><label>WhatsApp<input name="tel" type="tel" inputmode="tel" required></label></div><label>O que você procura<textarea name="msg" placeholder="Cidade, tipo, suítes, faixa de valor"></textarea></label><input type="hidden" name="tipo" value="${ESC(c.n)}"><div style="margin-top:18px"><button class="btn" type="submit">Enviar</button></div><div class="msg"></div></form></div></div>${foot()}`}
+function anunciar(){return head('Parceria e venda','Anunciar','Tem um imóvel, uma área ou um empreendimento? Conte pra gente. Falamos com você em até 1 dia útil.')+`<div class="wrap"><div class="steps"><div><b>01</b>Você envia os dados</div><div><b>02</b>Avaliamos e conversamos</div><div><b>03</b>Apresentamos ao público certo</div></div>
+ <div class="box"><form onsubmit="return sendLead(event,'anunciar')"><div class="two"><label>Nome<input name="nome" required></label><label>WhatsApp<input name="tel" type="tel" inputmode="tel" required></label></div>
+ <label>O que você tem?<select name="tipo"><option>Casa ou apartamento</option><option>Terreno ou lote</option><option>Área para lotear</option><option>Empreendimento</option><option>Parceria</option></select></label>
+ <div class="two"><label>Cidade<input name="cidade"></label><label>Tamanho (m²)<input name="area" inputmode="numeric"></label></div><label>Mensagem<textarea name="msg"></textarea></label>
+ <div style="margin-top:18px"><button class="btn" type="submit">Enviar</button></div><div class="msg"></div></form></div></div>${foot()}`}
+async function sendLead(e,origem,imovel,titulo){e.preventDefault();const f=e.target,m=f.querySelector('.msg');const d=Object.fromEntries(new FormData(f));
+ const l={nome:String(d.nome||'').slice(0,120),tel:String(d.tel||'').slice(0,40),tipo:String(d.tipo||'').slice(0,80),cidade:String(d.cidade||'').slice(0,80),area:String(d.area||'').slice(0,20),msg:String(d.msg||'').slice(0,1000),origem};
+ if(imovel){l.imovel=imovel;l.msg='Interesse em: '+titulo}
+ try{await store.addLead(l);m.className='msg';m.textContent='Recebemos! Entraremos em contato em breve.';f.reset()}catch(x){m.className='msg e';m.textContent='Não foi possível enviar agora. Tente novamente.'}return false}
+function detail(id){const i=imoveis.find(x=>x.id===id);if(!i)return head('Imóvel','Não encontrado','Esse imóvel não está mais disponível.')+foot();
+ return `<div class="det"><button class="back" onclick="history.length>1?history.back():go('')">← Voltar</button><p class="eyebrow">${ESC(i.tipo)} · ${ESC(i.cidade)}</p><h1>${ESC(i.titulo)}</h1><div class="pc">${money(i.preco)}</div>
+ <div class="specs">${i.area?`<span><b>${ESC(i.area)} m²</b>Área</span>`:''}${i.quartos?`<span><b>${ESC(i.quartos)}</b>Quartos</span>`:''}${i.suites?`<span><b>${ESC(i.suites)}</b>Suítes</span>`:''}${i.vagas?`<span><b>${ESC(i.vagas)}</b>Vagas</span>`:''}</div>
+ <div class="gal">${(i.videos||[]).map(v=>`<video controls playsinline preload="metadata" src="${ESC(v)}"></video>`).join('')}${(i.fotos||[]).map(f=>`<img loading="lazy" src="${ESC(f)}" alt="">`).join('')}</div>${i.modelo?'<p class="note">Imagem e dados de exemplo (prévia).</p>':''}
+ <div class="dw"><div class="dd">${ESC(i.descricao)}</div><div><form class="box" style="margin:0" onsubmit="return sendLead(event,'interesse','${ESC(i.id)}','${ESC(i.titulo).replace(/'/g,'')}')"><b style="font-weight:400;letter-spacing:.15em;font-size:11px;text-transform:uppercase;color:#EAE3DA">Quero saber mais</b><label>Nome<input name="nome" required></label><label>WhatsApp<input name="tel" type="tel" inputmode="tel" required></label><div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">Enviar</button><a class="btn o" target="_blank" rel="noopener" href="${wa('Olá! Tenho interesse em: '+i.titulo)}">WhatsApp</a></div><div class="msg"></div></form></div></div></div>${foot()}`}
+
+/* ---------- ADMIN ---------- */
+function admin(){
+ if(!auth.admin)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Área dos sócios</p><h1>Entrar</h1>
+ ${DEMO?'<div class="demo"><b>Modo demonstração.</b> O Supabase ainda não foi conectado: tudo que você fizer aqui fica salvo só neste navegador. Para salvar de verdade e valer para todos, siga o passo 3 do PASSO-A-PASSO.</div>':''}
+ <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="pw" type="password" required autocomplete="current-password"></label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
+ if(form)return adminForm();
+ return `<div class="adm"><button class="back" onclick="go('')">← Ver o site</button><p class="eyebrow">Área dos sócios</p><h1>Admin</h1>${DEMO?'<div class="demo"><b>Modo demonstração:</b> alterações ficam só neste navegador.</div>':''}
+ <div class="chips"><button class="chip ${adminTab==='imoveis'?'on':''}" onclick="adminTab='imoveis';render()">Imóveis (${imoveis.length})</button><button class="chip ${adminTab==='leads'?'on':''}" onclick="adminTab='leads';loadLeads()">Contatos (${leads.length})</button><button class="chip" onclick="doLogout()">Sair</button></div>
+ ${loadErr?`<div class="msg e">${ESC(loadErr)}</div>`:''}
+ ${adminTab==='imoveis'?`<div style="margin-top:20px"><button class="btn" onclick="newI()">+ Novo imóvel</button></div><div class="note">Toque na estrela para colocar o imóvel nos Destaques da página inicial.</div><div style="margin-top:14px">${imoveis.length?imoveis.map(i=>`<div class="row"><div class="th" style="${cover(i)?`background-image:url('${ESC(cover(i))}')`:''}"></div><div class="i"><b>${ESC(i.titulo)}${i.modelo?' (exemplo)':''}</b><span>${CATS[i.categoria]?.n||''} · ${ESC(i.cidade)} · ${money(i.preco)}</span></div>
+ <select style="width:auto;margin:0;padding:8px;font-size:13px" onchange="setStatus('${ESC(i.id)}',this.value)"><option value="ativo" ${i.status==='ativo'?'selected':''}>Ativo</option><option value="vendido" ${i.status==='vendido'?'selected':''}>Vendido</option><option value="oculto" ${i.status==='oculto'?'selected':''}>Oculto</option></select>
+ <div class="acts"><button class="star ${i.destaque?'on':''}" title="Destaque" onclick="toggleD('${ESC(i.id)}')">★</button><button class="btn o sm" onclick="editI('${ESC(i.id)}')">Editar</button><button class="btn d sm" onclick="delI('${ESC(i.id)}',this)">Excluir</button></div></div>`).join(''):'<div class="empty">Nenhum imóvel ainda.</div>'}</div>`
+ :`<div style="margin-top:14px">${leads.length?leads.map(l=>`<div class="row"><div class="i"><b>${ESC(l.nome)} · ${ESC(l.tel)}</b><span>${l.origem==='interesse'?'Interesse':l.origem==='procura'?'Procura um imóvel':'Quer anunciar'} · ${ESC(l.tipo||'')} ${ESC(l.cidade||'')} ${ESC(l.area?l.area+' m²':'')}<br>${ESC(l.msg||'')}<br>${new Date(l.criado).toLocaleString('pt-BR')}</span></div><a class="btn o sm" target="_blank" rel="noopener" href="https://wa.me/55${String(l.tel).replace(/\D/g,'')}">WhatsApp</a><button class="btn d sm" onclick="delLead('${ESC(l.id)}')">Apagar</button></div>`).join(''):'<div class="empty">Nenhum contato ainda.</div>'}</div>`}</div>`}
+async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);flash='';await refresh();if(!auth.admin){flash='!Este e-mail não tem permissão de sócio.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
+async function doLogout(){await auth.logout();flash='';render()}
+async function loadLeads(){try{leads=await store.leads();loadErr=''}catch(e){loadErr='Não foi possível carregar os contatos: '+(e.message||'')}render()}
+function newI(){form={categoria:'morar',tipo:'Casa',titulo:'',cidade:'',preco:'',area:'',quartos:'',suites:'',vagas:'',descricao:'',fotos:[],videos:[],destaque:false,status:'ativo'};render()}
+function editI(id){form=JSON.parse(JSON.stringify(imoveis.find(i=>i.id===id)));render()}
+function adminForm(){const f=form;const tp=CATS[f.categoria].tipos;const inp=(k,l,ex='')=>`<label>${l}<input ${ex} value="${ESC(f[k])}" oninput="form.${k}=this.value"></label>`;
+ return `<div class="adm"><button class="btn o sm" onclick="form=null;flash='';render()">← Cancelar</button><h1 style="margin-top:20px">${f.id?'Editar imóvel':'Novo imóvel'}</h1><div class="box" style="margin-top:10px"><div class="two"><label>Categoria<select onchange="form.categoria=this.value;form.tipo=CATS[this.value].tipos[0];render()">${Object.keys(CATS).map(k=>`<option value="${k}" ${f.categoria===k?'selected':''}>${CATS[k].n}</option>`).join('')}</select></label><label>Tipo<select onchange="form.tipo=this.value">${tp.map(t=>`<option ${f.tipo===t?'selected':''}>${t}</option>`).join('')}</select></label></div>
+ ${inp('titulo','Título')}<div class="two">${inp('cidade','Cidade')}${inp('preco','Preço (R$) · vazio = sob consulta','inputmode="numeric"')}</div><div class="three">${inp('area','Área m²','inputmode="numeric"')}${inp('quartos','Quartos','inputmode="numeric"')}${inp('suites','Suítes','inputmode="numeric"')}</div>${inp('vagas','Vagas','inputmode="numeric"')}
+ <label>Descrição<textarea oninput="form.descricao=this.value">${ESC(f.descricao)}</textarea></label>
+ <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" style="width:auto;margin:0" ${f.destaque?'checked':''} onchange="form.destaque=this.checked"> Destaque na página inicial</label>
+ <label>Fotos (a primeira é a capa)<input type="file" accept="image/*" multiple onchange="upl(this,'fotos')"></label><div class="thumbs">${f.fotos.map((u,n)=>`<div><img src="${ESC(u)}" alt=""><button onclick="mkCover(${n})">${n?'Capa':'✓ Capa'}</button><button onclick="rmMedia('fotos',${n})">Remover</button></div>`).join('')}</div>
+ <label>Vídeos<input type="file" accept="video/*" multiple onchange="upl(this,'videos')"></label><div class="thumbs">${f.videos.map((u,n)=>`<div><video src="${ESC(u)}#t=0.1" preload="metadata" muted playsinline></video><button onclick="rmMedia('videos',${n})">Remover</button></div>`).join('')}</div>
+ <div class="msg ${flash[0]==='!'?'e':''}" id="fm">${ESC(flash.replace(/^!/,''))}</div><div style="margin-top:14px"><button class="btn" onclick="saveI()">Salvar</button></div></div></div>`}
+async function upl(inp,k){const files=[...inp.files];if(!files.length)return;let n=0;for(const fl of files){flash=`Enviando ${++n} de ${files.length}…`;const el=$('#fm');if(el)el.textContent=flash;try{form[k].push(await store.upload(fl))}catch(e){flash='!Não foi possível enviar "'+fl.name+'": '+(e.message||'tente de novo');render();return}}flash='Enviado.';render()}
+function mkCover(n){const a=form.fotos;a.unshift(a.splice(n,1)[0]);render()}
+function rmMedia(k,n){form[k].splice(n,1);render()}
+async function saveI(){const f=form;if(!f.titulo.trim()){flash='!Coloque um título.';return render()}
+ const d={...f};d.preco=Number(String(d.preco).replace(/\D/g,''))||0;for(const k of['area','quartos','suites','vagas'])d[k]=Number(String(d[k]).replace(/\D/g,''))||null;
+ try{await store.save(d);form=null;flash='';await refresh()}catch(e){flash='!Erro ao salvar: '+(e.message||'')}render()}
+async function toggleD(id){const i=imoveis.find(x=>x.id===id);try{await store.patch(id,{destaque:!i.destaque});await refresh();render()}catch(e){loadErr=e.message;render()}}
+async function setStatus(id,v){try{await store.patch(id,{status:v});await refresh();render()}catch(e){loadErr=e.message;render()}}
+async function delI(id,b){if(b.dataset.s!=='1'){b.dataset.s='1';b.textContent='Confirmar?';setTimeout(()=>{if(b.isConnected){b.dataset.s='';b.textContent='Excluir'}},4000);return}try{await store.remove(id);await refresh();render()}catch(e){loadErr=e.message;render()}}
+async function delLead(id){try{await store.delLead(id);leads=await store.leads();render()}catch(e){loadErr=e.message;render()}}
+window.setF=setF;window.sendLead=sendLead;window.doLogin=doLogin;window.doLogout=doLogout;window.loadLeads=loadLeads;window.newI=newI;window.editI=editI;window.upl=upl;window.mkCover=mkCover;window.rmMedia=rmMedia;window.saveI=saveI;window.toggleD=toggleD;window.setStatus=setStatus;window.delI=delI;window.delLead=delLead;
+Object.defineProperty(window,'form',{get:()=>form,set:v=>{form=v}});Object.defineProperty(window,'flash',{get:()=>flash,set:v=>{flash=v}});Object.defineProperty(window,'adminTab',{get:()=>adminTab,set:v=>{adminTab=v}});window.CATS=CATS;window.render=render;
+
+function render(){const sy=window.scrollY;const n=R.name;
+ const body=n==='home'?home():CATS[n]?cat(n):n==='anunciar'?anunciar():n==='imovel'?detail(R.arg):admin();
+ document.body.className=n==='home'?'home':'inner';
+ $('#app').innerHTML=`<div class="grain"></div>${topbar()}<div class="hud"><span class="n"></span><div class="line"><i></i></div><span>ALTITUDE</span></div>${body}`;
+ if(n==='admin'&&form)window.scrollTo(0,sy)}
+async function refresh(){try{imoveis=await store.list();loadErr=''}catch(e){loadErr='Erro ao carregar imóveis: '+(e.message||'');imoveis=DEMO?[]:SAMPLE}}
+(async()=>{parse();render();await auth.init();await refresh();if(auth.admin&&!DEMO)try{leads=await store.leads()}catch(e){}else if(DEMO)leads=await store.leads();render()})();
+</script>
+</body>
+</html>
