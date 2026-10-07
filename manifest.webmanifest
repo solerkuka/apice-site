@@ -1,0 +1,17 @@
+{
+  "name": "Ápice Imóveis · Equipe",
+  "short_name": "Ápice",
+  "description": "Área da equipe da Ápice Imóveis: captação de fotos, vídeos e dados dos imóveis.",
+  "lang": "pt-BR",
+  "start_url": "/#/acesso-restrito",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F0E0D",
+  "theme_color": "#0F0E0D",
+  "icons": [
+    { "src": "/assets/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

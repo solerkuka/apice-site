@@ -29,3 +29,25 @@
 3. Acesse `seu-link/#/acesso-restrito` > aba **Captação**.
 4. Corretores: crie o usuário em Supabase > Authentication > Users (Auto confirm) e depois, na aba Captação, em **Equipe de corretores**, coloque o e-mail dele.
 5. Fluxo: corretor cadastra o imóvel (escolhe o tipo), toca em **Usar minha localização agora**, tira as fotos/vídeos e manda o **link do cliente**. No computador: **Baixar tudo (ZIP)**, edita, **Enviar tratadas**, marca **No site** e toca em **Publicar no site**.
+
+## Mapa do site (endereços e pastas)
+| Endereço | O que é | Onde mexer |
+|---|---|---|
+| `seusite.com.br` | Site principal | `index.html` |
+| `seusite.com.br/whatsapp` | Página do link da bio (banner + botões de WhatsApp dos corretores) | pasta `whatsapp` |
+| `seusite.com.br/app` | Entrada dos corretores (abre direto a área restrita) | pasta `app` |
+| `seusite.com.br/#/acesso-restrito` | Painel (proprietários e corretores) | `index.html` e `captacao.js` |
+| `seusite.com.br/#/i/código` | Link que o corretor manda ao cliente | gerado pelo sistema |
+
+Pastas: `whatsapp` (página e banner), `app` (entrada do app), `assets` (logo e ícones do app), `modelo` (imagens de exemplo).
+Arquivos na raiz: `config.js` (WhatsApp, e-mail, CRECI, corretores, Supabase), `manifest.webmanifest` e `sw.js` (app no celular), `schema.sql` e `schema-captacao.sql` (banco).
+
+## Banner do link da bio
+1. No GitHub, abra a pasta `whatsapp` > **Add file > Upload files** e envie o banner com o nome `banner.jpg` (ou `banner.png`).
+2. Em `config.js`, na lista `CORRETORES`, preencha o `whatsapp` de cada corretor (só números, com DDD). Quem ficar vazio não aparece.
+3. No Instagram, coloque `seusite.com.br/whatsapp` no link da bio.
+
+## App dos corretores no celular
+- **iPhone:** abra `seusite.com.br/app` no **Safari** > botão Compartilhar > **Adicionar à Tela de Início**.
+- **Android:** abra `seusite.com.br/app` no Chrome > menu (3 pontinhos) > **Instalar app**.
+- Abra pelo ícone e entre com e-mail e senha **uma única vez**: o login fica salvo e o app já abre direto na Captação. (No iPhone, entre dentro do app do ícone, não no Safari: os dois não compartilham o login.)
