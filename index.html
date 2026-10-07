@@ -439,6 +439,13 @@ footer span{line-height:1.9}
 .fold .lv:hover{color:#EAE3DA}
 .fold .blinds{transform:none;inset:0;background:repeating-linear-gradient(100deg,rgba(0,0,0,0) 0 64px,rgba(8,7,6,.5) 64px 150px);animation:blinds2 40s linear infinite}
 @keyframes blinds2{to{transform:translateX(150px)}}
+
+/* respiro da primeira dobra: logo centrada no espaço acima do menu */
+.fold .hero.first{justify-content:flex-start;padding-top:48px}
+.fold .brand{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;margin:0;padding:clamp(8px,2svh,24px) 20px clamp(14px,3svh,30px)}
+.fold .imp{margin-top:clamp(14px,2.6svh,26px)}
+.fold .lvs{flex:none}
+@media(max-width:700px){.fold .hero.first{padding-top:44px}.fold .imp{margin-top:clamp(12px,2.2svh,20px)}}
 </style>
 </head>
 <body>
