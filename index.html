@@ -486,37 +486,41 @@ footer .fe{text-align:center;line-height:2.1}
 .wfab:before{border-color:#95806D!important}
 .wsb:hover,.wfab:hover{border-color:#D3C7BA;filter:none}
 
-/* ===== DESKTOP: abertura imersiva (celular não muda) ===== */
+/* ===== DESKTOP: logo + 4 blocos + destaque imponente (celular não muda) ===== */
 .dk{display:none}
 @media(min-width:1024px) and (min-height:560px){
 .fold{display:none}
-.dk{display:block;position:relative;height:100vh;height:100svh;min-height:600px;overflow:hidden;background:#0F0E0D;color:#EAE3DA}
+.dk{display:flex;flex-direction:column;height:100vh;height:100svh;min-height:600px;background:#0F0E0D;color:#EAE3DA}
+.dkh{flex:none;background:#141413 url(/assets/pedra.jpg) center/cover no-repeat;padding:clamp(34px,6svh,64px) 20px clamp(26px,5svh,50px)}
+.dkh .brand{margin:0}.dkh .brand svg{width:clamp(200px,17vw,270px)}
+.dkh .imp{margin-top:14px;font-size:11px;letter-spacing:.32em}
+.dkm{flex:none;display:grid;grid-template-columns:repeat(4,1fr)}
+.dkm a{position:relative;display:flex;flex-direction:column;gap:6px;padding:clamp(18px,3svh,30px) clamp(20px,2.4vw,40px);cursor:pointer;transition:background .25s;border-left:1px solid rgba(211,199,186,.14)}
+.dkm a:first-child{border-left:0}
+.dkm .c1{background:#1f1e1c}.dkm .c2{background:#2a2927}.dkm .c3{background:#363532}.dkm .c4{background:#42403c}
+.dkm a:hover{background:#544F49}
+.dkm .dt{font-size:clamp(18px,1.8vw,26px);font-weight:300;letter-spacing:.14em;text-transform:uppercase}
+.dkm .dd{font-size:clamp(11px,.95vw,14px);color:#B9AEA2;line-height:1.45;max-width:85%}
+.dkm .ar{position:absolute;right:clamp(16px,2vw,32px);top:clamp(18px,3svh,30px);font-size:20px;opacity:.8}
+.dkst{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;border-top:1px solid #6a615a}
 .dks,.dkl,.dkv{position:absolute;inset:0}
-.dkl{background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 9s ease-out}
+.dkl{background-size:cover;background-position:center;opacity:0;transform:scale(1.07);transition:opacity 1.6s ease,transform 9s ease-out}
 .dkl.on{opacity:1;transform:scale(1)}
-.dkv{background:linear-gradient(180deg,rgba(15,14,13,.78) 0%,rgba(15,14,13,.15) 32%,rgba(15,14,13,.25) 55%,rgba(15,14,13,.92) 100%),linear-gradient(90deg,rgba(15,14,13,.7) 0%,rgba(15,14,13,0) 55%)}
-.dkb{position:absolute;top:7svh;left:0;right:0;text-align:center}
-.dkg{display:none}
-.dkbrand svg{width:clamp(200px,17vw,280px);height:auto}
-.dki{margin:14px 0 0;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#D3C7BA}
-.dkc{position:absolute;left:clamp(40px,6vw,110px);bottom:clamp(150px,22svh,230px);width:min(640px,48vw)}
+.dkv{background:linear-gradient(90deg,rgba(15,14,13,.88) 0%,rgba(15,14,13,.45) 42%,rgba(15,14,13,0) 70%),linear-gradient(0deg,rgba(15,14,13,.55) 0%,rgba(15,14,13,0) 40%)}
+.dkq{position:absolute;top:clamp(16px,3svh,28px);left:clamp(40px,6vw,110px);font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#D3C7BA;padding-bottom:8px;border-bottom:1px solid #95806D}
+.dkc{position:absolute;left:clamp(40px,6vw,110px);bottom:clamp(24px,5svh,56px);width:min(640px,48vw);height:60%}
 .dkt{position:absolute;left:0;bottom:0;width:100%;opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease;pointer-events:none}
 .dkt.on{opacity:1;transform:none;pointer-events:auto;transition-delay:.5s}
-.dkk{display:block;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#D3C7BA;margin-bottom:14px}
-.dkt h2{margin:0;font-weight:200;font-size:clamp(30px,3.6vw,56px);line-height:1.1;letter-spacing:.02em}
-.dkp{margin-top:14px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,2vw,30px);color:#D3C7BA}
-.dkcta{display:inline-flex;align-items:center;gap:12px;margin-top:22px;padding:14px 26px;border:1px solid #95806D;background:rgba(15,14,13,.35);backdrop-filter:blur(6px);color:#EAE3DA;font-size:11px;letter-spacing:.26em;text-transform:uppercase;cursor:pointer;transition:background .25s}
+.dkk{display:block;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#D3C7BA;margin-bottom:12px}
+.dkt h2{margin:0;font-weight:200;font-size:clamp(26px,3vw,48px);line-height:1.1;letter-spacing:.02em}
+.dkp{margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,1.8vw,28px);color:#D3C7BA}
+.dkcta{display:inline-flex;align-items:center;gap:12px;margin-top:18px;padding:13px 24px;border:1px solid #95806D;background:rgba(15,14,13,.35);backdrop-filter:blur(6px);color:#EAE3DA;font-size:11px;letter-spacing:.26em;text-transform:uppercase;cursor:pointer;transition:background .25s}
 .dkcta:hover{background:#95806D}
-.dkn{position:absolute;right:340px;bottom:calc(clamp(86px,12svh,120px) + 30px);display:flex;align-items:center;gap:18px;font-size:12px;letter-spacing:.2em;color:#B9AEA2}
+.dkn{position:absolute;right:340px;bottom:clamp(24px,5svh,56px);display:flex;align-items:center;gap:18px;font-size:12px;letter-spacing:.2em;color:#B9AEA2}
 .dkn b{color:#EAE3DA;font-weight:400}
 .dka{width:46px;height:46px;border:1px solid rgba(211,199,186,.45);background:transparent;color:#EAE3DA;font-size:24px;line-height:1;cursor:pointer;transition:background .25s}
 .dka:hover{background:rgba(149,128,109,.55)}
-.dkm{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(211,199,186,.22);background:rgba(15,14,13,.55);backdrop-filter:blur(10px)}
-.dkm a{display:flex;justify-content:space-between;align-items:center;padding:clamp(22px,4svh,40px) clamp(24px,3vw,56px);border-left:1px solid rgba(211,199,186,.16);font-size:clamp(15px,1.5vw,22px);font-weight:300;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s}
-.dkm a:first-child{border-left:0}
-.dkm a:hover{background:rgba(149,128,109,.35)}
-.top{background:linear-gradient(#0F0E0D00,#0F0E0D00)}
-.home .top .sy,.home .top nav{display:none}.home .wfab{bottom:calc(clamp(86px,12svh,120px) + 24px)}
+.home .wfab{bottom:clamp(24px,5svh,56px)}
 }
 </style>
 </head>
@@ -639,7 +643,7 @@ function home(){
  let loop=col.slice();while(loop.length&&loop.length<8)loop=loop.concat(col);
  const lv=[['morar','01','Morar',CATS.morar.s],['construir','02','Construir',CATS.construir.s],['investir','03','Investir',CATS.investir.s],['anunciar','04','Anunciar','Tem um imóvel? Cuidamos da avaliação e da venda.']];
  const dkl=col.slice(0,8);
- const dk=dkl.length?`<section class="dk" id="dk"><div class="dks">${dkl.map((i,ix)=>`<div class="dkl${ix?'':' on'}" style="background-image:url('${ESC(cover(i)||'')}')"></div>`).join('')}</div><div class="dkv"></div><div class="dkb"><img class="dkg" src="/assets/logo.png" alt="" onerror="this.remove()"><div class="dkbrand">${LOGO}</div><p class="dki">Seu patrimônio no ponto mais alto.</p></div><div class="dkc">${dkl.map((i,ix)=>`<div class="dkt${ix?'':' on'}"><span class="dkk">${ESC([i.tipo,i.cidade].filter(Boolean).join(' · '))}</span><h2>${ESC(i.titulo)}</h2><div class="dkp">${money(i.preco)}</div><a class="dkcta" onclick="go('imovel/${ESC(i.id)}')">Ver imóvel ${ARROW}</a></div>`).join('')}</div><div class="dkn"><button class="dka" data-d="-1" aria-label="Anterior">‹</button><span class="dkx"><b>01</b> / ${String(dkl.length).padStart(2,'0')}</span><button class="dka" data-d="1" aria-label="Próximo">›</button></div><div class="dkm">${[['morar','Morar'],['construir','Construir'],['investir','Investir'],['anunciar','Anunciar']].map(([k,t])=>`<a onclick="go('${k}')"><span>${t}</span>${ARROW}</a>`).join('')}</div></section>`:'';
+ const dk=dkl.length?`<section class="dk" id="dk"><div class="dkh"><div class="brand">${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div></div><div class="dkm">${lv.map(([k,n,t,d],ix)=>`<a class="c${ix+1}" onclick="go('${k}')"><span class="dt">${t}</span><span class="dd">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div><div class="dkst"><div class="dks">${dkl.map((i,ix)=>`<div class="dkl${ix?'':' on'}" style="background-image:url('${ESC(cover(i)||'')}')"></div>`).join('')}</div><div class="dkv"></div><span class="dkq">Em destaque</span><div class="dkc">${dkl.map((i,ix)=>`<div class="dkt${ix?'':' on'}"><span class="dkk">${ESC([i.tipo,i.cidade].filter(Boolean).join(' · '))}</span><h2>${ESC(i.titulo)}</h2><div class="dkp">${money(i.preco)}</div><a class="dkcta" onclick="go('imovel/${ESC(i.id)}')">Ver imóvel ${ARROW}</a></div>`).join('')}</div><div class="dkn"><button class="dka" data-d="-1" aria-label="Anterior">‹</button><span class="dkx"><b>01</b> / ${String(dkl.length).padStart(2,'0')}</span><button class="dka" data-d="1" aria-label="Próximo">›</button></div></div></section>`:'';
  return dk+`<div class="fold" id="colecao"><section class="hero first"><div class="blinds"></div><div class="shaft"></div><div class="brand">${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div><div class="lvs">${lv.map(([k,n,t,d],ix)=>`<a class="lv c${ix+1}" onclick="go('${k}')"><span class="n">${n}</span><span class="t">${t}</span><span class="d">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div></section>
  ${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="mq"><div class="empty" style="padding:30px">Em breve, os primeiros imóveis da coleção.</div></div>'}</div>
  <div class="divl"></div>
