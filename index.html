@@ -421,6 +421,9 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
 
 #quem .lab{padding-top:44px}
 @media(max-width:480px){.qs .sc{grid-template-columns:96px 1fr;gap:14px;padding:14px}.qs .ph2{max-width:none}.qs .sc .bio{font-size:12px}}
+
+.qs .cr{margin:-4px 0 10px;font-size:12px;letter-spacing:.2em;color:#D9AE7C;text-transform:uppercase}.qs .sc .btn{margin-top:14px}
+footer span{line-height:1.9}
 </style>
 </head>
 <body>
@@ -431,7 +434,7 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
 <script src="captacao.js"></script>
 <script>
 "use strict";
-const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'5548999990000',WHATSAPP_VISIVEL:'(48) 99999-0000',EMAIL:'contato@apiceimoveis.com.br',CRECI:'12345-J',SOCIOS:[{nome:'Maciel da Soler',cargo:'Proprietário',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''},{nome:'Luiz Vagner Pereira',cargo:'Proprietário',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''}]},window.APICE_CONFIG||{});
+const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'',WHATSAPP_VISIVEL:'',EMAIL:'contato@apiceimoveis.com.br',CRECI:'',SOCIOS:[{nome:'Maciel da Soler',cargo:'Proprietário',creci:'76286',whatsapp:'5548991911979',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''},{nome:'Luiz Vagner Pereira',cargo:'Proprietário',creci:'63296',whatsapp:'5548999192297',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''}]},window.APICE_CONFIG||{});
 const LOGO=`<svg viewBox="0 0 1142 248" fill="url(#mg)" aria-label="Ápice Imóveis"><use href="#H"/></svg>`;
 const SYM=`<svg class="sy" viewBox="958 65 1325 1070" fill="url(#mg)" aria-label="Ápice" onclick="go('')"><use href="#P"/></svg>`;
 const CATS={morar:{n:'Morar',s:'Sua próxima moradia, escolhida com calma.',h:'Sua próxima moradia.',tipos:['Casa','Apartamento','Cobertura']},
@@ -519,13 +522,14 @@ function parse(){const h=location.hash.replace(/^#\/?/,'');const[a,b]=h.split('/
 function go(p){location.hash='#/'+p}
 window.go=go;
 window.addEventListener('hashchange',()=>{parse();filt={};form=null;flash='';render();window.scrollTo(0,0)});
-const wa=(txt)=>`https://wa.me/${C.WHATSAPP}?text=${encodeURIComponent(txt||'Olá! Vim pelo site da Ápice Imóveis.')}`;
+const wa=(txt)=>String(C.WHATSAPP||'').replace(/\D/g,'')?`https://wa.me/${C.WHATSAPP}?text=${encodeURIComponent(txt||'Olá! Vim pelo site da Ápice Imóveis.')}`:'/whatsapp';
+const fmtTel=n=>{n=String(n||'').replace(/\D/g,'').replace(/^55/,'');return n.length===11?`(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`:n};
 const cover=i=>(i.fotos&&i.fotos[0])||null;
 const visibles=()=>imoveis.filter(i=>i.status!=='oculto');
 
 /* ================= VIEWS ================= */
 function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a></nav></div>`}
-function foot(){return `<footer><span>Ápice Imóveis · CRECI-SC ${ESC(C.CRECI)}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${ESC(C.WHATSAPP_VISIVEL)} · ${ESC(C.EMAIL)}</span><span style="display:flex;gap:22px;flex-wrap:wrap"><a onclick="go('quem-somos')" style="color:#D9AE7C">Quem somos</a><a onclick="go('acesso-restrito')" style="opacity:.75">Acesso restrito</a></span></footer>`}
+function foot(){const cs=C.SOCIOS||[];return `<footer><span>Ápice Imóveis${C.CRECI?` · CRECI-SC ${ESC(C.CRECI)}`:''}<br>${cs.map(x=>`${ESC(x.nome)} · CRECI-SC ${ESC(x.creci)}`).join('<br>')}</span><span>Santa Catarina · Sede em Forquilhinha</span><span>${cs.map(x=>`${ESC(x.nome.split(' ')[0])} · ${ESC(fmtTel(x.whatsapp))}`).join('<br>')}<br>${ESC(C.EMAIL)}</span><span style="display:flex;gap:22px;flex-wrap:wrap"><a onclick="go('quem-somos')" style="color:#D9AE7C">Quem somos</a><a onclick="go('acesso-restrito')" style="opacity:.75">Acesso restrito</a></span></footer>`}
 function arch(i){const c=cover(i);return `<div class="arch" onclick="go('imovel/${ESC(i.id)}')"><div class="im" ${c?`style="background-image:url('${ESC(c)}')"`:''}>${i.destaque?'<span class="tg">Destaque</span>':''}${i.status==='vendido'?'<span class="tg" style="left:auto;right:0">Vendido</span>':''}<b>${i.modelo?'[IMAGEM MODELO]':c?'':'[FOTO]'}</b></div><div class="c">${ESC(i.tipo)} · ${ESC(i.cidade)}</div><div class="tt">${ESC(i.titulo)}</div><div class="p">${money(i.preco)}</div><span class="sm">Ver detalhes</span></div>`}
 const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 18L18 6M8 6h10v10"/></svg>';
 function home(){
@@ -536,7 +540,7 @@ function home(){
  ${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="mq"><div class="empty" style="padding:30px">Em breve, os primeiros imóveis da coleção.</div></div>'}</div>
  <div class="divl"></div>
  <section id="principios"><div class="lab">Princípios</div><div class="pr"><div class="rv"><div class="ln"></div><h3>Curadoria</h3><p>Poucos imóveis, escolhidos com critério. Cada um com documentação conferida e história contada com verdade.</p></div><div class="rv"><div class="ln"></div><h3>Reserva</h3><p>Atendimento discreto, direto com os proprietários. Sem pressa, sem exposição desnecessária.</p></div><div class="rv"><div class="ln"></div><h3>Assessoria</h3><p>Apoio técnico e documental do primeiro contato à escritura. Você decide, nós cuidamos do resto.</p></div></div></section>
- <section id="quem"><div class="lab">Quem somos</div><div class="qs"><div class="qh"><h2>Quem está<br>por trás do Ápice</h2><p>A imobiliária para quem quer chegar mais longe.</p></div><div class="soc">${(C.SOCIOS||[]).map(s=>`<article class="sc"><div class="ph2" ${s.foto?`style="background-image:url('${ESC(s.foto)}')"`:''}><b>${s.foto?'':'[FOTO]'}</b></div><div><p class="eyebrow" style="margin:0 0 6px">${ESC(s.cargo)}</p><h3>${ESC(s.nome)}</h3><p class="bio">${ESC(s.bio)}</p></div></article>`).join('')}</div><div class="vals">${[['Á','Ascensão'],['P','Patrimônio'],['I','Investimento'],['C','Conquista'],['E','Excelência']].map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div></div></section>
+ <section id="quem"><div class="lab">Quem somos</div><div class="qs"><div class="qh"><h2>Quem está<br>por trás do Ápice</h2><p>A imobiliária para quem quer chegar mais longe.</p></div><div class="soc">${(C.SOCIOS||[]).map(s=>`<article class="sc"><div class="ph2" ${s.foto?`style="background-image:url('${ESC(s.foto)}')"`:''}><b>${s.foto?'':'[FOTO]'}</b></div><div><p class="eyebrow" style="margin:0 0 6px">${ESC(s.cargo)}</p><h3>${ESC(s.nome)}</h3><p class="cr">CRECI-SC ${ESC(s.creci)}</p><p class="bio">${ESC(s.bio)}</p>${s.whatsapp?`<a class="btn o sm" target="_blank" rel="noopener" href="https://wa.me/${ESC(s.whatsapp)}?text=${encodeURIComponent('Olá, '+s.nome.split(' ')[0]+'! Vim pelo site da Ápice Imóveis.')}">WhatsApp ${ESC(fmtTel(s.whatsapp))}</a>`:''}</div></article>`).join('')}</div><div class="vals">${[['Á','Ascensão'],['P','Patrimônio'],['I','Investimento'],['C','Conquista'],['E','Excelência']].map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div></div></section>
  <section class="cta" id="contato"><svg class="rg" viewBox="0 0 1000 400" preserveAspectRatio="none"><path d="M0 330 C250 120 400 380 650 190 S900 40 1000 120"/><path d="M0 60 C200 260 450 20 700 220 S900 330 1000 260"/></svg><div class="rv"><h2>Seu patrimônio.<br>Seu espaço.<br>Seu Ápice.</h2></div><span class="bw"><svg class="badge" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text fill="#9A8573" font-size="12" letter-spacing="5" font-family="Montserrat" font-weight="500"><textPath href="#c">SEU PATRIMÔNIO NO PONTO MAIS ALTO · ÁPICE IMÓVEIS · </textPath></text></svg><span class="s"><svg viewBox="958 65 1325 1070" fill="url(#mg)" style="display:block;width:46px;height:auto" aria-label="Ápice"><use href="#P"/></svg></span></span>
  <a class="wa" href="${wa()}" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="wa" style="margin-left:14px" onclick="go('anunciar')">Tenho um imóvel</a></section>${foot()}`}
 function head(eb,t,s){return `<div class="ph"><div class="blinds"></div><button class="back" onclick="go('')">← Início</button><p class="eyebrow">${eb}</p><h1 class="t">${t}</h1>${s?`<p class="sub">${s}</p>`:''}</div>`}

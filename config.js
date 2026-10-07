@@ -3,10 +3,10 @@
 window.APICE_CONFIG = {
   SUPABASE_URL: '',
   SUPABASE_ANON_KEY: '',
-  WHATSAPP: '5548999990000',
-  WHATSAPP_VISIVEL: '(48) 99999-0000',
+  WHATSAPP: '',  // número único do site; vazio = os botões levam para /whatsapp (Maciel e Luiz)
+  WHATSAPP_VISIVEL: '',
   EMAIL: 'contato@apiceimoveis.com.br',
-  CRECI: '12345-J',
+  CRECI: '',  // CRECI da empresa: preencher quando sair (ex.: '12345-J'). Enquanto vazio, aparecem só os CRECI dos corretores.
   // Página /whatsapp (link da bio do Instagram): um botão para cada corretor.
   // Preencha o WhatsApp só com números, com DDD (ex.: '48999990000'). Quem ficar vazio não aparece.
   CORRETORES: [
