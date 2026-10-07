@@ -429,6 +429,16 @@ footer span{line-height:1.9}
 .wsb:hover{filter:brightness(1.08)}
 .wsb svg{width:20px;height:20px;flex:none}
 @media(max-width:480px){.wsb{padding:10px 14px;font-size:12px;letter-spacing:.03em;gap:8px}.wsb svg{width:18px;height:18px}}
+
+/* menu da primeira dobra: vidro sobre as listras, sem blocos chapados */
+.fold .lv.c1,.fold .lv.c2,.fold .lv.c3,.fold .lv.c4{background:transparent;color:#EAE3DA}
+.fold .lv{border:0;border-top:1px solid rgba(211,199,186,.16);border-right:1px solid rgba(211,199,186,.16)}
+.fold .lv:nth-child(2n){border-right:0}
+.fold .lvs{border-bottom:1px solid rgba(211,199,186,.16)}
+.fold .lv:before{background:rgba(211,199,186,.10)}
+.fold .lv:hover{color:#EAE3DA}
+.fold .blinds{transform:none;inset:0;background:repeating-linear-gradient(100deg,rgba(0,0,0,0) 0 64px,rgba(8,7,6,.5) 64px 150px);animation:blinds2 40s linear infinite}
+@keyframes blinds2{to{transform:translateX(150px)}}
 </style>
 </head>
 <body>
