@@ -241,7 +241,7 @@ function page() {
 function listRow(c) {
   const ms_ = midsOf(c.id), cv = efetivas(c.id).find(m => m.tipo === 'foto');
   const nf = ms_.filter(m => m.tipo === 'foto' && m.estado === 'original').length, nv = ms_.filter(m => m.tipo === 'video').length;
-  return `<div class="row" style="cursor:pointer" onclick="CAP.abrir('${esc(c.id)}')"><div class="th" style="${cv ? `background-image:url('${esc(mUrl(cv))}')` : ''}"></div><div class="i"><b>${esc(titulo(c))}</b><span>${esc(c.tipo)} · ${esc([c.bairro, c.cidade].filter(Boolean).join(', '))} · ${c.preco ? money(c.preco) : 'Sob consulta'}<br>${nf} foto(s) · ${nv} vídeo(s)${c.status === 'publicado' ? ' · <b style="color:#D9AE7C;font-weight:400">No site</b>' : ''}</span></div></div>`;
+  return `<div class="row" style="cursor:pointer" onclick="CAP.abrir('${esc(c.id)}')"><div class="th" style="${cv ? `background-image:url('${esc(mUrl(cv))}')` : ''}"></div><div class="i"><b>${esc(titulo(c))}</b><span>${esc(c.tipo)} · ${esc([c.bairro, c.cidade].filter(Boolean).join(', '))} · ${c.preco ? money(c.preco) : 'Sob consulta'}<br>${nf} foto(s) · ${nv} vídeo(s)${c.status === 'publicado' ? ' · <b style="color:#d3c7ba;font-weight:400">No site</b>' : ''}</span></div></div>`;
 }
 function listBody() {
   const q = s.q.toLowerCase();
@@ -266,7 +266,7 @@ function fieldHtml(f) {
 function formView() {
   const f = s.form, fs = fields(f.tipo), grid = fs.filter(x => x.t !== 'c'), checks = fs.filter(x => x.t === 'c');
   const inp = (k, l, ex) => `<label>${l}<input ${ex || ''} value="${esc(f[k])}" oninput="CAP.set('f','${k}',this.value)"></label>`;
-  const loc = f.lat != null && f.lng != null ? `Localização salva (${f.lat}, ${f.lng}) · <a target="_blank" rel="noopener" style="color:#D9AE7C" href="https://www.google.com/maps?q=${f.lat},${f.lng}">conferir no mapa</a>` : 'Nenhuma localização salva ainda.';
+  const loc = f.lat != null && f.lng != null ? `Localização salva (${f.lat}, ${f.lng}) · <a target="_blank" rel="noopener" style="color:#d3c7ba" href="https://www.google.com/maps?q=${f.lat},${f.lng}">conferir no mapa</a>` : 'Nenhuma localização salva ainda.';
   return `<div style="margin-top:16px"><button class="btn o sm" onclick="CAP.cancelar()">← Cancelar</button></div><h2 style="font-weight:200;letter-spacing:.08em;text-transform:uppercase;margin:18px 0 0">${f.id ? 'Editar imóvel' : 'Novo imóvel'}</h2>
   <div class="box" style="margin-top:12px"><label style="margin-top:0">Tipo de imóvel</label><div class="chips" style="margin-top:8px">${TIPOS.map(t => `<button class="chip ${f.tipo === t ? 'on' : ''}" onclick="CAP.tipo('${t}')">${t}</button>`).join('')}</div>
   <div class="two">${inp('cidade', 'Cidade')}${inp('bairro', 'Bairro')}</div><div class="two">${inp('preco', 'Valor (R$) · vazio = sob consulta', 'inputmode="numeric"')}${inp('titulo', 'Título (opcional)')}</div>
@@ -471,13 +471,13 @@ window.CAP = CAP;
 const st = document.createElement('style');
 st.textContent = `.up{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;align-items:center}.up label{margin:0}.up input[type=file]{display:none}
 .cm{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
-.cm>div{border:1px solid #2E2A27;background:#13110f;padding:6px}
-.cm img,.cm video{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#1a1816;cursor:zoom-in}
-.cm .bd{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#9A8573;margin:6px 0 2px}.cm .bd.t{color:#D9AE7C}
+.cm>div{border:1px solid #2e2d2b;background:#13110f;padding:6px}
+.cm img,.cm video{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#1a1a19;cursor:zoom-in}
+.cm .bd{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#9A8573;margin:6px 0 2px}.cm .bd.t{color:#d3c7ba}
 .cm .ac{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.cm .ac button,.cm .ac .bt{font-size:10px;padding:5px 7px;background:#1a1816;border:1px solid #3a3632;cursor:pointer;color:#D3C7BB;margin:0;letter-spacing:.04em;text-transform:none;display:inline-block}
+.cm .ac button,.cm .ac .bt{font-size:10px;padding:5px 7px;background:#1a1a19;border:1px solid #3a3937;cursor:pointer;color:#D3C7BB;margin:0;letter-spacing:.04em;text-transform:none;display:inline-block}
 .cm .ac input{display:none}
-.ck{display:inline-flex;gap:8px;align-items:center;margin:0;padding:8px 10px;border:1px solid #3a3632;text-transform:none;letter-spacing:.02em;font-size:13px;cursor:pointer}
+.ck{display:inline-flex;gap:8px;align-items:center;margin:0;padding:8px 10px;border:1px solid #3a3937;text-transform:none;letter-spacing:.02em;font-size:13px;cursor:pointer}
 .ck input{width:auto;margin:0}.ckg{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .dtl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px 26px;margin:22px 0;font-size:11px;letter-spacing:.14em;color:#9A8573;text-transform:uppercase}
 .dtl b{display:block;color:#EAE3DA;font-weight:300;font-size:15px;letter-spacing:.03em;text-transform:none;margin-top:3px}
