@@ -458,6 +458,12 @@ footer span{line-height:1.9}
 .fold .lv:nth-child(2n){border-right:0}
 .fold .lvs{border-bottom:0;box-shadow:0 -18px 40px rgba(0,0,0,.35)}
 .fold .lv:before{background:rgba(255,255,255,.10)}
+
+/* frase de cada item volta a aparecer */
+.fold .lv{flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;position:relative;padding:clamp(12px,2.2svh,24px) clamp(34px,5vw,56px) clamp(12px,2.2svh,24px) clamp(16px,3vw,40px)}
+.fold .lv .d{display:block;margin:0;max-width:34em;text-align:left;width:auto;font-size:clamp(12px,1.9svh,14px);line-height:1.45;opacity:.78;color:#D3C7BA;font-weight:300}
+.fold .lv .ar{position:absolute;right:clamp(14px,2.4vw,26px);top:50%;transform:translateY(-50%);margin:0}
+@media(max-width:700px){.fold .lv{padding:12px 30px 12px 14px}.fold .lv .d{font-size:12px;line-height:1.4}.fold .lv .t{font-size:15px}.fold .lv .ar{right:10px}}
 </style>
 </head>
 <body>
@@ -569,7 +575,7 @@ const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" strok
 function home(){
  let col=visibles().filter(i=>i.destaque);if(col.length<4)col=visibles().slice(0,10);
  let loop=col.slice();while(loop.length&&loop.length<8)loop=loop.concat(col);
- const lv=[['morar','01','Morar',CATS.morar.s],['construir','02','Construir',CATS.construir.s],['investir','03','Investir',CATS.investir.s],['anunciar','04','Anunciar','Tem um imóvel ou empreendimento? Cuidamos da avaliação, dos documentos e da venda.']];
+ const lv=[['morar','01','Morar',CATS.morar.s],['construir','02','Construir',CATS.construir.s],['investir','03','Investir',CATS.investir.s],['anunciar','04','Anunciar','Tem um imóvel? Cuidamos da avaliação e da venda.']];
  return `<div class="fold" id="colecao"><section class="hero first"><div class="blinds"></div><div class="shaft"></div><div class="brand">${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div><div class="lvs">${lv.map(([k,n,t,d],ix)=>`<a class="lv c${ix+1}" onclick="go('${k}')"><span class="n">${n}</span><span class="t">${t}</span><span class="d">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div></section>
  ${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="mq"><div class="empty" style="padding:30px">Em breve, os primeiros imóveis da coleção.</div></div>'}</div>
  <div class="divl"></div>
