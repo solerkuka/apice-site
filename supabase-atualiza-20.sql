@@ -1,5 +1,6 @@
 -- ÁPICE IMÓVEIS — ATUALIZA O CATÁLOGO PARA OS 20 IMÓVEIS DA PLANILHA (Apice_Imoveis_Dados_dos_Imoveis.xlsx)
--- Supabase > SQL Editor > New query > cole TUDO > Run. Rode DEPOIS do supabase-tudo.sql. Pode rodar de novo sem problema.
+-- Supabase > SQL Editor > New query > cole TUDO > Run. Rode DEPOIS do supabase-tudo.sql e ANTES do supabase-unifica.sql.
+-- ATENÇÃO: depois que o supabase-unifica.sql foi rodado, NÃO rode este arquivo de novo (ele refaria as fotos do catálogo e desfaria as escolhas "No site").
 -- Imóveis 4, 18, 19 e 20 entram como 'oculto' (sem fotos); mais 3 imóveis antigos ficam 'oculto'. Para publicar: Acesso restrito > status Ativo.
 begin;
 alter table imoveis add column if not exists detalhes jsonb default '{}'::jsonb;

@@ -23,12 +23,12 @@
 - Comprar domínio: Vercel > Settings > Domains.
 - Trocar imagens modelo: no admin, edite o imóvel e envie fotos reais.
 
-## Captação de fotos e vídeos (novo)
-1. Supabase > **SQL Editor** > cole o conteúdo de `schema-captacao.sql` > **Run** (só uma vez; precisa ter feito o passo 3 acima).
-2. No GitHub, envie os arquivos novos: `index.html` (substitui o antigo), `captacao.js` e `schema-captacao.sql`.
-3. Acesse `seu-link/#/acesso-restrito` > aba **Captação**.
-4. Corretores: crie o usuário em Supabase > Authentication > Users (Auto confirm) e depois, na aba Captação, em **Equipe de corretores**, coloque o e-mail dele.
-5. Fluxo: corretor cadastra o imóvel (escolhe o tipo), toca em **Usar minha localização agora**, tira as fotos/vídeos e manda o **link do cliente**. No computador: **Baixar tudo (ZIP)**, edita, **Enviar tratadas**, marca **No site** e toca em **Publicar no site**.
+## Cadastro único de imóveis (novo)
+1. Supabase > **SQL Editor** > cole o conteúdo de `supabase-unifica.sql` > **Run** (só uma vez; depois do `supabase-tudo.sql` e do `supabase-atualiza-20.sql`). Não rode o `supabase-atualiza-20.sql` de novo depois disso.
+2. No GitHub, envie `index.html` e `captacao.js` (substituem os antigos). A antiga aba **Captação** acabou: tudo fica na lista **Imóveis**.
+3. Acesse `seu-link/#/acesso-restrito`. Cada imóvel tem todas as fotos e vídeos (o "kit"), e você marca em cada um: **No site** (aparece para todos) e **No link** (aparece só no link privado do cliente).
+4. Corretores: crie o usuário em Supabase > Authentication > Users (Auto confirm) e, na lista de Imóveis, em **Equipe de corretores**, coloque o e-mail dele. Corretores e proprietários editam e publicam; só proprietários excluem.
+5. No local: **+ Novo imóvel** > escolha o tipo > **Usar minha localização agora** > tire as fotos/vídeos > preencha o que souber > **Salvar imóvel**. Ele nasce **Oculto** e já tem o link do cliente (**Copiar link** ou **Enviar por WhatsApp**). No escritório: complete os dados, marque as fotos **No site**, escolha a capa (estrela) e toque em **Publicar no site**.
 
 ## Mapa do site (endereços e pastas)
 | Endereço | O que é | Onde mexer |
@@ -40,7 +40,7 @@
 | `seusite.com.br/#/i/código` | Link que o corretor manda ao cliente | gerado pelo sistema |
 
 Pastas: `whatsapp` (página do link da bio), `app` (entrada do app), `assets` (logo e ícones do app), `modelo` (imagens de exemplo).
-Arquivos na raiz: `config.js` (WhatsApp, e-mail, CRECI, corretores, Supabase), `manifest.webmanifest` e `sw.js` (app no celular), `schema.sql` e `schema-captacao.sql` (banco).
+Arquivos na raiz: `config.js` (WhatsApp, e-mail, CRECI, corretores, Supabase), `manifest.webmanifest` e `sw.js` (app no celular), `schema.sql`, `schema-captacao.sql`, `supabase-tudo.sql` e `supabase-unifica.sql` (banco).
 
 ## Página do link da bio
 A página `seusite.com.br/whatsapp` já está pronta (sua página do Instagram, com logo e os WhatsApp do Maciel e do Luiz). Basta colocar esse endereço no link da bio. Para trocar números ou textos, edite `whatsapp/index.html`.
@@ -48,4 +48,4 @@ A página `seusite.com.br/whatsapp` já está pronta (sua página do Instagram, 
 ## App dos corretores no celular
 - **iPhone:** abra `seusite.com.br/app` no **Safari** > botão Compartilhar > **Adicionar à Tela de Início**.
 - **Android:** abra `seusite.com.br/app` no Chrome > menu (3 pontinhos) > **Instalar app**.
-- Abra pelo ícone e entre com e-mail e senha **uma única vez**: o login fica salvo e o app já abre direto na Captação. (No iPhone, entre dentro do app do ícone, não no Safari: os dois não compartilham o login.)
+- Abra pelo ícone e entre com e-mail e senha **uma única vez**: o login fica salvo e o app já abre direto na lista de Imóveis. (No iPhone, entre dentro do app do ícone, não no Safari: os dois não compartilham o login.)

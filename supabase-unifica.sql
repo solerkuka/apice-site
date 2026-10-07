@@ -1,6 +1,13 @@
--- ÁPICE IMÓVEIS — CADASTRO ÚNICO (substitui o antigo schema-captacao.sql)
--- Rode DEPOIS do schema.sql. Para bancos que já têm dados use o supabase-unifica.sql (inclui esta parte + migração).
+-- ÁPICE IMÓVEIS — CADASTRO ÚNICO DE IMÓVEIS (site + mídias + link privado do cliente)
+-- Supabase > SQL Editor > New query > cole TUDO > Run. Rode UMA vez, DEPOIS do supabase-tudo.sql e do supabase-atualiza-20.sql.
+-- Se rodar de novo por engano, não estraga nada (não duplica e não apaga).
+-- O que faz: junta "Imóveis" e "Captação" num cadastro só. Cada imóvel passa a ter ficha privada, link do cliente
+-- e kit de fotos/vídeos; as fotos atuais do catálogo viram mídias "No site"; captações antigas viram imóveis Ocultos.
+-- Depois deste script NÃO rode de novo o supabase-atualiza-20.sql (ele refaria as fotos do catálogo).
 
+begin;
+
+-- ===== PARTE A: tabelas, gatilhos, permissões e link do cliente =====
 -- ---------------------------------------------------------------------------------------------
 -- COMO FUNCIONA (cadastro único de imóveis)
 --  * imoveis    = a "vitrine" pública. Continua igual para o site (SAMPLE, home, categorias e página do
@@ -210,3 +217,51 @@ grant execute on function captacao_publica(text) to anon, authenticated;
 
 -- Para cadastrar um corretor: crie o usuário em Authentication > Users (Auto confirm) e rode:
 -- insert into corretores(email) values ('email-do-corretor');
+
+-- ===== PARTE B: migra o que já existe (captações antigas e fotos do catálogo) =====
+-- 1) Captações antigas que nunca foram publicadas (sem imóvel) ganham um imóvel Oculto na lista única
+do $$ declare r record; v uuid; cat text;
+begin
+  perform set_config('app.sem_ficha', '1', true);
+  for r in select * from captacoes where imovel_id is null order by criado loop
+    cat := case when r.tipo in ('Casa','Apartamento','Cobertura') then 'morar'
+                when r.tipo in ('Terreno','Lote em condomínio') then 'construir' else 'investir' end;
+    insert into imoveis (categoria, tipo, titulo, cidade, preco, area, quartos, suites, vagas, descricao, fotos, videos, destaque, status, detalhes, criado)
+    values (cat, r.tipo, coalesce(nullif(r.titulo, ''), r.tipo || ' em ' || coalesce(nullif(r.bairro, ''), nullif(r.cidade, ''), '—')),
+            coalesce(r.cidade, ''), r.preco,
+            nullif(r.dados->>'area', '')::numeric, round(nullif(r.dados->>'quartos', '')::numeric)::int,
+            round(nullif(r.dados->>'suites', '')::numeric)::int, round(nullif(r.dados->>'vagas', '')::numeric)::int,
+            coalesce(r.descricao, ''), '{}', '{}', false, 'oculto', '{}'::jsonb, coalesce(r.criado, now()))
+    returning id into v;
+    update captacoes set imovel_id = v where id = r.id;
+  end loop;
+  perform set_config('app.sem_ficha', '0', true);
+end $$;
+
+-- 2) Todo imóvel do catálogo ganha a sua ficha privada (com link/token próprio)
+do $$ begin
+  perform criar_ficha(i) from imoveis i where not exists (select 1 from captacoes c where c.imovel_id = i.id);
+end $$;
+alter table captacoes alter column imovel_id set not null;
+
+-- 3) Kit de mídia dos imóveis do catálogo: cada foto/vídeo atual do imóvel vira mídia "No site" e "No link"
+--    (não repete o que já existe; ignora endereços antigos do bucket 'captacao' cujo arquivo já foi apagado)
+insert into midias (captacao_id, tipo, estado, path, url, nome, no_site, no_link, ordem)
+select c.id, x.tipo, 'original', null, x.u, nullif(regexp_replace(x.u, '^.*/', ''), ''), true, true, x.n::int
+from captacoes c
+join imoveis i on i.id = c.imovel_id
+cross join lateral (
+  select 'foto'::text as tipo, t.u, t.n from unnest(coalesce(i.fotos, '{}'::text[])) with ordinality as t(u, n)
+  union all
+  select 'video'::text, t.u, t.n from unnest(coalesce(i.videos, '{}'::text[])) with ordinality as t(u, n)
+) x
+where x.u is not null and x.u <> ''
+  and x.u not like '%/storage/v1/object/public/captacao/%'
+  and not exists (select 1 from midias m where m.captacao_id = c.id and m.url = x.u);
+
+-- 4) Confere: imoveis.fotos/videos de cada imóvel = mídias "No site" do kit
+do $$ begin
+  perform sync_imovel_midias(c.id) from captacoes c where exists (select 1 from midias m where m.captacao_id = c.id);
+end $$;
+
+commit;
