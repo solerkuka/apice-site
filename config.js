@@ -6,6 +6,8 @@ window.APICE_CONFIG = {
   WHATSAPP: '',  // número único do site; vazio = os botões levam para /whatsapp (Maciel e Luiz)
   WHATSAPP_VISIVEL: '',
   EMAIL: 'contato@apiceimoveis.com.br',
+  RAZAO:'Ápice Imóveis Ltda',
+  CNPJ:'69.450.101/0001-60',
   CRECI: '',  // CRECI da empresa: preencher quando sair (ex.: '12345-J'). Enquanto vazio, aparecem só os CRECI dos corretores.
   // Página /whatsapp (link da bio do Instagram): um botão para cada corretor.
   // Preencha o WhatsApp só com números, com DDD (ex.: '48999990000'). Quem ficar vazio não aparece.
