@@ -464,6 +464,14 @@ footer span{line-height:1.9}
 .fold .lv .d{display:block;margin:0;max-width:34em;text-align:left;width:auto;font-size:clamp(12px,1.9svh,14px);line-height:1.45;opacity:.78;color:#D3C7BA;font-weight:300}
 .fold .lv .ar{position:absolute;right:clamp(14px,2.4vw,26px);top:50%;transform:translateY(-50%);margin:0}
 @media(max-width:700px){.fold .lv{padding:12px 30px 12px 14px}.fold .lv .d{font-size:12px;line-height:1.4}.fold .lv .t{font-size:15px}.fold .lv .ar{right:10px}}
+
+/* rodapé: nomes em destaque, empresa por último */
+footer .fc{display:flex;flex-direction:column;gap:14px}
+footer .fr{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px}
+footer .fr em{font-style:normal;font-weight:500;color:#EAE3DA;font-size:13px;letter-spacing:.2em}
+footer .fr b{font-weight:500;color:#D3C7BA;font-size:11px;letter-spacing:.24em;border-left:1px solid #95806D;padding-left:16px}
+footer .fe{flex-basis:100%;border-top:1px solid #2e2d2b;padding-top:18px;font-size:10px;letter-spacing:.24em;color:#8A8076}
+@media(max-width:700px){footer .fr b{border-left:0;padding-left:0;flex-basis:100%}}
 </style>
 </head>
 <body>
@@ -569,7 +577,7 @@ const visibles=()=>imoveis.filter(i=>i.status!=='oculto');
 
 /* ================= VIEWS ================= */
 function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a></nav></div>`}
-function foot(){const cs=C.SOCIOS||[];return `<footer><span>${ESC(C.RAZAO||'Ápice Imóveis')}${C.CNPJ?` · CNPJ ${ESC(C.CNPJ)}`:''}${C.CRECI?` · CRECI-SC ${ESC(C.CRECI)}`:''}<br>${cs.map(x=>`${ESC(x.nome)} · CRECI-SC ${ESC(x.creci)}`).join('<br>')}</span><span>Forquilhinha - SC</span><span>${ESC(C.EMAIL)}</span><span style="display:flex;gap:22px;flex-wrap:wrap;align-items:center"><a onclick="go('privacidade')" style="opacity:.75">Política de Privacidade</a><a onclick="go('acesso-restrito')" style="color:#D3C7BA;border:1px solid #95806D;padding:8px 14px">Acesso restrito</a></span></footer>`}
+function foot(){const cs=C.SOCIOS||[];return `<footer><span class="fc">${cs.map(x=>`<span class="fr"><em>${ESC(x.nome)}</em><b>CRECI-SC ${ESC(x.creci)}</b></span>`).join('')}</span><span>Forquilhinha - SC<br>${ESC(C.EMAIL)}</span><span style="display:flex;gap:22px;flex-wrap:wrap;align-items:center"><a onclick="go('privacidade')" style="opacity:.75">Política de Privacidade</a><a onclick="go('acesso-restrito')" style="color:#D3C7BA;border:1px solid #95806D;padding:8px 14px">Acesso restrito</a></span><span class="fe">${ESC(C.RAZAO||'Ápice Imóveis')}${C.CNPJ?` · CNPJ ${ESC(C.CNPJ)}`:''}${C.CRECI?` · CRECI-SC ${ESC(C.CRECI)}`:''}</span></footer>`}
 function arch(i){const c=cover(i);return `<div class="arch" onclick="go('imovel/${ESC(i.id)}')"><div class="im" ${c?`style="background-image:url('${ESC(c)}')"`:''}>${i.destaque?'<span class="tg">Destaque</span>':''}${i.status==='vendido'?'<span class="tg" style="left:auto;right:0">Vendido</span>':''}<b>${i.modelo?'[IMAGEM MODELO]':c?'':'[FOTO]'}</b></div><div class="c">${ESC(i.tipo)} · ${ESC(i.cidade)}</div><div class="tt">${ESC(i.titulo)}</div><div class="p">${money(i.preco)}</div><span class="sm">Ver detalhes</span></div>`}
 const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 18L18 6M8 6h10v10"/></svg>';
 function home(){
