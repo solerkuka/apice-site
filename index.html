@@ -78,10 +78,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .mq:hover .trk{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-50%)}}
 .arch{width:clamp(220px,24vw,320px);flex:none;cursor:pointer}
-.arch .im{height:clamp(320px,36vw,470px);border-radius:999px 999px 0 0;background:linear-gradient(170deg,#3A332D,#14120F) center/cover;position:relative;overflow:hidden;border:1px solid #3A3532}
-.arch .im:after{content:"";position:absolute;inset:14px;border-radius:999px 999px 0 0;border:1px solid rgba(211,199,187,.28)}
+.arch .im{height:clamp(320px,36vw,470px);border-radius:0;background:linear-gradient(170deg,#3A332D,#14120F) center/cover;position:relative;overflow:visible;border:1px solid #3A3532}
+.arch .im:after{content:"";position:absolute;inset:14px;border-radius:0;border:1px solid rgba(211,199,187,.28)}
 .arch .im b{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-weight:400;font-size:9px;letter-spacing:.24em;color:#c9bcae;z-index:2;text-shadow:0 1px 6px #000}
-.arch .im .tg{position:absolute;top:12%;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.25em;text-transform:uppercase;background:rgba(15,14,13,.75);padding:4px 10px;color:#EAE3DA;z-index:2;white-space:nowrap}
+.arch .im .tg{position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);font-size:9px;letter-spacing:.25em;text-transform:uppercase;background:#14120F;padding:4px 12px;color:#EAE3DA;z-index:2;white-space:nowrap}
 .arch .c{margin-top:16px;font-size:10px;letter-spacing:.28em;color:#9A8573;text-transform:uppercase}
 .arch .tt{font-weight:300;font-size:18px;letter-spacing:.06em;margin-top:6px}
 .arch .p{font-size:12px;color:#B9AEA2;margin-top:6px}
