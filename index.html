@@ -563,8 +563,8 @@ const auth={
   else auth.admin=LS.get('apice_demo_admin',false)},
  async check(s){
   if(!s){auth.admin=false;auth.corretor=false;return}
-  const{data}=await SB.from('admins').select('email').eq('email',s.user.email).maybeSingle();auth.admin=!!data;auth.corretor=false;
-  if(!auth.admin){const{data:c}=await SB.from('corretores').select('email').eq('email',s.user.email).maybeSingle();auth.corretor=!!c}},
+  const{data}=await SB.from('admins').select('email').ilike('email',s.user.email).maybeSingle();auth.admin=!!data;auth.corretor=false;
+  if(!auth.admin){const{data:c}=await SB.from('corretores').select('email').ilike('email',s.user.email).maybeSingle();auth.corretor=!!c}},
  async login(email,pw){
   if(SB){const{error}=await SB.auth.signInWithPassword({email,password:pw});if(error)throw error;return}
   auth.admin=true;LS.set('apice_demo_admin',true)},
@@ -647,7 +647,7 @@ function admin(){
  <select style="width:auto;margin:0;padding:8px;font-size:13px" onchange="setStatus('${ESC(i.id)}',this.value)"><option value="ativo" ${i.status==='ativo'?'selected':''}>Ativo</option><option value="vendido" ${i.status==='vendido'?'selected':''}>Vendido</option><option value="oculto" ${i.status==='oculto'?'selected':''}>Oculto</option></select>
  <div class="acts"><button class="star ${i.destaque?'on':''}" title="Destaque" onclick="toggleD('${ESC(i.id)}')">★</button><button class="btn o sm" onclick="editI('${ESC(i.id)}')">Editar</button><button class="btn d sm" onclick="delI('${ESC(i.id)}',this)">Excluir</button></div></div>`).join(''):'<div class="empty">Nenhum imóvel ainda.</div>'}</div>`
  :`<div style="margin-top:14px">${leads.length?leads.map(l=>`<div class="row"><div class="i"><b>${ESC(l.nome)} · ${ESC(l.tel)}</b><span>${l.origem==='interesse'?'Interesse':l.origem==='procura'?'Procura um imóvel':'Quer anunciar'} · ${ESC(l.tipo||'')} ${ESC(l.cidade||'')} ${ESC(l.area?l.area+' m²':'')}<br>${ESC(l.msg||'')}<br>${new Date(l.criado).toLocaleString('pt-BR')}</span></div><a class="btn o sm" target="_blank" rel="noopener" href="https://wa.me/55${String(l.tel).replace(/\D/g,'')}">WhatsApp</a><button class="btn d sm" onclick="delLead('${ESC(l.id)}')">Apagar</button></div>`).join(''):'<div class="empty">Nenhum contato ainda.</div>'}</div>`}</div>`}
-async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
+async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);if(SB){const{data:ss}=await SB.auth.getSession();await auth.check(ss.session)}flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
 async function doLogout(){await auth.logout();flash='';render()}
 async function loadLeads(){try{leads=await store.leads();loadErr=''}catch(e){loadErr='Não foi possível carregar os contatos: '+(e.message||'')}render()}
 function newI(){form={categoria:'morar',tipo:'Casa',titulo:'',cidade:'',preco:'',area:'',quartos:'',suites:'',vagas:'',descricao:'',fotos:[],videos:[],destaque:false,status:'ativo'};render()}
