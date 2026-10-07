@@ -398,6 +398,13 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
 .fold .lv .t{font-size:clamp(16px,3.2svh,30px)}
 .fold .brand svg{width:clamp(110px,16vw,170px)}
 @media(max-width:700px){.fold .lv{padding:clamp(14px,4svh,30px) 14px}.fold .lv .t{font-size:16px}.fold .brand svg{width:116px}}
+
+.divl{height:1px;background:linear-gradient(90deg,transparent,#6B5A48 20%,#9A8573 50%,#6B5A48 80%,transparent)}
+.fold .brand svg{width:clamp(170px,24vw,260px)}
+.fold .imp{font-size:clamp(9px,1vw,12px)}
+@media(max-width:700px){.fold .brand svg{width:190px}.fold .imp{font-size:9px;letter-spacing:.22em}.fold .hero.first{padding-top:64px}}
+
+.fold .mq{border-top:1px solid #6B5A48}
 </style>
 </head>
 <body>
@@ -511,7 +518,7 @@ function home(){
  const lv=[['morar','01','Morar',CATS.morar.s],['construir','02','Construir',CATS.construir.s],['investir','03','Investir',CATS.investir.s],['anunciar','04','Anunciar','Tem um imóvel ou empreendimento? Cuidamos da avaliação, dos documentos e da venda.']];
  return `<div class="fold" id="colecao"><section class="hero first"><div class="blinds"></div><div class="shaft"></div><div class="brand">${LOGO}<p class="imp">Seu patrimônio no ponto mais alto.</p></div><div class="lvs">${lv.map(([k,n,t,d],ix)=>`<a class="lv c${ix+1}" onclick="go('${k}')"><span class="n">${n}</span><span class="t">${t}</span><span class="d">${d}</span><span class="ar">${ARROW}</span></a>`).join('')}</div></section>
  ${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="mq"><div class="empty" style="padding:30px">Em breve, os primeiros imóveis da coleção.</div></div>'}</div>
- <div class="strip"><div>${Array(10).fill("<span>Seu patrimônio no ponto mais alto</span><span>◆</span><span>Ápice Imóveis</span><span>◆</span>").join("")}</div></div>
+ <div class="divl"></div>
  <section id="principios"><div class="lab">Princípios</div><div class="pr"><div class="rv"><div class="ln"></div><h3>Curadoria</h3><p>Poucos imóveis, escolhidos com critério. Cada um com documentação conferida e história contada com verdade.</p></div><div class="rv"><div class="ln"></div><h3>Reserva</h3><p>Atendimento discreto, direto com os sócios. Sem pressa, sem exposição desnecessária.</p></div><div class="rv"><div class="ln"></div><h3>Assessoria</h3><p>Apoio técnico e documental do primeiro contato à escritura. Você decide, nós cuidamos do resto.</p></div></div></section>
  <section class="cta" id="contato"><svg class="rg" viewBox="0 0 1000 400" preserveAspectRatio="none"><path d="M0 330 C250 120 400 380 650 190 S900 40 1000 120"/><path d="M0 60 C200 260 450 20 700 220 S900 330 1000 260"/></svg><div class="rv"><h2>Seu patrimônio.<br>Seu espaço.<br>Seu Ápice.</h2></div><span class="bw"><svg class="badge" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text fill="#9A8573" font-size="12" letter-spacing="5" font-family="Montserrat" font-weight="500"><textPath href="#c">SEU PATRIMÔNIO NO PONTO MAIS ALTO · ÁPICE IMÓVEIS · </textPath></text></svg><span class="s"><svg viewBox="958 65 1325 1070" fill="url(#mg)" style="display:block;width:46px;height:auto" aria-label="Ápice"><use href="#P"/></svg></span></span>
  <a class="wa" href="${wa()}" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="wa" style="margin-left:14px" onclick="go('anunciar')">Tenho um imóvel</a></section>${foot()}`}
