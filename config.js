@@ -1,8 +1,8 @@
 // Configuração do site Ápice Imóveis.
 // Deixe SUPABASE_URL e SUPABASE_ANON_KEY vazios para usar o MODO DEMONSTRAÇÃO.
 window.APICE_CONFIG = {
-  SUPABASE_URL: '',
-  SUPABASE_ANON_KEY: '',
+  SUPABASE_URL: 'https://xwjdvakfqpunnjofsadv.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3amR2YWtmcXB1bm5qb2ZzYWR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjA5MzQsImV4cCI6MjEwNjkzNjkzNH0.QWQDzPPtMPwFo3gwJg4evXWAy_L9iYUosg18Pi2PB9o',
   WHATSAPP: '',  // número único do site; vazio = os botões levam para /whatsapp (Maciel e Luiz)
   WHATSAPP_VISIVEL: '',
   EMAIL: 'contato@apiceimoveis.com',
