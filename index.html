@@ -405,6 +405,22 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
 @media(max-width:700px){.fold .brand svg{width:190px}.fold .imp{font-size:9px;letter-spacing:.22em}.fold .hero.first{padding-top:64px}}
 
 .fold .mq{border-top:1px solid #6B5A48}
+
+/* ===== Quem somos dentro da página inicial ===== */
+.qs{padding:clamp(10px,2vw,24px) clamp(20px,4vw,56px) clamp(50px,7vw,100px)}
+.qh h2{margin:0;font-weight:200;font-size:clamp(26px,4vw,52px);letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+.qh p{margin:12px 0 0;color:#B9AEA2;font-size:14px}
+.qs .soc{padding-top:26px;margin-bottom:28px}
+.qs .sc h3{margin:0 0 10px;font-weight:300;font-size:clamp(18px,2.2vw,26px);letter-spacing:.06em;text-transform:uppercase}
+.qs .vals{display:flex;gap:0;border-top:1px solid #8D694A}
+.qs .vals div{flex:1;min-width:0;background:transparent;border-top:0;border-left:1px solid #2E2A27;padding:18px clamp(6px,1.4vw,20px);text-align:center}
+.qs .vals div:first-child{border-left:0}
+.qs .vals b{font-size:clamp(26px,4vw,46px);margin-bottom:6px}
+.qs .vals span{font-size:clamp(7px,1vw,12px);letter-spacing:clamp(.02em,.14vw,.16em);display:block}
+#quem{scroll-margin-top:0}
+
+#quem .lab{padding-top:44px}
+@media(max-width:480px){.qs .sc{grid-template-columns:96px 1fr;gap:14px;padding:14px}.qs .ph2{max-width:none}.qs .sc .bio{font-size:12px}}
 </style>
 </head>
 <body>
@@ -499,7 +515,7 @@ const auth={
 
 /* ================= ESTADO / ROTAS ================= */
 let imoveis=[],leads=[],R={name:'home',arg:null},filt={},form=null,flash='',adminTab='imoveis',loadErr='';
-function parse(){const h=location.hash.replace(/^#\/?/,'');const[a,b]=h.split('/');R=!a?{name:'home'}:CATS[a]?{name:a}:a==='anunciar'?{name:'anunciar'}:a==='i'?{name:'cap',arg:b}:a==='imovel'?{name:'imovel',arg:b}:a==='acesso-restrito'?{name:'admin'}:a==='quem-somos'?{name:'quem'}:{name:'home'}}
+function parse(){const h=location.hash.replace(/^#\/?/,'');const[a,b]=h.split('/');R=!a?{name:'home'}:CATS[a]?{name:a}:a==='anunciar'?{name:'anunciar'}:a==='i'?{name:'cap',arg:b}:a==='imovel'?{name:'imovel',arg:b}:a==='acesso-restrito'?{name:'admin'}:a==='quem-somos'?{name:'home',goto:'quem'}:{name:'home'}}
 function go(p){location.hash='#/'+p}
 window.go=go;
 window.addEventListener('hashchange',()=>{parse();filt={};form=null;flash='';render();window.scrollTo(0,0)});
@@ -520,6 +536,7 @@ function home(){
  ${loop.length?`<div class="mq"><div class="trk">${loop.map(arch).join('')}${loop.map(arch).join('')}</div></div>`:'<div class="mq"><div class="empty" style="padding:30px">Em breve, os primeiros imóveis da coleção.</div></div>'}</div>
  <div class="divl"></div>
  <section id="principios"><div class="lab">Princípios</div><div class="pr"><div class="rv"><div class="ln"></div><h3>Curadoria</h3><p>Poucos imóveis, escolhidos com critério. Cada um com documentação conferida e história contada com verdade.</p></div><div class="rv"><div class="ln"></div><h3>Reserva</h3><p>Atendimento discreto, direto com os sócios. Sem pressa, sem exposição desnecessária.</p></div><div class="rv"><div class="ln"></div><h3>Assessoria</h3><p>Apoio técnico e documental do primeiro contato à escritura. Você decide, nós cuidamos do resto.</p></div></div></section>
+ <section id="quem"><div class="lab">Quem somos</div><div class="qs"><div class="qh"><h2>Quem está<br>por trás do Ápice</h2><p>A imobiliária para quem quer chegar mais longe.</p></div><div class="soc">${(C.SOCIOS||[]).map(s=>`<article class="sc"><div class="ph2" ${s.foto?`style="background-image:url('${ESC(s.foto)}')"`:''}><b>${s.foto?'':'[FOTO]'}</b></div><div><p class="eyebrow" style="margin:0 0 6px">${ESC(s.cargo)}</p><h3>${ESC(s.nome)}</h3><p class="bio">${ESC(s.bio)}</p></div></article>`).join('')}</div><div class="vals">${[['Á','Ascensão'],['P','Patrimônio'],['I','Investimento'],['C','Conquista'],['E','Excelência']].map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div></div></section>
  <section class="cta" id="contato"><svg class="rg" viewBox="0 0 1000 400" preserveAspectRatio="none"><path d="M0 330 C250 120 400 380 650 190 S900 40 1000 120"/><path d="M0 60 C200 260 450 20 700 220 S900 330 1000 260"/></svg><div class="rv"><h2>Seu patrimônio.<br>Seu espaço.<br>Seu Ápice.</h2></div><span class="bw"><svg class="badge" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text fill="#9A8573" font-size="12" letter-spacing="5" font-family="Montserrat" font-weight="500"><textPath href="#c">SEU PATRIMÔNIO NO PONTO MAIS ALTO · ÁPICE IMÓVEIS · </textPath></text></svg><span class="s"><svg viewBox="958 65 1325 1070" fill="url(#mg)" style="display:block;width:46px;height:auto" aria-label="Ápice"><use href="#P"/></svg></span></span>
  <a class="wa" href="${wa()}" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="wa" style="margin-left:14px" onclick="go('anunciar')">Tenho um imóvel</a></section>${foot()}`}
 function head(eb,t,s){return `<div class="ph"><div class="blinds"></div><button class="back" onclick="go('')">← Início</button><p class="eyebrow">${eb}</p><h1 class="t">${t}</h1>${s?`<p class="sub">${s}</p>`:''}</div>`}
@@ -549,12 +566,6 @@ function detail(id){const i=imoveis.find(x=>x.id===id);if(!i)return head('Imóve
 
 /* ---------- ADMIN ---------- */
 
-function quem(){
- const vals=[['Á','Ascensão'],['P','Patrimônio'],['I','Investimento'],['C','Conquista'],['E','Excelência']];
- return `${head('Quem somos','Quem está<br>por trás do Ápice','A imobiliária para quem quer chegar mais longe.')}
- <div class="wrap"><div class="soc">${(C.SOCIOS||[]).map(s=>`<article class="sc"><div class="ph2" ${s.foto?`style="background-image:url('${ESC(s.foto)}')"`:''}><b>${s.foto?'':'[FOTO]'}</b></div><div><p class="eyebrow" style="margin:0 0 6px">${ESC(s.cargo)}</p><h2>${ESC(s.nome)}</h2><p class="bio">${ESC(s.bio)}</p></div></article>`).join('')}</div>
- <div class="lab" style="padding:0;margin:40px 0 14px">Nossos valores</div><div class="vals">${vals.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
- <div class="box"><h2>Vamos conversar?</h2><p class="sub" style="margin:8px 0 18px">Atendimento direto com os sócios.</p><a class="btn" href="${wa()}" target="_blank" rel="noopener">Chamar no WhatsApp</a></div></div>${foot()}`}
 function admin(){
  if(!auth.admin&&!auth.corretor)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Acesso restrito</p><h1>Entrar</h1>
  ${DEMO?'<div class="demo"><b>Modo demonstração.</b> O Supabase ainda não foi conectado: tudo que você fizer aqui fica salvo só neste navegador. Para salvar de verdade e valer para todos, siga o passo 3 do PASSO-A-PASSO.</div>':''}
@@ -616,10 +627,10 @@ function initMq(){
   mqRaf=requestAnimationFrame(tick)};
  mqRaf=requestAnimationFrame(tick)}
 function render(){const sy=window.scrollY;const n=R.name;
- const body=n==='home'?home():CATS[n]?cat(n):n==='anunciar'?anunciar():n==='imovel'?detail(R.arg):n==='cap'?CAP.publico(R.arg):n==='quem'?quem():admin();
+ const body=n==='home'?home():CATS[n]?cat(n):n==='anunciar'?anunciar():n==='imovel'?detail(R.arg):n==='cap'?CAP.publico(R.arg):admin();
  document.body.className=n==='home'?'home':'inner';
  $('#app').innerHTML=`<div class="grain"></div>${topbar()}<div class="hud"><span class="n"></span><div class="line"><i></i></div><span>ALTITUDE</span></div>${body}<a class="wfab" href="${wa()}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.300 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg><span>Chamar no WhatsApp</span></a>`;
- if(n==='admin'&&form)window.scrollTo(0,sy);initMq()}
+ if(n==='admin'&&form)window.scrollTo(0,sy);if(R.goto){const g=R.goto;R.goto=null;setTimeout(()=>{const e=document.getElementById(g);if(e)e.scrollIntoView({behavior:'smooth'})},60)}initMq()}
 async function refresh(){try{imoveis=await store.list();loadErr=''}catch(e){loadErr='Erro ao carregar imóveis: '+(e.message||'');imoveis=DEMO?[]:SAMPLE}}
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 (async()=>{parse();render();await auth.init();await refresh();if(auth.admin&&!DEMO)try{leads=await store.leads()}catch(e){}else if(DEMO)leads=await store.leads();render()})();
