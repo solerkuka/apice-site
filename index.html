@@ -472,6 +472,12 @@ footer .fr em{font-style:normal;font-weight:500;color:#EAE3DA;font-size:13px;let
 footer .fr b{font-weight:500;color:#D3C7BA;font-size:11px;letter-spacing:.24em;border-left:1px solid #95806D;padding-left:16px}
 footer .fe{flex-basis:100%;border-top:1px solid #2e2d2b;padding-top:18px;font-size:10px;letter-spacing:.24em;color:#8A8076}
 @media(max-width:700px){footer .fr b{border-left:0;padding-left:0;flex-basis:100%}}
+
+footer .dot{width:5px;height:5px;border-radius:50%;background:#D3C7BA;align-self:center;flex:none;box-shadow:0 0 0 3px rgba(211,199,186,.14)}
+footer .fct{display:flex;flex-direction:column;gap:10px}
+footer .fct>span{display:flex;align-items:center;gap:10px}
+footer .fi{width:16px;height:16px;flex:none;color:#D3C7BA;opacity:.9}
+@media(max-width:700px){footer .fr{flex-wrap:wrap;gap:6px 14px}footer .fr b{padding-left:19px!important}footer .fr em{flex:1 1 calc(100% - 20px)}}
 </style>
 </head>
 <body>
@@ -482,7 +488,7 @@ footer .fe{flex-basis:100%;border-top:1px solid #2e2d2b;padding-top:18px;font-si
 <script src="captacao.js"></script>
 <script>
 "use strict";
-const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'',WHATSAPP_VISIVEL:'',EMAIL:'contato@apiceimoveis.com.br',CRECI:'',SOCIOS:[{nome:'Maciel da Soler',cargo:'Proprietário',creci:'76286',whatsapp:'5548991911979',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''},{nome:'Luiz Vagner Pereira',cargo:'Proprietário',creci:'63296',whatsapp:'5548999192297',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''}]},window.APICE_CONFIG||{});
+const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'',WHATSAPP_VISIVEL:'',EMAIL:'contato@apiceimoveis.com',CRECI:'',SOCIOS:[{nome:'Maciel da Soler',cargo:'Proprietário',creci:'76286',whatsapp:'5548991911979',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''},{nome:'Luiz Vagner Pereira',cargo:'Proprietário',creci:'63296',whatsapp:'5548999192297',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''}]},window.APICE_CONFIG||{});
 const LOGO=`<svg viewBox="0 0 1142 248" fill="url(#mg)" aria-label="Ápice Imóveis"><use href="#H"/></svg>`;
 const SYM=`<svg class="sy" viewBox="958 65 1325 1070" fill="url(#mg)" aria-label="Ápice" onclick="go('')"><use href="#P"/></svg>`;
 const CATS={morar:{n:'Morar',s:'Sua próxima moradia, escolhida com calma.',h:'Sua próxima moradia.',tipos:['Casa','Apartamento','Cobertura']},
@@ -577,7 +583,7 @@ const visibles=()=>imoveis.filter(i=>i.status!=='oculto');
 
 /* ================= VIEWS ================= */
 function topbar(){return `<div class="top">${SYM}<nav>${Object.keys(CATS).map(k=>`<a class="${R.name===k?'on':''}" onclick="go('${k}')">${CATS[k].n}</a>`).join('')}<a class="${R.name==='anunciar'?'on':''}" onclick="go('anunciar')">Anunciar</a></nav></div>`}
-function foot(){const cs=C.SOCIOS||[];return `<footer><span class="fc">${cs.map(x=>`<span class="fr"><em>${ESC(x.nome)}</em><b>CRECI-SC ${ESC(x.creci)}</b></span>`).join('')}</span><span>Forquilhinha - SC<br>${ESC(C.EMAIL)}</span><span style="display:flex;gap:22px;flex-wrap:wrap;align-items:center"><a onclick="go('privacidade')" style="opacity:.75">Política de Privacidade</a><a onclick="go('acesso-restrito')" style="color:#D3C7BA;border:1px solid #95806D;padding:8px 14px">Acesso restrito</a></span><span class="fe">${ESC(C.RAZAO||'Ápice Imóveis')}${C.CNPJ?` · CNPJ ${ESC(C.CNPJ)}`:''}${C.CRECI?` · CRECI-SC ${ESC(C.CRECI)}`:''}</span></footer>`}
+function foot(){const cs=C.SOCIOS||[];return `<footer><span class="fc">${cs.map(x=>`<span class="fr"><i class="dot"></i><em>${ESC(x.nome)}</em><b>CRECI-SC ${ESC(x.creci)}</b></span>`).join('')}</span><span class="fct"><span><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/></svg>Forquilhinha - SC</span><span><svg class="fi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 7l8.5 6.5L20.5 7"/></svg>${ESC(C.EMAIL)}</span></span><span style="display:flex;gap:22px;flex-wrap:wrap;align-items:center"><a onclick="go('privacidade')" style="opacity:.75">Política de Privacidade</a><a onclick="go('acesso-restrito')" style="color:#D3C7BA;border:1px solid #95806D;padding:8px 14px">Acesso restrito</a></span><span class="fe">© ${new Date().getFullYear()} ${ESC(C.RAZAO||'Ápice Imóveis')}${C.CNPJ?` · CNPJ ${ESC(C.CNPJ)}`:''}${C.CRECI?` · CRECI-SC ${ESC(C.CRECI)}`:''} · Todos os direitos reservados</span></footer>`}
 function arch(i){const c=cover(i);return `<div class="arch" onclick="go('imovel/${ESC(i.id)}')"><div class="im" ${c?`style="background-image:url('${ESC(c)}')"`:''}>${i.destaque?'<span class="tg">Destaque</span>':''}${i.status==='vendido'?'<span class="tg" style="left:auto;right:0">Vendido</span>':''}<b>${i.modelo?'[IMAGEM MODELO]':c?'':'[FOTO]'}</b></div><div class="c">${ESC(i.tipo)} · ${ESC(i.cidade)}</div><div class="tt">${ESC(i.titulo)}</div><div class="p">${money(i.preco)}</div><span class="sm">Ver detalhes</span></div>`}
 const ARROW='<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 18L18 6M8 6h10v10"/></svg>';
 function home(){

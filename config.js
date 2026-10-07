@@ -5,7 +5,7 @@ window.APICE_CONFIG = {
   SUPABASE_ANON_KEY: '',
   WHATSAPP: '',  // número único do site; vazio = os botões levam para /whatsapp (Maciel e Luiz)
   WHATSAPP_VISIVEL: '',
-  EMAIL: 'contato@apiceimoveis.com.br',
+  EMAIL: 'contato@apiceimoveis.com',
   RAZAO:'Ápice Imóveis Ltda',
   CNPJ:'69.450.101/0001-60',
   CRECI: '',  // CRECI da empresa: preencher quando sair (ex.: '12345-J'). Enquanto vazio, aparecem só os CRECI dos corretores.
