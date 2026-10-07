@@ -378,6 +378,7 @@ footer{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}}
 <div class="pg" id="app"></div>
 <script src="supabase.js"></script>
 <script src="config.js"></script>
+<script src="captacao.js"></script>
 <script>
 "use strict";
 const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'5548999990000',WHATSAPP_VISIVEL:'(48) 99999-0000',EMAIL:'contato@apiceimoveis.com.br',CRECI:'12345-J',SOCIOS:[{nome:'Maciel da Soler',cargo:'Sócio-fundador',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''},{nome:'Luiz Vagner Pereira',cargo:'Sócio-fundador',bio:'Apresentação em breve: formação, trajetória e o que o move no mercado imobiliário.',foto:''}]},window.APICE_CONFIG||{});
@@ -440,22 +441,23 @@ const store={
   LS.set('apice_leads',LS.get('apice_leads',[]).filter(x=>x.id!==id))}
 };
 const auth={
- admin:false,
+ admin:false,corretor:false,
  async init(){
   if(SB){const{data}=await SB.auth.getSession();await auth.check(data.session);SB.auth.onAuthStateChange((_e,s)=>{auth.check(s).then(()=>{if(R.name==='admin')render()})})}
   else auth.admin=LS.get('apice_demo_admin',false)},
  async check(s){
-  if(!s){auth.admin=false;return}
-  const{data}=await SB.from('admins').select('email').eq('email',s.user.email).maybeSingle();auth.admin=!!data},
+  if(!s){auth.admin=false;auth.corretor=false;return}
+  const{data}=await SB.from('admins').select('email').eq('email',s.user.email).maybeSingle();auth.admin=!!data;auth.corretor=false;
+  if(!auth.admin){const{data:c}=await SB.from('corretores').select('email').eq('email',s.user.email).maybeSingle();auth.corretor=!!c}},
  async login(email,pw){
   if(SB){const{error}=await SB.auth.signInWithPassword({email,password:pw});if(error)throw error;return}
   auth.admin=true;LS.set('apice_demo_admin',true)},
- async logout(){if(SB)await SB.auth.signOut();auth.admin=false;LS.set('apice_demo_admin',false)}
+ async logout(){if(SB)await SB.auth.signOut();auth.admin=false;auth.corretor=false;LS.set('apice_demo_admin',false)}
 };
 
 /* ================= ESTADO / ROTAS ================= */
 let imoveis=[],leads=[],R={name:'home',arg:null},filt={},form=null,flash='',adminTab='imoveis',loadErr='';
-function parse(){const h=location.hash.replace(/^#\/?/,'');const[a,b]=h.split('/');R=!a?{name:'home'}:CATS[a]?{name:a}:a==='anunciar'?{name:'anunciar'}:a==='imovel'?{name:'imovel',arg:b}:a==='acesso-restrito'?{name:'admin'}:a==='quem-somos'?{name:'quem'}:{name:'home'}}
+function parse(){const h=location.hash.replace(/^#\/?/,'');const[a,b]=h.split('/');R=!a?{name:'home'}:CATS[a]?{name:a}:a==='anunciar'?{name:'anunciar'}:a==='i'?{name:'cap',arg:b}:a==='imovel'?{name:'imovel',arg:b}:a==='acesso-restrito'?{name:'admin'}:a==='quem-somos'?{name:'quem'}:{name:'home'}}
 function go(p){location.hash='#/'+p}
 window.go=go;
 window.addEventListener('hashchange',()=>{parse();filt={};form=null;flash='';render();window.scrollTo(0,0)});
@@ -500,7 +502,7 @@ async function sendLead(e,origem,imovel,titulo){e.preventDefault();const f=e.tar
 function detail(id){const i=imoveis.find(x=>x.id===id);if(!i)return head('Imóvel','Não encontrado','Esse imóvel não está mais disponível.')+foot();
  return `<div class="det"><button class="back" onclick="history.length>1?history.back():go('')">← Voltar</button><p class="eyebrow">${ESC(i.tipo)} · ${ESC(i.cidade)}</p><h1>${ESC(i.titulo)}</h1><div class="pc">${money(i.preco)}</div>
  <div class="specs">${i.area?`<span><b>${ESC(i.area)} m²</b>Área</span>`:''}${i.quartos?`<span><b>${ESC(i.quartos)}</b>Quartos</span>`:''}${i.suites?`<span><b>${ESC(i.suites)}</b>Suítes</span>`:''}${i.vagas?`<span><b>${ESC(i.vagas)}</b>Vagas</span>`:''}</div>
- <div class="gal">${(i.videos||[]).map(v=>`<video controls playsinline preload="metadata" src="${ESC(v)}"></video>`).join('')}${(i.fotos||[]).map(f=>`<img loading="lazy" src="${ESC(f)}" alt="">`).join('')}</div>${i.modelo?'<p class="note">Imagem e dados de exemplo (prévia).</p>':''}
+ ${window.CAP?CAP.det(i):''}<div class="gal">${(i.videos||[]).map(v=>`<video controls playsinline preload="metadata" src="${ESC(v)}"></video>`).join('')}${(i.fotos||[]).map(f=>`<img loading="lazy" src="${ESC(f)}" alt="">`).join('')}</div>${i.modelo?'<p class="note">Imagem e dados de exemplo (prévia).</p>':''}
  <div class="dw"><div class="dd">${ESC(i.descricao)}</div><div><form class="box" style="margin:0" onsubmit="return sendLead(event,'interesse','${ESC(i.id)}','${ESC(i.titulo).replace(/'/g,'')}')"><b style="font-weight:400;letter-spacing:.15em;font-size:11px;text-transform:uppercase;color:#EAE3DA">Quero saber mais</b><label>Nome<input name="nome" required></label><label>WhatsApp<input name="tel" type="tel" inputmode="tel" required></label><div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">Enviar</button><a class="btn o" target="_blank" rel="noopener" href="${wa('Olá! Tenho interesse em: '+i.titulo)}">WhatsApp</a></div><div class="msg"></div></form></div></div></div>${foot()}`}
 
 /* ---------- ADMIN ---------- */
@@ -512,18 +514,19 @@ function quem(){
  <div class="lab" style="padding:0;margin:40px 0 14px">Nossos valores</div><div class="vals">${vals.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('')}</div>
  <div class="box"><h2>Vamos conversar?</h2><p class="sub" style="margin:8px 0 18px">Atendimento direto com os sócios.</p><a class="btn" href="${wa()}" target="_blank" rel="noopener">Chamar no WhatsApp</a></div></div>${foot()}`}
 function admin(){
- if(!auth.admin)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Acesso restrito</p><h1>Entrar</h1>
+ if(!auth.admin&&!auth.corretor)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Acesso restrito</p><h1>Entrar</h1>
  ${DEMO?'<div class="demo"><b>Modo demonstração.</b> O Supabase ainda não foi conectado: tudo que você fizer aqui fica salvo só neste navegador. Para salvar de verdade e valer para todos, siga o passo 3 do PASSO-A-PASSO.</div>':''}
  <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="pw" type="password" required autocomplete="current-password"></label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
+ if(!auth.admin)adminTab='captacao';if(adminTab==='captacao')return CAP.page();
  if(form)return adminForm();
  return `<div class="adm"><button class="back" onclick="go('')">← Ver o site</button><p class="eyebrow">Acesso restrito</p><h1>Admin</h1>${DEMO?'<div class="demo"><b>Modo demonstração:</b> alterações ficam só neste navegador.</div>':''}
- <div class="chips"><button class="chip ${adminTab==='imoveis'?'on':''}" onclick="adminTab='imoveis';render()">Imóveis (${imoveis.length})</button><button class="chip ${adminTab==='leads'?'on':''}" onclick="adminTab='leads';loadLeads()">Contatos (${leads.length})</button><button class="chip" onclick="doLogout()">Sair</button></div>
+ <div class="chips"><button class="chip ${adminTab==='imoveis'?'on':''}" onclick="adminTab='imoveis';render()">Imóveis (${imoveis.length})</button><button class="chip ${adminTab==='leads'?'on':''}" onclick="adminTab='leads';loadLeads()">Contatos (${leads.length})</button><button class="chip" onclick="adminTab='captacao';render()">Captação</button><button class="chip" onclick="doLogout()">Sair</button></div>
  ${loadErr?`<div class="msg e">${ESC(loadErr)}</div>`:''}
  ${adminTab==='imoveis'?`<div style="margin-top:20px"><button class="btn" onclick="newI()">+ Novo imóvel</button></div><div class="note">Toque na estrela para colocar o imóvel nos Destaques da página inicial.</div><div style="margin-top:14px">${imoveis.length?imoveis.map(i=>`<div class="row"><div class="th" style="${cover(i)?`background-image:url('${ESC(cover(i))}')`:''}"></div><div class="i"><b>${ESC(i.titulo)}${i.modelo?' (exemplo)':''}</b><span>${CATS[i.categoria]?.n||''} · ${ESC(i.cidade)} · ${money(i.preco)}</span></div>
  <select style="width:auto;margin:0;padding:8px;font-size:13px" onchange="setStatus('${ESC(i.id)}',this.value)"><option value="ativo" ${i.status==='ativo'?'selected':''}>Ativo</option><option value="vendido" ${i.status==='vendido'?'selected':''}>Vendido</option><option value="oculto" ${i.status==='oculto'?'selected':''}>Oculto</option></select>
  <div class="acts"><button class="star ${i.destaque?'on':''}" title="Destaque" onclick="toggleD('${ESC(i.id)}')">★</button><button class="btn o sm" onclick="editI('${ESC(i.id)}')">Editar</button><button class="btn d sm" onclick="delI('${ESC(i.id)}',this)">Excluir</button></div></div>`).join(''):'<div class="empty">Nenhum imóvel ainda.</div>'}</div>`
  :`<div style="margin-top:14px">${leads.length?leads.map(l=>`<div class="row"><div class="i"><b>${ESC(l.nome)} · ${ESC(l.tel)}</b><span>${l.origem==='interesse'?'Interesse':l.origem==='procura'?'Procura um imóvel':'Quer anunciar'} · ${ESC(l.tipo||'')} ${ESC(l.cidade||'')} ${ESC(l.area?l.area+' m²':'')}<br>${ESC(l.msg||'')}<br>${new Date(l.criado).toLocaleString('pt-BR')}</span></div><a class="btn o sm" target="_blank" rel="noopener" href="https://wa.me/55${String(l.tel).replace(/\D/g,'')}">WhatsApp</a><button class="btn d sm" onclick="delLead('${ESC(l.id)}')">Apagar</button></div>`).join(''):'<div class="empty">Nenhum contato ainda.</div>'}</div>`}</div>`}
-async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);flash='';await refresh();if(!auth.admin){flash='!Este e-mail não tem permissão de sócio.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
+async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
 async function doLogout(){await auth.logout();flash='';render()}
 async function loadLeads(){try{leads=await store.leads();loadErr=''}catch(e){loadErr='Não foi possível carregar os contatos: '+(e.message||'')}render()}
 function newI(){form={categoria:'morar',tipo:'Casa',titulo:'',cidade:'',preco:'',area:'',quartos:'',suites:'',vagas:'',descricao:'',fotos:[],videos:[],destaque:false,status:'ativo'};render()}
@@ -550,7 +553,7 @@ window.setF=setF;window.sendLead=sendLead;window.doLogin=doLogin;window.doLogout
 Object.defineProperty(window,'form',{get:()=>form,set:v=>{form=v}});Object.defineProperty(window,'flash',{get:()=>flash,set:v=>{flash=v}});Object.defineProperty(window,'adminTab',{get:()=>adminTab,set:v=>{adminTab=v}});window.CATS=CATS;window.render=render;
 
 function render(){const sy=window.scrollY;const n=R.name;
- const body=n==='home'?home():CATS[n]?cat(n):n==='anunciar'?anunciar():n==='imovel'?detail(R.arg):n==='quem'?quem():admin();
+ const body=n==='home'?home():CATS[n]?cat(n):n==='anunciar'?anunciar():n==='imovel'?detail(R.arg):n==='cap'?CAP.publico(R.arg):n==='quem'?quem():admin();
  document.body.className=n==='home'?'home':'inner';
  $('#app').innerHTML=`<div class="grain"></div>${topbar()}<div class="hud"><span class="n"></span><div class="line"><i></i></div><span>ALTITUDE</span></div>${body}<a class="wfab" href="${wa()}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.300 2.4 1.5.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg><span>Chamar no WhatsApp</span></a>`;
  if(n==='admin'&&form)window.scrollTo(0,sy)}

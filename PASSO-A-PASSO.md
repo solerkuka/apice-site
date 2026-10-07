@@ -22,3 +22,10 @@
 ## Depois
 - Comprar domínio: Vercel > Settings > Domains.
 - Trocar imagens modelo: no admin, edite o imóvel e envie fotos reais.
+
+## Captação de fotos e vídeos (novo)
+1. Supabase > **SQL Editor** > cole o conteúdo de `schema-captacao.sql` > **Run** (só uma vez; precisa ter feito o passo 3 acima).
+2. No GitHub, envie os arquivos novos: `index.html` (substitui o antigo), `captacao.js` e `schema-captacao.sql`.
+3. Acesse `seu-link/#/acesso-restrito` > aba **Captação**.
+4. Corretores: crie o usuário em Supabase > Authentication > Users (Auto confirm) e depois, na aba Captação, em **Equipe de corretores**, coloque o e-mail dele.
+5. Fluxo: corretor cadastra o imóvel (escolhe o tipo), toca em **Usar minha localização agora**, tira as fotos/vídeos e manda o **link do cliente**. No computador: **Baixar tudo (ZIP)**, edita, **Enviar tratadas**, marca **No site** e toca em **Publicar no site**.
