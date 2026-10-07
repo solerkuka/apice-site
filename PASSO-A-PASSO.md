@@ -34,18 +34,16 @@
 | Endereço | O que é | Onde mexer |
 |---|---|---|
 | `seusite.com.br` | Site principal | `index.html` |
-| `seusite.com.br/whatsapp` | Página do link da bio (banner + botões de WhatsApp dos corretores) | pasta `whatsapp` |
+| `seusite.com.br/whatsapp` | Página do link da bio (logo + botões de WhatsApp dos corretores) | pasta `whatsapp` |
 | `seusite.com.br/app` | Entrada dos corretores (abre direto a área restrita) | pasta `app` |
 | `seusite.com.br/#/acesso-restrito` | Painel (proprietários e corretores) | `index.html` e `captacao.js` |
 | `seusite.com.br/#/i/código` | Link que o corretor manda ao cliente | gerado pelo sistema |
 
-Pastas: `whatsapp` (página e banner), `app` (entrada do app), `assets` (logo e ícones do app), `modelo` (imagens de exemplo).
+Pastas: `whatsapp` (página do link da bio), `app` (entrada do app), `assets` (logo e ícones do app), `modelo` (imagens de exemplo).
 Arquivos na raiz: `config.js` (WhatsApp, e-mail, CRECI, corretores, Supabase), `manifest.webmanifest` e `sw.js` (app no celular), `schema.sql` e `schema-captacao.sql` (banco).
 
-## Banner do link da bio
-1. No GitHub, abra a pasta `whatsapp` > **Add file > Upload files** e envie o banner com o nome `banner.jpg` (ou `banner.png`).
-2. Em `config.js`, na lista `CORRETORES`, preencha o `whatsapp` de cada corretor (só números, com DDD). Quem ficar vazio não aparece.
-3. No Instagram, coloque `seusite.com.br/whatsapp` no link da bio.
+## Página do link da bio
+A página `seusite.com.br/whatsapp` já está pronta (sua página do Instagram, com logo e os WhatsApp do Maciel e do Luiz). Basta colocar esse endereço no link da bio. Para trocar números ou textos, edite `whatsapp/index.html`.
 
 ## App dos corretores no celular
 - **iPhone:** abra `seusite.com.br/app` no **Safari** > botão Compartilhar > **Adicionar à Tela de Início**.

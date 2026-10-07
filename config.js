@@ -10,7 +10,7 @@ window.APICE_CONFIG = {
   // Página /whatsapp (link da bio do Instagram): um botão para cada corretor.
   // Preencha o WhatsApp só com números, com DDD (ex.: '48999990000'). Quem ficar vazio não aparece.
   CORRETORES: [
-    { nome: 'Maciel da Soler', creci: '76286', whatsapp: '' },
-    { nome: 'Luiz Vagner Pereira', creci: '63296', whatsapp: '' }
+    { nome: 'Maciel da Soler', creci: '76286', whatsapp: '5548991911979' },
+    { nome: 'Luiz Vagner Pereira', creci: '63296', whatsapp: '5548999192297' }
   ]
 };
