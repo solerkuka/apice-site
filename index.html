@@ -568,6 +568,7 @@ const SAMPLE=[
 {"id": "im23", "categoria": "construir", "tipo": "Terreno", "titulo": "Lote em Criciúma", "cidade": "Criciúma", "preco": 0, "area": 0, "descricao": "Lote em Criciúma com rua de acesso. Medidas e valor sob consulta.", "fotos": ["imoveis/lote-criciuma/01.jpg", "imoveis/lote-criciuma/02.jpg", "imoveis/lote-criciuma/03.jpg", "imoveis/lote-criciuma/04.jpg"], "videos": [], "destaque": false, "status": "oculto", "importado": true, "criado": 87, "detalhes": {"_mapa": "https://www.google.com/maps?q=-28.749439,-49.434429"}}];
 
 /* ================= CAMADA DE DADOS ================= */
+let PWMODE=/type=(invite|recovery)/.test(location.hash);
 const SB=(C.SUPABASE_URL&&C.SUPABASE_ANON_KEY&&window.supabase)?window.supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'apice-login'}}):null;
 const DEMO=!SB;
 const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
@@ -689,15 +690,19 @@ function detail(id){const i=imoveis.find(x=>x.id===id&&(x.status!=='oculto'||aut
 
 function admTabs(on){return `<div class="chips"><button class="chip ${on==='imoveis'?'on':''}" onclick="adminTab='imoveis';render()">Imóveis (${imoveis.length})</button>${auth.admin?`<button class="chip ${on==='leads'?'on':''}" onclick="adminTab='leads';loadLeads()">Contatos (${leads.length})</button>`:''}<button class="chip" onclick="doLogout()">Sair</button></div>`}
 function admin(){
+ if(PWMODE&&SB)return `<div class="adm"><p class="eyebrow">Acesso restrito</p><h1>Crie sua senha</h1><form class="box" style="margin-top:20px" onsubmit="return doSetPw(event)"><label>Nova senha (mín. 8 caracteres)<input name="pw" type="password" minlength="8" required autocomplete="new-password"></label><div style="margin-top:18px"><button class="btn" type="submit">Salvar e entrar</button></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
  if(!auth.admin&&!auth.corretor)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Acesso restrito</p><h1>Entrar</h1>
  ${DEMO?'<div class="demo"><b>Modo demonstração.</b> O Supabase ainda não foi conectado: tudo que você fizer aqui fica salvo só neste navegador. Para salvar de verdade e valer para todos, siga o passo 3 do PASSO-A-PASSO.</div>':''}
- <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="pw" type="password" required autocomplete="current-password"></label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
+ <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="pw" type="password" required autocomplete="current-password"></label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button> <a class="sub" style="margin-left:14px;cursor:pointer;text-decoration:underline" onclick="doForgot()">Criar ou esquecer senha</a></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
  if(adminTab!=='leads'||!auth.admin){adminTab='imoveis';return CAP.page()}
  return `<div class="adm"><button class="back" onclick="go('')">← Ver o site</button><p class="eyebrow">Acesso restrito</p><h1>Contatos</h1>${DEMO?'<div class="demo"><b>Modo demonstração:</b> alterações ficam só neste navegador.</div>':''}
  ${admTabs('leads')}
  ${loadErr?`<div class="msg e">${ESC(loadErr)}</div>`:''}
  <div style="margin-top:14px">${leads.length?leads.map(l=>`<div class="row"><div class="i"><b>${ESC(l.nome)} · ${ESC(l.tel)}</b><span>${l.origem==='interesse'?'Interesse':l.origem==='procura'?'Procura um imóvel':'Quer anunciar'} · ${ESC(l.tipo||'')} ${ESC(l.cidade||'')} ${ESC(l.area?l.area+' m²':'')}<br>${ESC(l.msg||'')}<br>${new Date(l.criado).toLocaleString('pt-BR')}</span></div><a class="btn o sm" target="_blank" rel="noopener" href="https://wa.me/55${String(l.tel).replace(/\D/g,'')}">WhatsApp</a><button class="btn d sm" onclick="delLead('${ESC(l.id)}')">Apagar</button></div>`).join(''):'<div class="empty">Nenhum contato ainda.</div>'}</div></div>`}
 async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);if(SB){const{data:ss}=await SB.auth.getSession();await auth.check(ss.session)}flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
+async function doSetPw(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{const{error}=await SB.auth.updateUser({password:d.pw});if(error)throw error;PWMODE=false;const{data:ss}=await SB.auth.getSession();await auth.check(ss.session);flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';await SB.auth.signOut()}}catch(x){flash='!Não foi possível salvar. Tente de novo.'}render();return false}
+async function doForgot(){const em=(document.querySelector('input[name=email]')||{}).value;if(!em){flash='!Digite seu e-mail acima e toque de novo.';render();return}try{await SB.auth.resetPasswordForEmail(em,{redirectTo:location.origin+'/'});flash='Enviamos um link para o seu e-mail. Abra e crie sua senha.'}catch(x){flash='!Não foi possível enviar o e-mail.'}render()}
+window.doSetPw=doSetPw;window.doForgot=doForgot;
 async function doLogout(){await auth.logout();flash='';render()}
 async function loadLeads(){try{leads=await store.leads();loadErr=''}catch(e){loadErr='Não foi possível carregar os contatos: '+(e.message||'')}render()}
 async function delLead(id){try{await store.delLead(id);leads=await store.leads();render()}catch(e){loadErr=e.message;render()}}
@@ -738,7 +743,7 @@ function render(){const sy=window.scrollY;const n=R.name;
  if(n==='admin')window.scrollTo({top:sy,left:0,behavior:'instant'});if(R.goto){const g=R.goto;R.goto=null;setTimeout(()=>{const e=document.getElementById(g);if(e)e.scrollIntoView({behavior:'smooth'})},60)}initMq();initDk()}
 async function refresh(){try{imoveis=await store.list();loadErr=''}catch(e){loadErr='Erro ao carregar imóveis: '+(e.message||'');imoveis=DEMO?[]:SAMPLE}}
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-(async()=>{parse();render();await auth.init();await refresh();if(auth.admin&&!DEMO)try{leads=await store.leads()}catch(e){}else if(DEMO)leads=await store.leads();render()})();
+(async()=>{parse();render();await auth.init();if(PWMODE){history.replaceState(null,'','/#/acesso-restrito');parse();render()}await refresh();if(auth.admin&&!DEMO)try{leads=await store.leads()}catch(e){}else if(DEMO)leads=await store.leads();render()})();
 </script>
 </body>
 </html>
