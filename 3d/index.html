@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ápice Imóveis · Coleção 3D</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#0F0E0D;color:#EAE3DA;font-family:Montserrat,sans-serif;overflow:hidden;overscroll-behavior:none}
+body{background:radial-gradient(80% 70% at 50% 62%,#3a3733 0%,#1a1918 55%,#0F0E0D 100%)}
+body:before{content:"";position:fixed;inset:0;background:url(/assets/pedra.jpg) center/cover;opacity:.18;mix-blend-mode:soft-light;pointer-events:none}
+.top{position:fixed;z-index:5;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,56px)}
+.top a{color:#EAE3DA;text-decoration:none;font-size:11px;letter-spacing:.28em;text-transform:uppercase}
+.top .logo{font-weight:200;letter-spacing:.5em;font-size:18px}
+.scene{position:fixed;inset:0;perspective:1500px;perspective-origin:50% 42%;touch-action:none;cursor:grab}
+.scene.dg{cursor:grabbing}
+.world{position:absolute;left:50%;top:44%;width:0;height:0;transform-style:preserve-3d}
+.ring{position:absolute;transform-style:preserve-3d}
+.card{position:absolute;width:var(--w);height:var(--h);left:calc(var(--w)/-2);top:calc(var(--h)/-2);transform-style:preserve-3d;cursor:pointer;-webkit-box-reflect:below 14px linear-gradient(transparent 62%,rgba(255,255,255,.16))}
+.card .im{position:absolute;inset:0;background-size:cover;background-position:center;border:1px solid rgba(211,199,186,.35);box-shadow:0 30px 60px rgba(0,0,0,.55);backface-visibility:visible}
+.card .im:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,14,13,.85),rgba(15,14,13,0) 45%)}
+.card .lb{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.card .lb small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#D3C7BA}
+.card .lb b{display:block;margin-top:6px;font-weight:300;font-size:16px;line-height:1.2}
+.floor{position:fixed;left:50%;bottom:-22vh;width:130vmin;height:130vmin;transform:translateX(-50%) rotateX(78deg);border-radius:50%;background:radial-gradient(closest-side,rgba(149,128,109,.28),rgba(149,128,109,0) 70%);pointer-events:none}
+.info{position:fixed;z-index:5;left:0;right:0;bottom:clamp(22px,5vh,56px);text-align:center;padding:0 20px;transition:opacity .35s}
+.info.o{opacity:0}
+.info .k{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#D3C7BA}
+.info h1{margin:10px 0 0;font-weight:200;font-size:clamp(22px,3vw,40px);letter-spacing:.02em}
+.info .p{margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2vw,28px);color:#D3C7BA}
+.info a{display:inline-block;margin-top:16px;padding:13px 26px;border:1px solid #95806D;background:rgba(15,14,13,.4);backdrop-filter:blur(6px);color:#EAE3DA;text-decoration:none;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+.hint{position:fixed;z-index:5;top:70px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#95806D}
+.nav{position:fixed;z-index:6;top:50%;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(211,199,186,.45);background:rgba(15,14,13,.4);color:#EAE3DA;font-size:24px;cursor:pointer}
+.nav.l{left:clamp(14px,3vw,48px)}.nav.r{right:clamp(14px,3vw,48px)}
+@media(max-width:700px){.nav{top:auto;bottom:calc(clamp(22px,5vh,56px) + 150px);transform:none}.card .lb b{font-size:14px}}
+</style></head><body>
+<div class="top"><a href="/">← Voltar ao site</a><span class="logo">ÁPICE</span><span style="width:110px"></span></div>
+<div class="hint">Arraste para girar</div>
+<div class="floor"></div>
+<div class="scene" id="sc"><div class="world" id="wd"><div class="ring" id="rg"></div></div></div>
+<button class="nav l" id="pv" aria-label="Anterior">‹</button><button class="nav r" id="nx" aria-label="Próximo">›</button>
+<div class="info" id="inf"><div class="k" id="ik"></div><h1 id="it"></h1><div class="p" id="ip"></div><a id="ia" href="/">Ver imóvel</a></div>
+<script src="/config.js"></script>
+<script>
+const C=window.APICE_CONFIG||{};
+const money=v=>v?'R$ '+Number(v).toLocaleString('pt-BR'):'Sob consulta';
+const img=u=>!u?'':/^(https?:|\/|data:)/.test(u)?u:'/'+u;
+let items=[],N=0,rot=0,vel=0,drag=false,lx=0,moved=0,focus=-1,mx=0,my=0,auto=true,idle=0;
+const rg=document.getElementById('rg'),wd=document.getElementById('wd'),sc=document.getElementById('sc'),inf=document.getElementById('inf');
+function build(){
+  N=items.length;const mob=innerWidth<700;
+  const w=mob?200:300,h=mob?280:410,gap=mob?30:50;
+  const R=Math.max(mob?330:560,Math.round((w+gap)*N/(2*Math.PI)));
+  rg.innerHTML=items.map((it,i)=>`<div class="card" data-i="${i}" style="--w:${w}px;--h:${h}px;transform:rotateY(${i*360/N}deg) translateZ(${R}px)"><div class="im" style="background-image:url('${img(it.fotos[0])}')"></div><div class="lb"><small>${[it.tipo,it.cidade].filter(Boolean).join(' · ')}</small><b>${it.titulo}</b></div></div>`).join('');
+  rg.dataset.r=R;
+  rg.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{if(moved>6)return;const i=+c.dataset.i;if(i===focus)location.href='/#/imovel/'+items[i].id;else spinTo(i)}));
+}
+function spinTo(i){auto=false;idle=0;const t=-i*360/N;let d=((t-rot)%360+540)%360-180;tgt=rot+d}
+let tgt=null;
+function show(i){if(i===focus)return;focus=i;const it=items[i];inf.classList.add('o');setTimeout(()=>{document.getElementById('ik').textContent=[it.tipo,it.cidade].filter(Boolean).join(' · ');document.getElementById('it').textContent=it.titulo;document.getElementById('ip').textContent=money(it.preco);document.getElementById('ia').href='/#/imovel/'+it.id;inf.classList.remove('o')},250)}
+function frame(){
+  if(N){
+    if(tgt!==null){rot+=(tgt-rot)*.08;if(Math.abs(tgt-rot)<.05)tgt=null}
+    else if(!drag){rot+=vel;vel*=.94;if(Math.abs(vel)<.01)vel=0;if(auto&&!drag&&vel===0)rot-=.06;else if(!auto&&++idle>420)auto=true}
+    const R=+rg.dataset.r;
+    rg.style.transform=`translateZ(${-R}px) rotateY(${rot}deg)`;
+    wd.style.transform=`rotateX(${-6+my*-3}deg) rotateY(${mx*4}deg)`;
+    const a=((-rot%360)+360)%360,i=Math.round(a/(360/N))%N;show(i);
+    rg.querySelectorAll('.card').forEach((c,k)=>{const d=Math.abs(((k*360/N+rot)%360+540)%360-180);const f=Math.max(0,1-d/90);c.style.opacity=.35+.65*f;c.firstChild.style.filter=`brightness(${.55+.45*f})`})
+  }
+  requestAnimationFrame(frame)}
+sc.addEventListener('pointerdown',e=>{drag=true;auto=false;idle=0;tgt=null;moved=0;lx=e.clientX;vel=0;sc.classList.add('dg')});
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;if(!drag)return;const dx=e.clientX-lx;lx=e.clientX;moved+=Math.abs(dx);rot+=dx*.2;vel=dx*.2});
+addEventListener('pointerup',()=>{drag=false;sc.classList.remove('dg');setTimeout(()=>moved=0,50)});
+addEventListener('wheel',e=>{auto=false;idle=0;tgt=null;vel+=(e.deltaX||e.deltaY)*-.02},{passive:true});
+const step=d=>spinTo(((focus+d)%N+N)%N);
+document.getElementById('pv').onclick=()=>step(-1);document.getElementById('nx').onclick=()=>step(1);
+addEventListener('keydown',e=>{if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+addEventListener('resize',()=>{if(N)build()});
+(async()=>{
+  try{
+    const r=await fetch(C.SUPABASE_URL+'/rest/v1/imoveis?select=id,titulo,tipo,cidade,preco,fotos,destaque,status&status=neq.oculto&order=criado.desc',{headers:{apikey:C.SUPABASE_ANON_KEY,Authorization:'Bearer '+C.SUPABASE_ANON_KEY}});
+    let d=(await r.json()).filter(x=>x.fotos&&x.fotos[0]);
+    const dest=d.filter(x=>x.destaque);if(dest.length>=6)d=dest;
+    items=d.slice(0,12);
+  }catch(e){}
+  if(items.length<3){document.getElementById('it').textContent='Carregando coleção…';return}
+  build();requestAnimationFrame(frame);
+})();
+</script></body></html>
