@@ -522,6 +522,11 @@ footer .fe{text-align:center;line-height:2.1}
 .dka:hover{background:rgba(149,128,109,.55)}
 .home .wfab{bottom:clamp(24px,5svh,56px)}
 }
+.pwr{position:relative;display:block}.pwr input{padding-right:52px!important;width:100%}
+.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:42px;height:42px;background:transparent;border:0;color:#D3C7BA;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.eye .sl{display:none}.eye.on .sl{display:block}
+label.rem{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;letter-spacing:.04em;text-transform:none;cursor:pointer}
+label.rem input{width:18px;height:18px;margin:0;accent-color:#95806D;flex:none}
 </style>
 </head>
 <body>
@@ -611,7 +616,7 @@ const store={
 const auth={
  admin:false,corretor:false,
  async init(){
-  if(SB){const{data}=await SB.auth.getSession();await auth.check(data.session);SB.auth.onAuthStateChange((_e,s)=>{auth.check(s).then(()=>{if(R.name==='admin')render()})})}
+  if(SB){try{if(localStorage.getItem('apice-rem')==='0'&&!sessionStorage.getItem('apice-ses'))await SB.auth.signOut()}catch(_){}const{data}=await SB.auth.getSession();await auth.check(data.session);SB.auth.onAuthStateChange((_e,s)=>{auth.check(s).then(()=>{if(R.name==='admin')render()})})}
   else auth.admin=LS.get('apice_demo_admin',false)},
  async check(s){
   if(!s){auth.admin=false;auth.corretor=false;if(window.CAP)CAP.reset();return}
@@ -693,16 +698,18 @@ function admin(){
  if(PWMODE&&SB)return `<div class="adm"><p class="eyebrow">Acesso restrito</p><h1>Crie sua senha</h1><form class="box" style="margin-top:20px" onsubmit="return doSetPw(event)"><label>Nova senha (mín. 8 caracteres)<input name="pw" type="password" minlength="8" required autocomplete="new-password"></label><div style="margin-top:18px"><button class="btn" type="submit">Salvar e entrar</button></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
  if(!auth.admin&&!auth.corretor)return `<div class="adm"><button class="back" onclick="go('')">← Início</button><p class="eyebrow">Acesso restrito</p><h1>Entrar</h1>
  ${DEMO?'<div class="demo"><b>Modo demonstração.</b> O Supabase ainda não foi conectado: tudo que você fizer aqui fica salvo só neste navegador. Para salvar de verdade e valer para todos, siga o passo 3 do PASSO-A-PASSO.</div>':''}
- <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username"></label><label>Senha<input name="pw" type="password" required autocomplete="current-password"></label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button> <a class="sub" style="margin-left:14px;cursor:pointer;text-decoration:underline" onclick="doForgot()">Criar ou esquecer senha</a></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
+ <form class="box" style="margin-top:20px" onsubmit="return doLogin(event)">${DEMO?'<p class="sub" style="margin:0">Toque em Entrar para testar o painel.</p>':`<label>E-mail<input name="email" type="email" required autocomplete="username" value="${ESC((()=>{try{return localStorage.getItem('apice-email')||''}catch(e){return ''}})())}"></label><label>Senha<span class="pwr"><input name="pw" id="pwi" type="password" required autocomplete="current-password"><button type="button" class="eye" aria-label="Mostrar senha" onclick="togPw(this)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M3 3l18 18"/></svg></button></span></label><label class="rem"><input type="checkbox" name="remember" checked> Manter conectado neste aparelho</label>`}<div style="margin-top:18px"><button class="btn" type="submit">Entrar</button> <a class="sub" style="margin-left:14px;cursor:pointer;text-decoration:underline" onclick="doForgot()">Criar ou esquecer senha</a></div><div class="msg ${flash[0]==='!'?'e':''}">${ESC(flash.replace(/^!/,''))}</div></form></div>`;
  if(adminTab!=='leads'||!auth.admin){adminTab='imoveis';return CAP.page()}
  return `<div class="adm"><button class="back" onclick="go('')">← Ver o site</button><p class="eyebrow">Acesso restrito</p><h1>Contatos</h1>${DEMO?'<div class="demo"><b>Modo demonstração:</b> alterações ficam só neste navegador.</div>':''}
  ${admTabs('leads')}
  ${loadErr?`<div class="msg e">${ESC(loadErr)}</div>`:''}
  <div style="margin-top:14px">${leads.length?leads.map(l=>`<div class="row"><div class="i"><b>${ESC(l.nome)} · ${ESC(l.tel)}</b><span>${l.origem==='interesse'?'Interesse':l.origem==='procura'?'Procura um imóvel':'Quer anunciar'} · ${ESC(l.tipo||'')} ${ESC(l.cidade||'')} ${ESC(l.area?l.area+' m²':'')}<br>${ESC(l.msg||'')}<br>${new Date(l.criado).toLocaleString('pt-BR')}</span></div><a class="btn o sm" target="_blank" rel="noopener" href="https://wa.me/55${String(l.tel).replace(/\D/g,'')}">WhatsApp</a><button class="btn d sm" onclick="delLead('${ESC(l.id)}')">Apagar</button></div>`).join(''):'<div class="empty">Nenhum contato ainda.</div>'}</div></div>`}
-async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{await auth.login(d.email,d.pw);if(SB){const{data:ss}=await SB.auth.getSession();await auth.check(ss.session)}flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
+async function doLogin(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{try{localStorage.setItem('apice-rem',d.remember?'1':'0');sessionStorage.setItem('apice-ses','1');if(d.remember)localStorage.setItem('apice-email',d.email);else localStorage.removeItem('apice-email')}catch(_){}await auth.login(d.email,d.pw);if(SB){const{data:ss}=await SB.auth.getSession();await auth.check(ss.session)}flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';if(SB)await SB.auth.signOut()}}catch(x){flash='!E-mail ou senha incorretos.'}render();return false}
 async function doSetPw(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{const{error}=await SB.auth.updateUser({password:d.pw});if(error)throw error;PWMODE=false;const{data:ss}=await SB.auth.getSession();await auth.check(ss.session);flash='';await refresh();if(!auth.admin&&!auth.corretor){flash='!Este e-mail não tem permissão de acesso.';await SB.auth.signOut()}}catch(x){flash='!Não foi possível salvar. Tente de novo.'}render();return false}
 async function doForgot(){const em=(document.querySelector('input[name=email]')||{}).value;if(!em){flash='!Digite seu e-mail acima e toque de novo.';render();return}try{await SB.auth.resetPasswordForEmail(em,{redirectTo:location.origin+'/'});flash='Enviamos um link para o seu e-mail. Abra e crie sua senha.'}catch(x){flash='!Não foi possível enviar o e-mail.'}render()}
 window.doSetPw=doSetPw;window.doForgot=doForgot;
+function togPw(b){const i=document.getElementById('pwi'),v=i.type==='password';i.type=v?'text':'password';b.classList.toggle('on',v);b.setAttribute('aria-label',v?'Ocultar senha':'Mostrar senha')}
+window.togPw=togPw;
 async function doLogout(){await auth.logout();flash='';render()}
 async function loadLeads(){try{leads=await store.leads();loadErr=''}catch(e){loadErr='Não foi possível carregar os contatos: '+(e.message||'')}render()}
 async function delLead(id){try{await store.delLead(id);leads=await store.leads();render()}catch(e){loadErr=e.message;render()}}
