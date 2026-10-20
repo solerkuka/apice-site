@@ -8,7 +8,7 @@ window.APICE_CONFIG = {
   EMAIL: 'contato@apiceimoveis.com',
   RAZAO:'Ápice Imóveis Ltda',
   CNPJ:'69.450.101/0001-60',
-  CRECI: '',  // CRECI da empresa: preencher quando sair (ex.: '12345-J'). Enquanto vazio, aparecem só os CRECI dos corretores.
+  CRECI: '12156-J',  // CRECI da empresa
   // Página /whatsapp (link da bio do Instagram): um botão para cada corretor.
   // Preencha o WhatsApp só com números, com DDD (ex.: '48999990000'). Quem ficar vazio não aparece.
   CORRETORES: [
