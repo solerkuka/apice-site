@@ -286,7 +286,7 @@ const safeName = n => String(n).replace(/[\\/:*?"<>|]+/g, '_');
 const slug = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'imovel';
 
 function resumo(i, f) {
-  const d = f.dados || {}, L = [tituloDe(i, f), i.tipo + ' · ' + [f.bairro, i.cidade].filter(Boolean).join(', '), i.preco ? 'Valor: R$ ' + Number(i.preco).toLocaleString('pt-BR') : 'Valor: sob consulta', ''];
+  const d = f.dados || {}, L = [(i.codigo ? '[' + i.codigo + '] ' : '') + tituloDe(i, f), i.tipo + ' · ' + [f.bairro, i.cidade].filter(Boolean).join(', '), i.preco ? 'Valor: R$ ' + Number(i.preco).toLocaleString('pt-BR') : 'Valor: sob consulta', ''];
   pairs(i.tipo, d, f.bairro).forEach(([a, b]) => L.push(a + ': ' + b));
   STD.forEach(k => { const x = fieldOf(i.tipo, k); if (x && d[k]) L.push(x.l + ': ' + fmt(x, d[k])); });
   if (i.descricao) L.push('', i.descricao);
@@ -358,7 +358,7 @@ const STL = { ativo: 'No site', oculto: 'Oculto', vendido: 'Vendido' };
 function listRow(i) {
   const f = ficOf(i.id), md = f ? vis(f.id) : [], nf = md.filter(m => m.tipo === 'foto').length, nv = md.filter(m => m.tipo === 'video').length, st = i.status || 'ativo';
   const fl = f ? falta(i, f.id) : [], c = (i.fotos || [])[0];
-  return `<div class="row"><div class="th" style="cursor:pointer;${c ? `background-image:url('${esc(c)}')` : ''}" onclick="CAP.abrir('${esc(i.id)}')"></div><div class="i" style="cursor:pointer" onclick="CAP.abrir('${esc(i.id)}')"><b>${esc(tituloDe(i, f))}</b><span>${esc([i.tipo, i.cidade].filter(Boolean).join(' · '))} · ${money(i.preco)}<br>${nf} foto(s) (${(i.fotos || []).length} no site) · ${nv} vídeo(s)</span> <span class="pill ${esc(st)}">${esc(STL[st] || st)}</span>${fl.length ? `<span style="color:#FF5A4F;display:block;margin-top:4px">Faltam: ${fl.join(', ')}</span>` : ''}</div>
+  return `<div class="row"><div class="th" style="cursor:pointer;${c ? `background-image:url('${esc(c)}')` : ''}" onclick="CAP.abrir('${esc(i.id)}')"></div><div class="i" style="cursor:pointer" onclick="CAP.abrir('${esc(i.id)}')"><b>${i.codigo ? '[' + esc(i.codigo) + '] ' : ''}${esc(tituloDe(i, f))}</b><span>${esc([i.tipo, i.cidade].filter(Boolean).join(' · '))} · ${money(i.preco)}<br>${nf} foto(s) (${(i.fotos || []).length} no site) · ${nv} vídeo(s)</span> <span class="pill ${esc(st)}">${esc(STL[st] || st)}</span>${fl.length ? `<span style="color:#FF5A4F;display:block;margin-top:4px">Faltam: ${fl.join(', ')}</span>` : ''}</div>
   <div class="acts"><button class="star ${i.destaque ? 'on' : ''}" title="Destaque na página inicial" onclick="CAP.dest('${esc(i.id)}')">★</button><button class="btn o sm" onclick="CAP.copiar('${esc(i.id)}')">Link</button><button class="btn o sm" onclick="CAP.abrir('${esc(i.id)}')">Editar</button></div></div>`;
 }
 function listBody() {
