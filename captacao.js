@@ -40,7 +40,7 @@ const FORMS = {
     K('comodidades', 'Comodidades', ['Elevador', 'Ar-condicionado central', 'Gerador', 'Estacionamento', 'Acessibilidade', 'Fachada de vidro']),
     DOCS, FIN, PER]
 };
-const FAM = { 'Casa': 'casa', 'Apartamento': 'apto', 'Cobertura': 'apto', 'Terreno': 'lote', 'Lote em condomínio': 'lote', 'Área para lotear': 'area', 'Sítio': 'area', 'Prédio / comercial': 'comercial' };
+const FAM = { 'Casa': 'casa', 'Apartamento': 'apto', 'Cobertura': 'apto', 'Terreno': 'lote', 'Lote em condomínio': 'lote', 'Área para lotear': 'area', 'Sítio': 'area', 'Prédio / comercial': 'comercial', 'Pavilhão': 'comercial' };
 const TIPOS = Object.keys(FAM);
 const PRIV = [T('endereco', 'Endereço completo'), T('proprietario', 'Proprietário'), T('tel_proprietario', 'Telefone do proprietário'),
   T('comissao', 'Comissão combinada'), { k: 'obs', l: 'Observações internas', t: 'x' }];
@@ -478,7 +478,7 @@ function collect() {
   const cidade = String(f.cidade || '').trim(), bairro = String(f.bairro || '').trim();
   const std = k => fieldOf(f.tipo, k) ? (d[k] != null ? d[k] : null) : (base[k] || null);   // campo que o tipo não tem mantém o valor atual
   const mapa = { mapa_url: safeUrl(f.mapa_url), lat: f.lat, lng: f.lng };
-  const irow = { categoria: catsDe(f.tipo).includes(f.categoria) ? f.categoria : (catsDe(f.tipo)[0] || 'morar'), tipo: f.tipo,
+  const irow = { categoria: catsDe(f.tipo).includes(f.categoria) ? f.categoria : (catsDe(f.tipo)[0] || 'investir'), tipo: f.tipo,
     titulo: String(f.titulo || '').trim() || (f.tipo + (bairro || cidade ? ' em ' + (bairro || cidade) : '')), cidade,
     preco: Number(String(f.preco).replace(/\D/g, '')) || null, area: std('area'), quartos: toInt(std('quartos')), suites: toInt(std('suites')), vagas: toInt(std('vagas')),
     descricao: String(f.descricao || '').trim(), detalhes: buildDet(base.detalhes, f.tipo, d, bairro, f.mapa_site, mapaUrl(mapa)) };
