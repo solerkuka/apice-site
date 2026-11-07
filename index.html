@@ -540,10 +540,10 @@ label.rem input{width:18px;height:18px;margin:0;accent-color:#95806D;flex:none}
 const C=Object.assign({SUPABASE_URL:'',SUPABASE_ANON_KEY:'',WHATSAPP:'',WHATSAPP_VISIVEL:'',EMAIL:'contato@apiceimoveis.com',CRECI:'',SOCIOS:[{nome:'Maciel da Soler',cargo:'Proprietário',creci:'76286',whatsapp:'5548991911979',bio:'Bacharel em Direito. Une visão jurídica e experiência de quem empreende para conduzir cada negócio com segurança.',foto:'assets/maciel.jpg'},{nome:'Luiz Vagner Pereira',cargo:'Proprietário',creci:'63296',whatsapp:'5548999192297',bio:'Atuação com ética, transparência e foco em resultado. Cada negociação é conduzida com clareza, para que você decida com segurança e conquiste o melhor negócio.',foto:'assets/luiz.jpg'}]},window.APICE_CONFIG||{});
 const LOGO=`<svg viewBox="0 0 1142 248" fill="url(#mg)" aria-label="Ápice Imóveis"><use href="#H"/></svg>`;
 const SYM=`<svg class="sy" viewBox="958 65 1325 1070" fill="url(#mg)" aria-label="Ápice" onclick="go('')"><use href="#P"/></svg>`;
-const CATS={lotes:{n:'Lotes',s:'Lotes, terrenos e áreas rurais para o seu projeto.',h:'O lote certo para o seu projeto.',tipos:['Terreno','Lote em condomínio','Área para lotear','Sítio']},
-casas:{n:'Casas',s:'Casas para morar com calma.',h:'Sua próxima casa.',tipos:['Casa']},
-apartamentos:{n:'Apartamentos',s:'Apartamentos e coberturas escolhidos com cuidado.',h:'Seu próximo apartamento.',tipos:['Apartamento','Cobertura']},
-investir:{n:'Investir',s:'Prédios, pavilhões e imóveis comerciais.',h:'Oportunidades para investir.',tipos:['Prédio / comercial','Pavilhão']}};
+const CATS={lotes:{n:'Lotes',s:'Lotes, terrenos e áreas rurais à venda.',h:'O lote certo para o seu projeto.',tipos:['Terreno','Lote em condomínio','Área para lotear','Sítio']},
+casas:{n:'Casas',s:'Casas à venda para a sua família.',h:'Sua próxima casa.',tipos:['Casa']},
+apartamentos:{n:'Apartamentos',s:'Apartamentos e coberturas à venda.',h:'Seu próximo apartamento.',tipos:['Apartamento','Cobertura']},
+investir:{n:'Investir',s:'Prédios, pavilhões e imóveis comerciais à venda.',h:'Oportunidades para investir.',tipos:['Prédio / comercial','Pavilhão']}};
 const ESC=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=s=>document.querySelector(s);
 const money=v=>v?('R$ '+Number(v).toLocaleString('pt-BR')):'Sob consulta';
