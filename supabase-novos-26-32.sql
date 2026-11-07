@@ -33,4 +33,4 @@ update imoveis set preco = 420000 where id = 'a91ce000-0000-4000-8000-0000000000
 update imoveis set preco = 520000 where id = 'a91ce000-0000-4000-8000-000000000006';
 
 commit;
-select titulo, preco, status from imoveis where id like 'a91ce000-0000-4000-8000-0000000001%' or id in ('a91ce000-0000-4000-8000-000000000001','a91ce000-0000-4000-8000-000000000006') order by titulo;
+select titulo, preco, status from imoveis where id::text like 'a91ce000-0000-4000-8000-0000000001%' or id::text in ('a91ce000-0000-4000-8000-000000000001','a91ce000-0000-4000-8000-000000000006') order by titulo;
