@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [ { "source": "/converse", "destination": "https://wa.me/5548991439969?text=Ol%C3%A1%21%20Vi%20o%20an%C3%BAncio%20da%20%C3%81pice%20Im%C3%B3veis%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.", "permanent": false } ],
   "headers": [
     { "source": "/imoveis/(.*)", "headers": [ { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" } ] },
     { "source": "/sw.js", "headers": [ { "key": "Cache-Control", "value": "no-cache" } ] },
