@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ápice Imóveis | Converse com a gente</title>
+<meta name="description" content="Ápice Imóveis, Forquilhinha/SC. Estamos abrindo a sua conversa com a Ápice.">
+<meta name="theme-color" content="#1D1C1A">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;min-height:100dvh;background:#1D1C1A;color:#F4EFE9;font-family:"Helvetica Neue",Arial,sans-serif;font-weight:300;display:flex;align-items:center;justify-content:center;text-align:center;-webkit-font-smoothing:antialiased}
+main{width:100%;max-width:420px;padding:32px 24px;display:flex;flex-direction:column;align-items:center}
+.logo{width:min(46vw,170px);height:auto;margin-bottom:28px}
+h1{font-size:15px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:#D3C7BA;line-height:1.7}
+.linha{width:44px;height:1px;background:#95806D;margin:18px auto 20px}
+p{font-size:14px;line-height:1.6;color:#F4EFE9}
+#n{font-weight:600;color:#D3C7BA}
+.btn{display:block;width:100%;margin-top:26px;padding:17px 12px;background:#D3C7BA;color:#1D1C1A;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;border-radius:2px}
+.rodape{margin-top:28px;font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:#6A615A}
+</style>
+</head>
+<body>
+<main>
+<img class="logo" src="/whatsapp/logo.png" alt="Ápice Imóveis" width="900" height="841">
+<h1>Abrindo sua conversa<br>com a Ápice Imóveis</h1>
+<div class="linha"></div>
+<p>Você será direcionado em <span id="n">3</span> segundos.</p>
+<a id="go" class="btn" href="https://wa.me/5548991439969?text=Ol%C3%A1%21%20Vi%20o%20an%C3%BAncio%20da%20%C3%81pice%20Im%C3%B3veis%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.">Abrir conversa agora</a>
+<p class="rodape">Forquilhinha · SC</p>
+</main>
+<script>
+var u="https://wa.me/5548991439969?text=Ol%C3%A1%21%20Vi%20o%20an%C3%BAncio%20da%20%C3%81pice%20Im%C3%B3veis%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.",n=3,e=document.getElementById("n");
+var t=setInterval(function(){n--;if(n<=0){clearInterval(t);location.href=u}else{e.textContent=n}},1000);
+</script>
+</body>
+</html>
