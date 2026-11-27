@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ápice Imóveis</title>
+<meta name="theme-color" content="#1D1C1A">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;min-height:100dvh;background:#1D1C1A;color:#D3C7BA;font-family:"Helvetica Neue",Arial,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
+.i{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#95806D;margin-bottom:18px;line-height:1.8}
+h1{font-size:27px;font-weight:300;line-height:1.35;color:#F2ECE5;max-width:320px}
+.s{position:relative;width:96px;height:96px;margin:36px 0}
+.s::before,.s::after{content:"";position:absolute;inset:0;border:2px solid rgba(211,199,186,.18);border-radius:50%}
+.s::after{border-color:transparent;border-top-color:#D3C7BA;animation:g 1s linear infinite}
+#n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:300}
+.m{font-size:15px;line-height:1.5;max-width:280px;margin-bottom:28px}
+a{display:block;width:100%;max-width:320px;padding:18px 12px;background:#D3C7BA;color:#1D1C1A;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+@keyframes g{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.s::after{animation:none}}
+</style>
+</head>
+<body>
+<p class="i">Terreno de esquina<br>Arroio do Silva</p>
+<h1>Em instantes você fala com um corretor</h1>
+<div class="s"><span id="n">3</span></div>
+<p class="m">Sua mensagem já está pronta.<br>É só enviar.</p>
+<a id="go" href="https://wa.me/5548991439969?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20terreno%20de%20esquina%20no%20Arroio%20do%20Silva">Falar agora</a>
+<script>
+var u=document.getElementById("go").href,n=3,e=document.getElementById("n");
+var t=setInterval(function(){n--;if(n<=0){clearInterval(t);location.href=u}else{e.textContent=n}},1000);
+document.getElementById("go").onclick=function(){clearInterval(t)};
+</script>
+</body>
+</html>
